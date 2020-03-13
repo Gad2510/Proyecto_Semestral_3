@@ -20,7 +20,9 @@ public class Personaje : MonoBehaviour
 
 
     [SerializeField]
-    float movementSpeed, rotationSpeed;    
+    float movementSpeed, rotationSpeed;
+    
+
     bool canHold, isMoving;
 
     public bool IsMoving
