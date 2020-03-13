@@ -13,11 +13,11 @@ public class PoopIncrement : MonoBehaviour
 
     [SerializeField]
     Personaje playerForward;//Referencia al player
+    public SpawnPopo index;
 
     Vector3 InitScale;//Para guardar la escala inicial de la caca
 
     Vector3 sumV;//Vector para escalar la caca
-
     float diferencial;// Float para calcular la diferencia en tre escala actual y final
 
     // Start is called before the first frame update
@@ -42,5 +42,14 @@ public class PoopIncrement : MonoBehaviour
     {
         transform.localScale = InitScale;
         CacaPorcentage.value = 0f;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Bonus" && transform.localScale.y< maxScale)
+        {
+            transform.localScale += new Vector3(.05f, 0.05f, 0.05f);
+            Destroy(other.gameObject);
+            index.poopNumber--;
+        }
     }
 }

@@ -15,6 +15,7 @@ public class Personaje : MonoBehaviour
     public float maxRotationSpeed;
     public float minRotationSpeed;
     public float timeSinceShot;
+    public bool poopshooted;
     public PlayerState state;
 
 
@@ -40,6 +41,7 @@ public class Personaje : MonoBehaviour
         rigi = GetComponent<Rigidbody>();
         canHold = false;
         isMoving = false;
+        poopshooted = false;
         isAlive = true;
         maxMovementSpeed = 10;
         maxRotationSpeed = 50;
@@ -73,12 +75,6 @@ public class Personaje : MonoBehaviour
                 state = PlayerState.THROWING;
                 animBeetle.SetTrigger("shoot");
             }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                animBeetle.SetTrigger("dead");
-                isAlive = false;
-            }
         }
         else if (state == PlayerState.THROWING)
         {
@@ -86,6 +82,7 @@ public class Personaje : MonoBehaviour
             if(timeSinceShot >= 1.5f)
             {
                 state = PlayerState.WALKING;
+                poopshooted = false;
             }
         }
     }
@@ -94,6 +91,7 @@ public class Personaje : MonoBehaviour
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
         canHold = true;
+        poopshooted = true;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -105,6 +103,11 @@ public class Personaje : MonoBehaviour
                 poopRigid.transform.SetParent(transform);
                 canHold = false;
             }
+        }
+        if (collision.gameObject.tag == "Enemigo")
+        {
+            animBeetle.SetTrigger("dead");
+            isAlive = false;
         }
     }
 }

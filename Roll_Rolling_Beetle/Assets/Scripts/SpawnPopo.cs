@@ -41,12 +41,14 @@ public class SpawnPopo : MonoBehaviour
     
     private void SpawnPoop()
     {
+        GameObject temp;
         Vector3 pos;
         pos.y = 0f;
         pos.x = Random.Range(-maxSpawnpoint.x, maxSpawnpoint.x);
         pos.z = Random.Range(-maxSpawnpoint.y, maxSpawnpoint.y);
 
-        Instantiate(prefaPopo, pos, Quaternion.identity);
+        temp = Instantiate(prefaPopo, pos, Quaternion.identity) as GameObject;
+        temp.tag = "Bonus";
         poopNumber++;
     }
 

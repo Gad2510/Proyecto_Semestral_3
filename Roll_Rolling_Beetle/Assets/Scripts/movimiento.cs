@@ -6,8 +6,9 @@ using UnityEngine.AI;
 public class movimiento : MonoBehaviour
 {
     public SphereCollider rango;
-    public GameObject jugador;
+    public Personaje player;
     public float radioDeteccion;
+    public PoopIncrement poopSize;
 
     public Transform[] walkPoints;
     public float walkSpeed = 1.0f;
@@ -75,8 +76,8 @@ public class movimiento : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             siguiendoJugador = true;
-            transform.LookAt(jugador.transform);
-            navAgent.SetDestination(jugador.transform.position);
+            transform.LookAt(player.transform);
+            navAgent.SetDestination(player.transform.position);
         }
     }
 
@@ -98,6 +99,12 @@ public class movimiento : MonoBehaviour
             Debug.Log("Golpe");
             navAgent.isStopped = true;
             navAgent.SetDestination(transform.position);
+        }
+        if (collision.gameObject.CompareTag("Poop") && poopSize.transform.localScale.y > 16.0f && player.poopshooted == true)
+        {
+            Debug.Log("muerto");
+            Debug.Log(poopSize.transform.localScale.y);
+            Destroy(gameObject);
         }
     }
 }
