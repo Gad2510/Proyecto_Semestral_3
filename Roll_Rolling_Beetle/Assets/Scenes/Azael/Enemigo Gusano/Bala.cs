@@ -10,7 +10,7 @@ public class Bala : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Destructor", 6);
+        Invoke("Destructor", 10);
         transform.parent = null;
     }
 
