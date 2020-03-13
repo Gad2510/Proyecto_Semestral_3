@@ -21,7 +21,9 @@ public class Personaje : MonoBehaviour
 
 
     [SerializeField]
-    float movementSpeed, rotationSpeed;    
+    float movementSpeed, rotationSpeed;
+    
+
     bool canHold, isMoving;
 
     public bool IsMoving
@@ -108,6 +110,24 @@ public class Personaje : MonoBehaviour
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Baba"))
+        {
+            maxMovementSpeed = maxMovementSpeed / 2;
+            movementSpeed = movementSpeed / 2;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Baba"))
+        {
+            maxMovementSpeed = maxMovementSpeed * 2;
+            movementSpeed = movementSpeed * 2;
         }
     }
 }

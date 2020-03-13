@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5963798722158110960}
   - component: {fileID: 5963798722158110972}
   - component: {fileID: 7388331463855872638}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5963798722158110972
 MonoBehaviour:

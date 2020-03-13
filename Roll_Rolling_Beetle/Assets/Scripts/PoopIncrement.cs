@@ -6,6 +6,14 @@ using UnityEngine.UI;
 public class PoopIncrement : MonoBehaviour
 {
     [SerializeField]
+    Text screenPoints;
+    [SerializeField]
+    float bonusPoints=5;
+    [SerializeField]
+    float pointsMul=100f;
+    static float score=0;
+    public bool IsScaling=false;
+    [SerializeField]
     Slider CacaPorcentage; // Slider UI para medir porcentaje
 
     [SerializeField]
@@ -26,6 +34,7 @@ public class PoopIncrement : MonoBehaviour
         InitScale = transform.localScale; 
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
+        screenPoints.text = "SCORE: 0";
     }
 
     // Update is called once per frame
@@ -35,6 +44,9 @@ public class PoopIncrement : MonoBehaviour
         {
             transform.localScale += sumV*scaleIncrement*Time.deltaTime;  //Aumenta el tamaño
             CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
+            score += scaleIncrement * Time.deltaTime * pointsMul;
+            float screen=Mathf.Round(score);
+            screenPoints.text ="SCORE: "+screen.ToString();
         }
     }
 
@@ -43,13 +55,59 @@ public class PoopIncrement : MonoBehaviour
         transform.localScale = InitScale;
         CacaPorcentage.value = 0f;
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Bonus" && transform.localScale.y< maxScale)
+        if (other.CompareTag("Bonus"))
         {
-            transform.localScale += new Vector3(.05f, 0.05f, 0.05f);
             Destroy(other.gameObject);
             index.poopNumber--;
+            Corroboration();
         }
+    }
+
+    private void Corroboration()
+    {
+        if (transform.localScale.y <= maxScale)
+        {
+            StopAllCoroutines();
+        }
+
+        float espontaniusIncrement = (bonusPoints / pointsMul);
+
+        if ((espontaniusIncrement + transform.localScale.y) > maxScale)
+            espontaniusIncrement -= (espontaniusIncrement + transform.localScale.y) - maxScale;
+
+        if (IsScaling)
+        {
+            
+            transform.localScale += sumV * espontaniusIncrement;
+            score += espontaniusIncrement * pointsMul;
+            float screen = Mathf.Round(score);
+            screenPoints.text = "SCORE: " + screen.ToString();
+            IsScaling = false;
+            StopAllCoroutines();
+        }
+
+        IsScaling = true;
+        StartCoroutine(ScalePoop(espontaniusIncrement));
+    }
+
+    private IEnumerator ScalePoop(float espontaniusIncrement)
+    {
+        float counter=0f;
+
+        while (counter< espontaniusIncrement)
+        {
+            print("hi");
+            transform.localScale += sumV * scaleIncrement * Time.deltaTime*2;  //Aumenta el tamaño
+            score += scaleIncrement * Time.deltaTime * pointsMul*2;
+            float screen = Mathf.Round(score);
+            screenPoints.text = "SCORE: " + screen.ToString();
+            counter += Time.deltaTime*2;
+            yield return null;
+        }
+
+        IsScaling = false;
     }
 }

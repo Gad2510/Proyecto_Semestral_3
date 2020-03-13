@@ -25,12 +25,20 @@ public class Gusano : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Poop"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Entra");
-            transform.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z); //Elevar torreta
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.9f, transform.position.z); //Elevar torreta
         }
     }
 
@@ -39,7 +47,7 @@ public class Gusano : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Sale");
-            transform.position = new Vector3(transform.position.x, transform.position.y - 1.0f, transform.position.z); //Esconder torreta
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.9f, transform.position.z); //Esconder torreta
             recarga = 0;
         }
     }
