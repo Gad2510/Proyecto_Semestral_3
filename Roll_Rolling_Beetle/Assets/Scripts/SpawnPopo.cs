@@ -44,8 +44,8 @@ public class SpawnPopo : MonoBehaviour
         GameObject temp;
         Vector3 pos;
         pos.y = 0f;
-        pos.x = Random.Range(-maxSpawnpoint.x, maxSpawnpoint.x);
-        pos.z = Random.Range(-maxSpawnpoint.y, maxSpawnpoint.y);
+        pos.x = Random.Range(-maxSpawnpoint.x, maxSpawnpoint.x)+ transform.position.x;
+        pos.z = Random.Range(-maxSpawnpoint.y, maxSpawnpoint.y)+ transform.position.z;
 
         temp = Instantiate(prefaPopo, pos, Quaternion.identity) as GameObject;
         temp.tag = "Bonus";

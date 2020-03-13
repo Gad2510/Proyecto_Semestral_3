@@ -181,6 +181,18 @@ SphereCollider:
     type: 3}
   m_PrefabInstance: {fileID: 961077159}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &492433188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1516273118, guid: e9b93240785c0f14eaf0588550772dd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1256934652801324258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,20 +611,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39abbce60192c6048b91fe783b7d679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &1604853303
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604853299}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5196342711626263032, guid: 10ab10d7181192e42ba986d6192eda82, type: 3}
 --- !u!1 &1622388007
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,38 +971,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 55276140, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 1877711353, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
+      propertyPath: screenPoints
+      value: 
+      objectReference: {fileID: 492433188}
     - target: {fileID: 1877711353, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
       propertyPath: CacaPorcentage
       value: 
       objectReference: {fileID: 353346865}
     - target: {fileID: 1877711353, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
-      propertyPath: scaleIncrement
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 1877711353, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
       propertyPath: index
       value: 
       objectReference: {fileID: 1794246600}
-    - target: {fileID: 1877711353, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
-      propertyPath: maxScale
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1877711355, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
-      propertyPath: m_Center.z
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 1877711355, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
-      propertyPath: m_Radius
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1877711355, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
-      propertyPath: m_Center.y
-      value: 0.08
-      objectReference: {fileID: 0}
     - target: {fileID: 3468171549311745490, guid: 13ec9b9b41320104088c97314ae00976,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1065,28 +1043,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: beetle
       objectReference: {fileID: 0}
-    - target: {fileID: 3468171550673647203, guid: 13ec9b9b41320104088c97314ae00976,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.704
-      objectReference: {fileID: 0}
-    - target: {fileID: 3468171550673647203, guid: 13ec9b9b41320104088c97314ae00976,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.133
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273245855198046553, guid: 13ec9b9b41320104088c97314ae00976,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7840707160483262955, guid: 13ec9b9b41320104088c97314ae00976,
-        type: 3}
-      propertyPath: rotationSpeed
-      value: 25
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 55276140, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
 --- !u!20 &3468171550026210072 stripped
 Camera:

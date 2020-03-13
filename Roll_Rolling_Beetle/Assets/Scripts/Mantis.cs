@@ -24,7 +24,7 @@ public class Mantis : MonoBehaviour
 
     private void Awake()
     {
-        jugador = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         rango = GetComponent<SphereCollider>();
@@ -105,6 +105,7 @@ public class Mantis : MonoBehaviour
         {
             Debug.Log("muerto");
             Debug.Log(poopSize.transform.localScale.y);
+            Destroy(gameObject);
         }
     }
 }

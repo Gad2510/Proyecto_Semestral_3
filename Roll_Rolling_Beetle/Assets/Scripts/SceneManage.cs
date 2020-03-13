@@ -20,7 +20,7 @@ public class SceneManage : MonoBehaviour
     //Funcionpara cambiar a pel juego
       public  void Chargelevel(string level)
     {
-        SceneManager.LoadScene (level);
+        SceneManager.LoadScene(1);
     }
 
 
