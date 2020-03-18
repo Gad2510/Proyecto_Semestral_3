@@ -26,12 +26,17 @@ public class SceneManage : MonoBehaviour
 
       public void ChargeOptions(string options)
       {
-        SceneManager.LoadScene(options);
+        SceneManager.LoadScene(3);
       }
 
     public void ChargeMenu(string Menu)
     {
-        SceneManager.LoadScene(Menu);
+        SceneManager.LoadScene(0);
+    }
+
+    public void ChargeOver(string Over)
+    {
+        SceneManager.LoadScene(2);
     }
 
 

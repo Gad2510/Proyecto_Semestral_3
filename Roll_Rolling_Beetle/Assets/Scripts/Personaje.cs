@@ -69,5 +69,32 @@ public class Personaje : MonoBehaviour
                 canHold = false;
             }
         }
+<<<<<<< Updated upstream
+=======
+        if (collision.gameObject.tag == "Enemigo")
+        {
+            animBeetle.SetTrigger("dead");
+            isAlive = false;
+           // myObject.GetComponent<SceneManage>().ChargeOver();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Baba"))
+        {
+            maxMovementSpeed = maxMovementSpeed / 2;
+            movementSpeed = movementSpeed / 2;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Baba"))
+        {
+            maxMovementSpeed = maxMovementSpeed * 2;
+            movementSpeed = movementSpeed * 2;
+        }
+>>>>>>> Stashed changes
     }
 }
