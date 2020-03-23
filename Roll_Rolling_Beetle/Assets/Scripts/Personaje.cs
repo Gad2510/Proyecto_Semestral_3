@@ -19,6 +19,8 @@ public class Personaje : MonoBehaviour
     public PlayerState state;
 
 
+    Vector3 fingerDir;
+
 
     [SerializeField]
     float movementSpeed, rotationSpeed;
@@ -52,6 +54,11 @@ public class Personaje : MonoBehaviour
     {
         if (isAlive && state == PlayerState.WALKING)
         {
+            TapCalculation();
+            //float x = Input.GetAxis("Horizontal");
+            //float y = Input.GetAxis("Vertical");
+            float x = fingerDir.x;
+            float y = fingerDir.y;
             timeSinceShot = 0;
             if (canHold)
             {
@@ -63,8 +70,7 @@ public class Personaje : MonoBehaviour
                 movementSpeed = 5;
                 rotationSpeed = 25;
             }
-            float x = Input.GetAxis("Horizontal");
-            float y = Input.GetAxis("Vertical");
+            
             transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0,  y* Time.deltaTime * movementSpeed);
             float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));
@@ -85,6 +91,23 @@ public class Personaje : MonoBehaviour
             {
                 state = PlayerState.WALKING;
                 poopshooted = false;
+            }
+        }
+    }
+
+    private void TapCalculation()
+    {
+        if (Input.touchCount > 0)
+        {
+            if (Input.touches[0].phase == TouchPhase.Moved)
+            {
+                fingerDir = Input.touches[0].deltaPosition;
+                fingerDir.x = fingerDir.x / (Screen.width/100);
+                fingerDir.y = fingerDir.y / (Screen.height/100);
+            }
+            else if(Input.touches[0].phase==TouchPhase.Ended)
+            {
+                fingerDir = Vector3.zero;
             }
         }
     }
