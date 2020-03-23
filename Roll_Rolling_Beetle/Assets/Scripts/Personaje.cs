@@ -49,6 +49,8 @@ public class Personaje : MonoBehaviour
         isAlive = true;
         maxMovementSpeed = 10;
         maxRotationSpeed = 50;
+       // GetComponent<SceneManage>().ChargeOver(GameOver);
+        
     }
     void Update()
     {
@@ -133,6 +135,7 @@ public class Personaje : MonoBehaviour
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
+            
         }
     }
 
