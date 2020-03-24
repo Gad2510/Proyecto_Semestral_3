@@ -6,16 +6,17 @@ public class Gusano : MonoBehaviour
 {
     public GameObject posicionBala;
     public GameObject posicionRayo;
-    public GameObject jugador;
+    GameObject jugador;
     public GameObject bala;
     public float recarga = 0;
     public float cadencia = 3.0f;
-
-    
+    public LayerMask detection;
+    Animator anim;
 
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         jugador = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -37,8 +38,7 @@ public class Gusano : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Entra");
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.9f, transform.position.z); //Elevar torreta
+            anim.SetBool("in_out", true);//Elevar torreta
         }
     }
 
@@ -46,8 +46,7 @@ public class Gusano : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Sale");
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.9f, transform.position.z); //Esconder torreta
+            anim.SetBool("in_out", false); //Esconder torreta
             recarga = 0;
         }
     }
@@ -57,15 +56,17 @@ public class Gusano : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             posicionRayo.transform.LookAt(jugador.transform);
+            transform.LookAt(jugador.transform);
             posicionRayo.transform.rotation = Quaternion.Euler(0.0f, posicionRayo.transform.localEulerAngles.y, posicionRayo.transform.localEulerAngles.z);
 
             RaycastHit hit;
 
             Debug.DrawRay(posicionRayo.transform.position, posicionRayo.transform.forward * 10, Color.red);
 
-            if (Physics.Raycast(posicionRayo.transform.position, posicionRayo.transform.forward, out hit, 10))
+            Ray direction = new Ray(posicionRayo.transform.position, posicionRayo.transform.forward);
+
+            if (Physics.Raycast(direction, out hit,10f,detection))
             {
-                Debug.Log(hit.collider);
 
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {

@@ -21,6 +21,7 @@ public class Personaje : MonoBehaviour
 
     Vector3 fingerDir;
 
+    float startTouch, endTouch, timeTouched;
 
     [SerializeField]
     float movementSpeed, rotationSpeed;
@@ -49,6 +50,9 @@ public class Personaje : MonoBehaviour
         isAlive = true;
         maxMovementSpeed = 10;
         maxRotationSpeed = 50;
+        startTouch = 0f;
+        endTouch = 0f;
+        timeTouched = 0f;
        // GetComponent<SceneManage>().ChargeOver(GameOver);
         
     }
@@ -106,10 +110,19 @@ public class Personaje : MonoBehaviour
                 fingerDir = Input.touches[0].deltaPosition;
                 fingerDir.x = fingerDir.x / (Screen.width/100);
                 fingerDir.y = fingerDir.y / (Screen.height/100);
+                startTouch = Time.realtimeSinceStartup;
             }
             else if(Input.touches[0].phase==TouchPhase.Ended)
             {
                 fingerDir = Vector3.zero;
+                endTouch = Time.realtimeSinceStartup;
+                timeTouched = endTouch-startTouch;
+            }
+            
+            
+            if (!canHold && timeTouched>1f)
+            {
+                ShootPoop();
             }
         }
     }
@@ -119,6 +132,7 @@ public class Personaje : MonoBehaviour
         poopRigid.velocity = transform.forward * 10;
         canHold = true;
         poopshooted = true;
+        timeTouched = 0f;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -155,5 +169,9 @@ public class Personaje : MonoBehaviour
             maxMovementSpeed = maxMovementSpeed * 2;
             movementSpeed = movementSpeed * 2;
         }
+    }
+
+    public void ChangeScene() {
+        SceneManage._instance.ChangeLevel(3);
     }
 }

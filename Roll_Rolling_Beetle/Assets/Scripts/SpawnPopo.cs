@@ -6,11 +6,11 @@ public class SpawnPopo : MonoBehaviour
 {
 
     [SerializeField]
-    int maxNUM;
+    int maxNUM=50;
     [SerializeField]
-    Vector2 maxSpawnpoint;
+    Vector2 maxSpawnpoint= Vector2.zero;
     [SerializeField]
-    Object prefaPopo;
+    Object prefaPopo=null;
 
     Vector3 origin;
 

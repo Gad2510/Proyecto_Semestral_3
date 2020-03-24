@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PoopIncrement : MonoBehaviour
 {
-    [SerializeField]
     Text screenPoints;
     [SerializeField]
     float bonusPoints=5;
@@ -14,13 +13,13 @@ public class PoopIncrement : MonoBehaviour
     static float score=0;
     public bool IsScaling=false;
     [SerializeField]
-    Slider CacaPorcentage; // Slider UI para medir porcentaje
+    Slider CacaPorcentage=null; // Slider UI para medir porcentaje
 
     [SerializeField]
     float scaleIncrement=0.01f, maxScale=2f; //Valores para maxima escala y ratio de inclemento
 
     [SerializeField]
-    Personaje playerForward;//Referencia al player
+    Personaje playerForward=null;//Referencia al player
     public SpawnPopo index;
 
     Vector3 InitScale;//Para guardar la escala inicial de la caca
@@ -31,6 +30,7 @@ public class PoopIncrement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        screenPoints = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         InitScale = transform.localScale; 
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
@@ -99,7 +99,6 @@ public class PoopIncrement : MonoBehaviour
 
         while (counter< espontaniusIncrement)
         {
-            print("hi");
             transform.localScale += sumV * scaleIncrement * Time.deltaTime*2;  //Aumenta el tamaño
             score += scaleIncrement * Time.deltaTime * pointsMul*2;
             float screen = Mathf.Round(score);
