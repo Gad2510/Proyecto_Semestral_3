@@ -10,7 +10,7 @@ public class PoopIncrement : MonoBehaviour
     float bonusPoints=5;
     [SerializeField]
     float pointsMul=100f;
-    static float score=0;
+    public static float score=0;
     public bool IsScaling=false;
     [SerializeField]
     Slider CacaPorcentage=null; // Slider UI para medir porcentaje
@@ -30,6 +30,7 @@ public class PoopIncrement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        score = 0;
         screenPoints = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         InitScale = transform.localScale; 
         sumV = Vector3.one;

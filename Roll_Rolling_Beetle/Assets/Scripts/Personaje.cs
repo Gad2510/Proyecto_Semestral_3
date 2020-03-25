@@ -172,6 +172,8 @@ public class Personaje : MonoBehaviour
     }
 
     public void ChangeScene() {
+        float score = Mathf.Round(PoopIncrement.score);
+        SceneManage._instance.settings.UpdateScore(score);
         SceneManage._instance.ChangeLevel(3);
     }
 }
