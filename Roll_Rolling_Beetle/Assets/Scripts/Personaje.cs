@@ -149,7 +149,7 @@ public class Personaje : MonoBehaviour
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
-            
+            SceneManage._instance.ChangeLevel(3);//Cambiar a pantalla de gameover
         }
     }
 
