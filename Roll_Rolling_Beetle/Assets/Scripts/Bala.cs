@@ -6,7 +6,7 @@ public class Bala : MonoBehaviour
 {
     public float vel;
     public Transform rastro;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +19,15 @@ public class Bala : MonoBehaviour
     {
         transform.Translate(Vector3.forward * vel * Time.deltaTime);
         rastro.localScale = new Vector3(rastro.localScale.x, rastro.localScale.y, rastro.localScale.z + Time.deltaTime * (vel * 3.5f));
+
+        if (PoopIncrement.score > 100)
+        {
+            vel = vel + (vel * 0.3f);
+        }
+        if (PoopIncrement.score > 200)
+        {
+            vel = vel + (vel * 0.5f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

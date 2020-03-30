@@ -12,8 +12,6 @@ public class Gusano : MonoBehaviour
     public float cadencia = 3.0f;
     public LayerMask detection;
     Animator anim;
-
-
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -23,7 +21,10 @@ public class Gusano : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (PoopIncrement.score > 100)
+        {
+            cadencia = 2.0f;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -57,6 +58,7 @@ public class Gusano : MonoBehaviour
         {
             posicionRayo.transform.LookAt(jugador.transform);
             transform.LookAt(jugador.transform);
+            transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
             posicionRayo.transform.rotation = Quaternion.Euler(0.0f, posicionRayo.transform.localEulerAngles.y, posicionRayo.transform.localEulerAngles.z);
 
             RaycastHit hit;

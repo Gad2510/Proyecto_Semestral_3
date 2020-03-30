@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Mantis : MonoBehaviour
 {
     public SphereCollider rango;
-    public Personaje player;
+    public GameObject player;
     public float radioDeteccion;
     public PoopIncrement poopSize;
 
@@ -24,7 +24,7 @@ public class Mantis : MonoBehaviour
 
     private void Awake()
     {
-        //player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         rango = GetComponent<SphereCollider>();
@@ -49,6 +49,18 @@ public class Mantis : MonoBehaviour
         if (!isIdle)
         {
             ChooseWalkPoint();
+        }
+        if(PoopIncrement.score > 100 && siguiendoJugador)//Primer aumento
+        {
+            walkSpeed = walkSpeed + (walkSpeed * 0.3f);
+        }
+        if (PoopIncrement.score > 200 && siguiendoJugador)//Segundo aumento
+        {
+            walkSpeed = walkSpeed + (walkSpeed * 0.5f);
+        }
+        if(!siguiendoJugador)
+        {
+            walkSpeed = 1.0f;
         }
     }
 
@@ -101,7 +113,7 @@ public class Mantis : MonoBehaviour
             navAgent.isStopped = true;
             navAgent.SetDestination(transform.position);
         }
-        if (collision.gameObject.CompareTag("Poop") && poopSize.transform.localScale.y > 16.0f && player.poopshooted == true)
+        if (collision.gameObject.CompareTag("Poop") && poopSize.transform.localScale.y > 16.0f && player.GetComponent<Personaje>().poopshooted == true)
         {
             Debug.Log("muerto");
             Debug.Log(poopSize.transform.localScale.y);

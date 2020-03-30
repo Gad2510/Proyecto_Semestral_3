@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class PoopIncrement : MonoBehaviour
 {
     Text screenPoints;
+    
     [SerializeField]
     float bonusPoints=5;
     [SerializeField]
     float pointsMul=100f;
-    public static float score=0;
+    public static float score = 0;
     public bool IsScaling=false;
     [SerializeField]
     Slider CacaPorcentage=null; // Slider UI para medir porcentaje
