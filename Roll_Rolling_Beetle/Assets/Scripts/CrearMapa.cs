@@ -20,7 +20,7 @@ public class CrearMapa : MonoBehaviour
         GameObject g4 = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 4
         g4.transform.localPosition = new Vector3(100, 0, 0); //Posicion de terreno 4
 
-        GameObject g5 = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 5
+        GameObject g5 = Instantiate(terrenoD.terrenos[17], null); //Crear terreno 5
         g5.transform.localPosition = new Vector3(100, 0, 100); //Posicion de terreno 5
 
         GameObject g6 = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 6

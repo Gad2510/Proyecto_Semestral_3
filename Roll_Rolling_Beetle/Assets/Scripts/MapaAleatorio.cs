@@ -10,6 +10,6 @@ public class MapaAleatorio : ScriptableObject
 
     public GameObject ObtenerTerreno()
     {
-        return terrenos[Random.Range(0, terrenos.Length)];
+        return terrenos[Random.Range(0, terrenos.Length-1)];
     }
 }
