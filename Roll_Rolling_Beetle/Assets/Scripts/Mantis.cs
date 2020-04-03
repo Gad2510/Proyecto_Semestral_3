@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Mantis : MonoBehaviour
 {
+    public Collider selfcoll;
     public SphereCollider rango;
     public GameObject player;
     public float radioDeteccion;
@@ -24,6 +25,7 @@ public class Mantis : MonoBehaviour
 
     private void Awake()
     {
+        selfcoll = GetComponent<Collider>();
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
@@ -33,15 +35,9 @@ public class Mantis : MonoBehaviour
 
     private void Start()
     {
-        /*//Activar aniimaciones en base al bool isIdle
-        if (isIdle)
-        {
-            anim.Play("Idle");
-        }
-        else
-        {
-            anim.Play("Walk");
-        }*/
+        //Activar aniimaciones en base al bool isIdle
+        anim = GetComponentInChildren<Animator>();
+        anim.SetBool("walking", !isIdle);
     }
 
     private void Update()
@@ -53,14 +49,17 @@ public class Mantis : MonoBehaviour
         if(PoopIncrement.score > 100 && siguiendoJugador)//Primer aumento
         {
             walkSpeed = walkSpeed + (walkSpeed * 0.3f);
+            anim.speed = walkSpeed;
         }
         if (PoopIncrement.score > 200 && siguiendoJugador)//Segundo aumento
         {
             walkSpeed = walkSpeed + (walkSpeed * 0.5f);
+            anim.speed = walkSpeed;
         }
         if(!siguiendoJugador)
         {
             walkSpeed = 1.0f;
+            anim.speed = walkSpeed;
         }
     }
 
@@ -108,16 +107,25 @@ public class Mantis : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            //Detenerlo
-            Debug.Log("Golpe");
-            navAgent.isStopped = true;
-            navAgent.SetDestination(transform.position);
+            if (collision.collider.GetComponent<Personaje>().isAlive) //Verifica si el jugador sige vivo
+            {
+                //Detenerlo
+                Debug.Log("Golpe");
+                anim.SetTrigger("attack");
+                navAgent.isStopped = true;
+                navAgent.isStopped=true;
+                isIdle = true;
+                anim.SetBool("walking", !isIdle);
+
+            }
+            
         }
-        if (collision.gameObject.CompareTag("Poop") && poopSize.transform.localScale.y > 16.0f && player.GetComponent<Personaje>().poopshooted == true)
+        if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true && poopSize.transform.localScale.y > 16.0f)
         {
-            Debug.Log("muerto");
+            anim.SetTrigger("dead");
             Debug.Log(poopSize.transform.localScale.y);
-            Destroy(gameObject);
+            selfcoll.enabled = false;
+            Destroy(gameObject,1f);
         }
     }
 }

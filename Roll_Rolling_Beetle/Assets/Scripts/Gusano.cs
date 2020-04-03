@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gusano : MonoBehaviour
 {
+    BoxCollider coll;
     public GameObject posicionBala;
     public GameObject posicionRayo;
     GameObject jugador;
@@ -14,6 +15,7 @@ public class Gusano : MonoBehaviour
     Animator anim;
     void Start()
     {
+        coll = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
         jugador = GameObject.FindGameObjectWithTag("Player");
     }
@@ -31,7 +33,9 @@ public class Gusano : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Poop"))
         {
-            Destroy(gameObject);
+            coll.enabled = false;
+            anim.SetTrigger("hit");
+            Destroy(gameObject,2f);
         }
     }
 
@@ -76,6 +80,7 @@ public class Gusano : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
 
                     recarga += Time.deltaTime;
+                    anim.SetBool("shoot",true);
                 }
                 else
                 {

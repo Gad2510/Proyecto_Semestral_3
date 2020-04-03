@@ -53,7 +53,6 @@ public class Personaje : MonoBehaviour
         startTouch = 0f;
         endTouch = 0f;
         timeTouched = 0f;
-       // GetComponent<SceneManage>().ChargeOver(GameOver);
         
     }
     void Update()
@@ -118,16 +117,18 @@ public class Personaje : MonoBehaviour
                 endTouch = Time.realtimeSinceStartup;
                 timeTouched = endTouch-startTouch;
             }
-            
-            
-            if (!canHold && timeTouched>1f)
+
+            if (!canHold && timeTouched > 1f)
             {
                 ShootPoop();
             }
+
         }
     }
     public void ShootPoop()
     {
+        state = PlayerState.THROWING;
+        animBeetle.SetTrigger("shoot");
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
         canHold = true;
@@ -145,11 +146,11 @@ public class Personaje : MonoBehaviour
                 canHold = false;
             }
         }
-        if (collision.gameObject.tag == "Enemigo")
+        if (isAlive && collision.gameObject.tag == "Enemigo")
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
-            SceneManage._instance.ChangeLevel(3);//Cambiar a pantalla de gameover
+            ChangeScene();//Change Escene
         }
     }
 
@@ -173,7 +174,7 @@ public class Personaje : MonoBehaviour
 
     public void ChangeScene() {
         float score = Mathf.Round(PoopIncrement.score);
-        SceneManage._instance.settings.UpdateScore(score);
-        SceneManage._instance.ChangeLevel(3);
+        //SceneManage._instance.settings.UpdateScore(score);
+        //SceneManage._instance.ChangeLevel(3);
     }
 }
