@@ -372,9 +372,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
-      propertyPath: walkPoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
+      propertyPath: rango
+      value: 
+      objectReference: {fileID: 419452629}
+    - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
+        type: 3}
+      propertyPath: poopSize
+      value: 
+      objectReference: {fileID: 2019080910}
     - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
       propertyPath: walkPoints.Array.data[0]
@@ -387,11 +392,6 @@ PrefabInstance:
       objectReference: {fileID: 796569335}
     - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
-      propertyPath: isIdle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
       propertyPath: walkPoints.Array.data[2]
       value: 
       objectReference: {fileID: 350029480}
@@ -400,30 +400,10 @@ PrefabInstance:
       propertyPath: walkPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1358711641}
-    - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: radioDeteccion
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: poopSize
-      value: 
-      objectReference: {fileID: 2019080910}
-    - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1103808711}
-    - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: rango
-      value: 
-      objectReference: {fileID: 419452629}
     - target: {fileID: 8733298226997857125, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -103.38759
+      value: -47.19
       objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857125, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
@@ -433,7 +413,7 @@ PrefabInstance:
     - target: {fileID: 8733298226997857125, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -107.135635
+      value: -95.48
       objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857125, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
@@ -479,26 +459,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mantis
-      objectReference: {fileID: 0}
-    - target: {fileID: 8733298226997857130, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8733298226997857130, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemigo
-      objectReference: {fileID: 0}
-    - target: {fileID: 8733298226997857130, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 8733298226997857130, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
-        type: 3}
-      propertyPath: m_NavMeshLayer
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c8e6a2cf50e4e14ea44b1f79832061e, type: 3}
@@ -1193,7 +1153,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1103808711}
+      objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
       propertyPath: rango
@@ -1329,18 +1289,6 @@ Transform:
   m_Father: {fileID: 916318994}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1103808711 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7840707160483262955, guid: 13ec9b9b41320104088c97314ae00976,
-    type: 3}
-  m_PrefabInstance: {fileID: 3468171550026210071}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39abbce60192c6048b91fe783b7d679d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1104384255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3468171550673647206, guid: 13ec9b9b41320104088c97314ae00976,
@@ -1541,7 +1489,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1103808711}
+      objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
       propertyPath: rango
@@ -1716,7 +1664,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1103808711}
+      objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857124, guid: 4c8e6a2cf50e4e14ea44b1f79832061e,
         type: 3}
       propertyPath: rango
@@ -3127,6 +3075,21 @@ PrefabInstance:
         type: 3}
       propertyPath: far clip plane
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468171550704649378, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468171550704649378, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279336119097053564, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
