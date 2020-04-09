@@ -21,7 +21,7 @@ public class PoopIncrement : MonoBehaviour
 
     [SerializeField]
     Personaje playerForward=null;//Referencia al player
-    public SpawnPopo index;
+    public SpawnPopoManager index;
 
     Vector3 InitScale;//Para guardar la escala inicial de la caca
 
