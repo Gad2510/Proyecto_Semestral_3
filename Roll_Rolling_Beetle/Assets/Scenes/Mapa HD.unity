@@ -121,6 +121,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: b962d6a9cba73ff48b49689c244d3e4b, type: 2}
+--- !u!1 &280503893 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6279336119097053564, guid: 13ec9b9b41320104088c97314ae00976,
+    type: 3}
+  m_PrefabInstance: {fileID: 3468171550026210071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &280503898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280503893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8390692efeccc47b38db6fe0858d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassEffect: {fileID: 2100000, guid: 4f2cae1a9df159742a5bc88ff427dfb1, type: 2}
 --- !u!114 &353346865 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1256934652482269651, guid: e9b93240785c0f14eaf0588550772dd2,
@@ -268,7 +287,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104384255}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66fea18f552b4c840bdc4a7f1526ce00, type: 3}
   m_Name: 
@@ -411,9 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxNUM: 30
-  maxSpawnpoint: {x: 100, y: 100}
-  prefaPopo: {fileID: 133774359829162513, guid: 7e5636f678dec82479582ac05a1e3614,
-    type: 3}
   poopNumber: 0
 --- !u!4 &1794246601
 Transform:
