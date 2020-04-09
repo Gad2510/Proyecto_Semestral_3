@@ -47,7 +47,7 @@ public class PoopIncrement : MonoBehaviour
             transform.localScale += sumV*scaleIncrement*Time.deltaTime;  //Aumenta el tamaño
             CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
             score += scaleIncrement * Time.deltaTime * pointsMul;
-            float screen = Mathf.Round(score);
+            float screen=Mathf.Round(score);
             screenPoints.text ="SCORE: "+screen.ToString();
         }
     }
