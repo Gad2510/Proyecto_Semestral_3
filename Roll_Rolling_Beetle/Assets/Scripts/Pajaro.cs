@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class Pajaro : MonoBehaviour
 {
-    public float contador = 0.0f; //Contador para cambiar de posicion si no entra el jugador en si trigger
     public float contadorAtaque = 0.0f; //Contador para atacar al jugador si esta dentro se su trigger
-    bool atacando = false; //Saber si esta atacando
+    public bool atacando = false; //Saber si esta atacando
+    public Transform bird;
+    public MeshRenderer matRef;
+    public Animator birdAnimation;
+    Vector3 originPos;
+    float velocityWrning;
+    Color colorWarnning;
+    Collider selfCollider;
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        if (!atacando)
-        {
-            contador += Time.deltaTime;//Sumar
-
-            if (contador >= 6.0f)
-            {
-                CambiarPos();
-                contador = 0.0f;
-            }
-        }
+        selfCollider = this.GetComponent<Collider>();
+        velocityWrning= matRef.material.GetFloat("_xMovement");
+        colorWarnning = Color.black;
+        matRef.material.SetColor("_Color", colorWarnning);
+        originPos = bird.position;
+        InvokeRepeating("CambiarPos",6f,6f);
     }
 
     private void OnTriggerStay(Collider other)
@@ -31,14 +28,21 @@ public class Pajaro : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             atacando = true; //Atacar
-
+            
             contadorAtaque += Time.deltaTime;//Sumar
 
             if (contadorAtaque >= 3.0f)
             {
                 contadorAtaque = 0.0f;
-                Destroy(other.gameObject); //Condicion de derrota
+                birdAnimation.SetTrigger("down");
+                StartCoroutine(Attack(other.transform));
+                selfCollider.enabled = false;
+                //Destroy(other.gameObject); //Condicion de derrota
+
             }
+            colorWarnning.r = (contadorAtaque / 3);
+            matRef.material.SetColor("_Color", colorWarnning);
+            matRef.material.SetFloat("_xMovement", velocityWrning * (contadorAtaque/3));
         }
     }
 
@@ -48,11 +52,49 @@ public class Pajaro : MonoBehaviour
         {
             atacando = false;
             contadorAtaque = 0.0f;
+            colorWarnning = Color.black;
+            matRef.material.SetColor("_Color", colorWarnning);
+            matRef.material.SetFloat("_xMovement", velocityWrning);
         }
+    }
+
+    private IEnumerator Attack(Transform player)
+    {
+        float counter = 0f;
+        float timer = 35 / 24;
+        Vector3 origin = bird.transform.position;
+        while (counter <= 1f)
+        {
+            counter += Time.deltaTime/timer;
+            bird.transform.position = Vector3.Lerp(origin, player.position,counter);
+            yield return null;
+        }
+        StartCoroutine(ReturnSky());
+    }
+
+    private IEnumerator ReturnSky()
+    {
+        float c=0;
+        Vector3 origin = bird.transform.position;
+        Vector3 end = origin+(bird.forward*10);
+        end.y += 10f;
+        while (c < 1f)
+        {
+            bird.transform.position = Vector3.Lerp(origin, end, c);
+            c += Time.deltaTime*2;
+            yield return null;
+        }
+        bird.position = originPos;
+        selfCollider.enabled = true;
     }
 
     public void CambiarPos()
     {
+        if (atacando)
+        {
+            return;
+        }
+
         int pos;
         pos = Random.Range(-50,50);
 

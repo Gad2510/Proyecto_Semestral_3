@@ -1,14 +1,11 @@
-﻿Shader "Unlit/GroundShoadows"
+﻿Shader "Unlit/SimpleMovement"
 {
     Properties
     {
-        _Color("Color",Color)=(0,0,0,0)
-        _ColorWarnnig("Color Advetencia",Color)=(1,0,0,0)
-        _ShadowIntensity("ShadowIntensity", Range(0,1))=0.5
         _MainTex ("Texture", 2D) = "white" {}
-        _ShadowsMask("Mask", 2D)="white" {}
-        _Cord("Cordenadas",Vector)=(0,0,0,0)
-        
+        _Color ("Color",Color)=(0,0,0,0)
+        _xMovement("X velocity",float)=0.0
+        _yMovement("Y velocity",float)=0.0
     }
     SubShader
     {
@@ -39,12 +36,10 @@
             };
 
             sampler2D _MainTex;
-            sampler2D _ShadowsMask;
-            float _ShadowIntensity;
             float4 _MainTex_ST;
-            float4 _Cord;
             float4 _Color;
-            float4 _ColorWarnnig;
+            float _xMovement;
+            float _yMovement;
 
             v2f vert (appdata v)
             {
@@ -57,24 +52,12 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed2 uv = ((i.uv) + fixed2(_Cord.x,_Cord.y))/_Cord.z;
-                fixed maskBird=tex2D(_ShadowsMask,uv).r;
-
+                fixed2 uv=i.uv+(fixed2(_xMovement,_yMovement)*_Time.x);
                 // sample the texture
-                fixed4 tex = tex2D(_MainTex, i.uv);
-                fixed maskShadows=tex2D(_ShadowsMask,uv).g;
-                
-
-
+                fixed col = tex2D(_MainTex, uv).r;
                 // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, tex);
-                
-                fixed4 birdCol=_ColorWarnnig;
-                birdCol.g=abs(sin(_Time.w));
-
-                float4 col=lerp(_Color,_Color*_ShadowIntensity,maskShadows);
-                col=lerp(_Color,birdCol,maskBird);
-                return tex*col;
+                UNITY_APPLY_FOG(i.fogCoord, col);
+                return col*_Color;
             }
             ENDCG
         }
