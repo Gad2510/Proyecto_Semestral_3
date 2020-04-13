@@ -60,10 +60,10 @@ public class Personaje : MonoBehaviour
         if (isAlive && state == PlayerState.WALKING)
         {
             TapCalculation();
-            //float x = Input.GetAxis("Horizontal");
-            //float y = Input.GetAxis("Vertical");
-            float x = fingerDir.x;
-            float y = fingerDir.y;
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
+            //float x = fingerDir.x;
+            //float y = fingerDir.y;
             timeSinceShot = 0;
             if (canHold)
             {
