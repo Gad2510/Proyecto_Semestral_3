@@ -30,7 +30,7 @@ public class TriggerScore : MonoBehaviour
         //Activar cuando el jugador entra en un plano
         if(other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Entro el jugador");
+            //Debug.Log("Entro el jugador");
             padre.SetActive(true);
         }
     }
