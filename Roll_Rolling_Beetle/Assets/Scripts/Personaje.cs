@@ -8,13 +8,15 @@ public class Personaje : MonoBehaviour
 {
     Animator animBeetle;
     Rigidbody rigi;
+    public Transform[] spawners;
     public Rigidbody poopRigid;
-    public bool isAlive;
     public float maxMovementSpeed;
     public float minMovementSpeed;
     public float maxRotationSpeed;
     public float minRotationSpeed;
     public float timeSinceShot;
+    public float spawnIndex;
+    public bool isAlive;
     public bool poopshooted;
     public PlayerState state;
 
@@ -44,6 +46,7 @@ public class Personaje : MonoBehaviour
         state = PlayerState.WALKING;
         animBeetle = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
+        spawnIndex = (Random.Range(0.0f, 1.0f) * 10f);
         canHold = false;
         isMoving = false;
         poopshooted = false;
@@ -53,17 +56,17 @@ public class Personaje : MonoBehaviour
         startTouch = 0f;
         endTouch = 0f;
         timeTouched = 0f;
-        
+        SpawnPosition();
     }
     void Update()
     {
         if (isAlive && state == PlayerState.WALKING)
         {
             TapCalculation();
-            //float x = Input.GetAxis("Horizontal");
-            //float y = Input.GetAxis("Vertical");
-            float x = fingerDir.x;
-            float y = fingerDir.y;
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
+            //float x = fingerDir.x;
+            //float y = fingerDir.y;
             timeSinceShot = 0;
             if (canHold)
             {
@@ -176,5 +179,11 @@ public class Personaje : MonoBehaviour
         float score = Mathf.Round(PoopIncrement.score);
         //SceneManage._instance.settings.UpdateScore(score);
         //SceneManage._instance.ChangeLevel(3);
+    }
+
+    public void SpawnPosition()
+    {
+        gameObject.transform.position = spawners[(int)spawnIndex].transform.position;
+        Debug.Log(spawners[(int)spawnIndex].transform.position);
     }
 }
