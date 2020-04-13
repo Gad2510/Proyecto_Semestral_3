@@ -6,7 +6,7 @@ public class CrearMapa : MonoBehaviour
 {
     public MapaAleatorio terrenoD;
     
-    void Start()
+    void Awake()
     {
         GameObject g;
         Vector3 coord=Vector4.zero;

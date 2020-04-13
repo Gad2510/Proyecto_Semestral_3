@@ -8,15 +8,19 @@ public class Personaje : MonoBehaviour
 {
     Animator animBeetle;
     Rigidbody rigi;
+    public GameObject[] spawners;
     public Rigidbody poopRigid;
-    public bool isAlive;
     public float maxMovementSpeed;
     public float minMovementSpeed;
     public float maxRotationSpeed;
     public float minRotationSpeed;
     public float timeSinceShot;
+    public float spawnIndex;
+    public bool isAlive;
     public bool poopshooted;
     public PlayerState state;
+    public GameObject poopPrefab;
+    public GameObject actualPoop;
 
 
     Vector3 fingerDir;
@@ -42,6 +46,7 @@ public class Personaje : MonoBehaviour
     void Start()
     {
         state = PlayerState.WALKING;
+        spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
         canHold = false;
@@ -53,7 +58,7 @@ public class Personaje : MonoBehaviour
         startTouch = 0f;
         endTouch = 0f;
         timeTouched = 0f;
-        
+        SpawnPosition();
     }
     void Update()
     {
@@ -134,6 +139,7 @@ public class Personaje : MonoBehaviour
         canHold = true;
         poopshooted = true;
         timeTouched = 0f;
+        actualPoop = null;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -141,6 +147,8 @@ public class Personaje : MonoBehaviour
         {
             if (canHold)
             {
+                actualPoop = collision.gameObject;
+                poopRigid = actualPoop.GetComponent<Rigidbody>();
                 animBeetle.SetTrigger("holding");
                 poopRigid.transform.SetParent(transform);
                 canHold = false;
@@ -152,6 +160,7 @@ public class Personaje : MonoBehaviour
             isAlive = false;
             ChangeScene();//Change Escene
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -160,6 +169,15 @@ public class Personaje : MonoBehaviour
         {
             maxMovementSpeed = maxMovementSpeed / 2;
             movementSpeed = movementSpeed / 2;
+        }
+        if (other.gameObject.tag == "bonus" && canHold)
+        {
+            Destroy(other.gameObject);
+            poopPrefab = GameObject.Instantiate(poopPrefab, transform.position, Quaternion.identity, this.transform);
+            poopPrefab.transform.localScale = new Vector3(1, 1, 1);
+            poopPrefab.transform.position = new Vector3(poopPrefab.transform.position.x, 1f,poopPrefab.transform.position.z +2f);
+            animBeetle.SetTrigger("holding");
+            canHold = false;
         }
     }
 
@@ -176,5 +194,12 @@ public class Personaje : MonoBehaviour
         float score = Mathf.Round(PoopIncrement.score);
         //SceneManage._instance.settings.UpdateScore(score);
         //SceneManage._instance.ChangeLevel(3);
+    }
+
+    public void SpawnPosition()
+    {
+        int indexTeleport = Random.Range(0,spawners.Length);
+        Debug.Log(indexTeleport);
+        gameObject.transform.position = spawners[indexTeleport].transform.position;
     }
 }
