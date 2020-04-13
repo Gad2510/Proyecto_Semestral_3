@@ -19,8 +19,6 @@ public class Personaje : MonoBehaviour
     public bool isAlive;
     public bool poopshooted;
     public PlayerState state;
-    public GameObject poopPrefab;
-    public GameObject actualPoop;
 
 
     Vector3 fingerDir;
@@ -48,7 +46,7 @@ public class Personaje : MonoBehaviour
         state = PlayerState.WALKING;
         animBeetle = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
-        spawnIndex = (Random.Range(0.0f, 0.9f) * 10f);
+        spawnIndex = (Random.Range(0.0f, 1.0f) * 10f);
         canHold = false;
         isMoving = false;
         poopshooted = false;
@@ -139,7 +137,6 @@ public class Personaje : MonoBehaviour
         canHold = true;
         poopshooted = true;
         timeTouched = 0f;
-        actualPoop = null;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -147,8 +144,6 @@ public class Personaje : MonoBehaviour
         {
             if (canHold)
             {
-                actualPoop = collision.gameObject;
-                poopRigid = actualPoop.GetComponent<Rigidbody>();
                 animBeetle.SetTrigger("holding");
                 poopRigid.transform.SetParent(transform);
                 canHold = false;
@@ -160,7 +155,6 @@ public class Personaje : MonoBehaviour
             isAlive = false;
             ChangeScene();//Change Escene
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -169,15 +163,6 @@ public class Personaje : MonoBehaviour
         {
             maxMovementSpeed = maxMovementSpeed / 2;
             movementSpeed = movementSpeed / 2;
-        }
-        if (other.gameObject.tag == "bonus" && canHold)
-        {
-            Destroy(other.gameObject);
-            poopPrefab = GameObject.Instantiate(poopPrefab, transform.position, Quaternion.identity, this.transform);
-            poopPrefab.transform.localScale = new Vector3(1, 1, 1);
-            poopPrefab.transform.position = new Vector3(poopPrefab.transform.position.x, 1f,poopPrefab.transform.position.z +2f);
-            animBeetle.SetTrigger("holding");
-            canHold = false;
         }
     }
 

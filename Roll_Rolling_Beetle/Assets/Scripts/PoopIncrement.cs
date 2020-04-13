@@ -60,7 +60,7 @@ public class PoopIncrement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("bonus"))
+        if (other.CompareTag("Bonus"))
         {
             Destroy(other.gameObject);
             index.poopNumber--;
