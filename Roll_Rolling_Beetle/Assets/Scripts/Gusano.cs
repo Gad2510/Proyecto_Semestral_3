@@ -13,6 +13,7 @@ public class Gusano : MonoBehaviour
     public float cadencia = 3.0f;
     public LayerMask detection;
     Animator anim;
+    bool aumento = false;
     void Start()
     {
         coll = GetComponent<BoxCollider>();
@@ -23,9 +24,11 @@ public class Gusano : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PoopIncrement.score > 100)
+        //Aumento de cadencia cuando el jugador llega a 1500 puntos
+        if (PoopIncrement.score > 1500 && !aumento)
         {
             cadencia = 2.0f;
+            aumento = true;
         }
     }
 
@@ -73,14 +76,14 @@ public class Gusano : MonoBehaviour
 
             if (Physics.Raycast(direction, out hit,10f,detection))
             {
-
+                Debug.Log(hit.collider.gameObject.tag);
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
                     transform.LookAt(jugador.transform); //Mirar al jugador
                     transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
 
                     recarga += Time.deltaTime;
-                    anim.SetBool("shoot",true);
+                    anim.SetBool("shoot", false);
                 }
                 else
                 {
@@ -89,6 +92,7 @@ public class Gusano : MonoBehaviour
             }
             if(recarga >= cadencia)
             {
+                anim.SetBool("shoot", true);
                 Instantiate(bala, posicionBala.transform);
                 recarga = 0;
             }

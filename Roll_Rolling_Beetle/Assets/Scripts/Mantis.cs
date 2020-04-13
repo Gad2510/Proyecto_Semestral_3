@@ -15,6 +15,9 @@ public class Mantis : MonoBehaviour
     public float walkSpeed = 1.0f;
     public bool isIdle;
 
+    float aumento1 = 1.3f;
+    float aumento2 = 1.6f;
+
     int walkIndex;
     int walkIndexPrev;
 
@@ -46,14 +49,14 @@ public class Mantis : MonoBehaviour
         {
             ChooseWalkPoint();
         }
-        if(PoopIncrement.score > 100 && siguiendoJugador)//Primer aumento
+        if(PoopIncrement.score > 1500 && siguiendoJugador)//Primer aumento
         {
-            walkSpeed = walkSpeed + (walkSpeed * 0.3f);
+            walkSpeed = aumento1;
             anim.speed = walkSpeed;
         }
-        if (PoopIncrement.score > 200 && siguiendoJugador)//Segundo aumento
+        if (PoopIncrement.score > 3000 && siguiendoJugador)//Segundo aumento
         {
-            walkSpeed = walkSpeed + (walkSpeed * 0.5f);
+            walkSpeed = aumento2;
             anim.speed = walkSpeed;
         }
         if(!siguiendoJugador)
