@@ -6,7 +6,7 @@ public class CrearMapa : MonoBehaviour
 {
     public MapaAleatorio terrenoD;
     
-    void Start()
+    void Awake()
     {
         GameObject g;
         Vector3 coord=Vector4.zero;
@@ -20,14 +20,14 @@ public class CrearMapa : MonoBehaviour
 
                 if(x==1 && y == 1)
                 {
-                    g = Instantiate(terrenoD.terrenos[17], null); //Crear terreno 5
+                    g = Instantiate(terrenoD.terrenos[17], null);
                 }
                 else
                 {
                     g = Instantiate(terrenoD.ObtenerTerreno(), null);
                     
                 }
-                g.transform.localPosition = coord * 100f;
+                g.transform.position = coord * 100f;
                 SetCoord(coord, g.transform);
             }
         }
