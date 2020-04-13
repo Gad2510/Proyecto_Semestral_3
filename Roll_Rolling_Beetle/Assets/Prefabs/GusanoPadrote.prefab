@@ -103,7 +103,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.08
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &249804464
 BoxCollider:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5368f266bc40b8a43a34523fa17cf812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posicionBala: {fileID: 1231618604488464698}
+  posicionBala: {fileID: 7407614266565889795}
   posicionRayo: {fileID: 2435447842492946471}
   bala: {fileID: 5809415374330705135, guid: d782f36ede0be014ebec190b59dc09e7, type: 3}
   recarga: 0
@@ -236,12 +236,6 @@ GameObject:
 --- !u!4 &5044922604570839720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 5cf8bf4a176ca8349b72aced0347cc95,
-    type: 3}
-  m_PrefabInstance: {fileID: 250405731794231730}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1231618604488464698 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -7895364060691220344, guid: 5cf8bf4a176ca8349b72aced0347cc95,
     type: 3}
   m_PrefabInstance: {fileID: 250405731794231730}
   m_PrefabAsset: {fileID: 0}
