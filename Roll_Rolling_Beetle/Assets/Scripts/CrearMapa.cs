@@ -20,7 +20,7 @@ public class CrearMapa : MonoBehaviour
 
                 if(x==1 && y == 1)
                 {
-                    g = Instantiate(terrenoD.terrenos[17], null); //Crear terreno 5
+                    g = Instantiate(terrenoD.terrenos[17], null);
                 }
                 else
                 {
