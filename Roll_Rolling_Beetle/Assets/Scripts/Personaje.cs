@@ -45,6 +45,9 @@ public class Personaje : MonoBehaviour
 
     void Start()
     {
+        
+        FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
+        cam.PlayerPos = this.transform.Find("CameraPoint").gameObject;
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();
@@ -170,6 +173,13 @@ public class Personaje : MonoBehaviour
             maxMovementSpeed = maxMovementSpeed / 2;
             movementSpeed = movementSpeed / 2;
         }
+        if (other.gameObject.CompareTag("Bird"))
+        {
+            //ChangeScene();
+            FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
+            cam.PlayerPos = null;
+            Destroy(this.transform.parent.gameObject);
+        }
         if (other.gameObject.tag == "bonus" && canHold)
         {
             Destroy(other.gameObject);
@@ -192,8 +202,10 @@ public class Personaje : MonoBehaviour
 
     public void ChangeScene() {
         float score = Mathf.Round(PoopIncrement.score);
-        //SceneManage._instance.settings.UpdateScore(score);
-        //SceneManage._instance.ChangeLevel(3);
+        GameObject canvas = GameObject.FindGameObjectWithTag("UI");
+        canvas.SetActive(false);
+        SceneManage._instance.settings.UpdateScore(score);
+        SceneManage._instance.ChangeLevel("GameOver", UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 
     public void SpawnPosition()

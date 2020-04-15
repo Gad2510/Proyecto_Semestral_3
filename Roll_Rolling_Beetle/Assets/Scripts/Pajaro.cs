@@ -13,6 +13,10 @@ public class Pajaro : MonoBehaviour
     float velocityWrning;
     Color colorWarnning;
     Collider selfCollider;
+
+    [SerializeField]
+    Collider triggerCollider;
+
     void Start()
     {
         selfCollider = this.GetComponent<Collider>();
@@ -21,6 +25,7 @@ public class Pajaro : MonoBehaviour
         matRef.material.SetColor("_Color", colorWarnning);
         originPos = bird.position;
         InvokeRepeating("CambiarPos",6f,6f);
+        triggerCollider.enabled = false;
     }
 
     private void OnTriggerStay(Collider other)
@@ -69,6 +74,7 @@ public class Pajaro : MonoBehaviour
             bird.transform.position = Vector3.Lerp(origin, player.position,counter);
             yield return null;
         }
+        triggerCollider.enabled = true;
         StartCoroutine(ReturnSky());
     }
 
@@ -84,6 +90,7 @@ public class Pajaro : MonoBehaviour
             c += Time.deltaTime*2;
             yield return null;
         }
+        triggerCollider.enabled = false;
         bird.position = originPos;
         selfCollider.enabled = true;
     }

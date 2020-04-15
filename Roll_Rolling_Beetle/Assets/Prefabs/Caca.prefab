@@ -170,8 +170,8 @@ GameObject:
   - component: {fileID: 4570147818206632441}
   - component: {fileID: 4570147818206632440}
   - component: {fileID: 4570147818206632442}
-  m_Layer: 0
-  m_Name: PoopPivot
+  m_Layer: 12
+  m_Name: Caca
   m_TagString: Poop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514471294119661951}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.008, z: 0.183}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -237,7 +237,6 @@ MonoBehaviour:
   bonusPoints: 20
   pointsMul: 100
   IsScaling: 0
-  CacaPorcentage: {fileID: 0}
   scaleIncrement: 0.05
   maxScale: 3
   playerForward: {fileID: 0}

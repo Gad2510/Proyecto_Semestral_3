@@ -199,6 +199,7 @@ MonoBehaviour:
   bird: {fileID: 7062945524933324623}
   matRef: {fileID: 6103186618979475381}
   birdAnimation: {fileID: 904832412620505653}
+  triggerCollider: {fileID: 116716248}
 --- !u!95 &3613180238212043875
 Animator:
   serializedVersion: 3
@@ -226,11 +227,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7676574757547695748}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: -0.17, y: 0.3, z: 0.57}
-  m_Center: {x: -0.09, y: 0, z: 0}
+  m_Size: {x: 0.68, y: 0.3, z: 0.57}
+  m_Center: {x: -0.29, y: 0, z: 0}
 --- !u!1001 &2845759594864329813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -466,7 +467,7 @@ PrefabInstance:
     - target: {fileID: -3605545639849485615, guid: 09e02af532f5fb541ad910e028b5bba6,
         type: 3}
       propertyPath: m_TagString
-      value: Enemigo
+      value: Bird
       objectReference: {fileID: 0}
     - target: {fileID: -2766262126558377530, guid: 09e02af532f5fb541ad910e028b5bba6,
         type: 3}

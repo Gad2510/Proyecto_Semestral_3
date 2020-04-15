@@ -7,6 +7,7 @@
         _ShadowIntensity("ShadowIntensity", Range(0,1))=0.5
         _MainTex ("Texture", 2D) = "white" {}
         _ShadowsMask("Mask", 2D)="white" {}
+
         _Cord("Cordenadas",Vector)=(0,0,0,0)
         
     }
@@ -61,11 +62,10 @@
                 fixed maskBird=tex2D(_ShadowsMask,uv).r;
 
                 // sample the texture
-                fixed4 tex = tex2D(_MainTex, i.uv);
+                fixed4 tex = tex2D(_MainTex, i.uv*20);
                 fixed maskShadows=tex2D(_ShadowsMask,uv).g;
                 
-
-
+                
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, tex);
                 
@@ -73,7 +73,8 @@
                 birdCol.g=abs(sin(_Time.w));
 
                 float4 col=lerp(_Color,_Color*_ShadowIntensity,maskShadows);
-                col=lerp(_Color,birdCol,maskBird);
+                
+                col=lerp(col,birdCol,maskBird);
                 return tex*col;
             }
             ENDCG

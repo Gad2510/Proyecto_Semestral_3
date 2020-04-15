@@ -28,6 +28,11 @@ public class SpawnPopoManager : MonoBehaviour
         }
     }
 
+    public void UpdateSpawnersScene() //En caso de volver a empezar la escena
+    {
+        spawnersInScene = GameObject.FindObjectsOfType<SpawnBonus>(); // Obtiene la referencia de todos los spawners 
+    }
+
     private void StartPoop()
     {
         for(byte i=0; i< maxNUM; i++){//Crea todos los bonus 

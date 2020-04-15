@@ -13,8 +13,7 @@ public class PoopIncrement : MonoBehaviour
     float pointsMul=100f;
     public static float score = 0;
     public bool IsScaling=false;
-    [SerializeField]
-    Slider CacaPorcentage=null; // Slider UI para medir porcentaje
+    Slider CacaPorcentage; // Slider UI para medir porcentaje
 
     [SerializeField]
     float scaleIncrement=0.01f, maxScale=2f; //Valores para maxima escala y ratio de inclemento
@@ -31,12 +30,15 @@ public class PoopIncrement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
+        CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();
         screenPoints = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
+        float screen = Mathf.Round(score);
+        screenPoints.text = "SCORE: " + screen.ToString();
+
         InitScale = transform.localScale; 
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
-        screenPoints.text = "SCORE: 0";
+        
     }
 
     // Update is called once per frame
@@ -46,7 +48,6 @@ public class PoopIncrement : MonoBehaviour
         {
             transform.localScale += sumV * scaleIncrement * Time.deltaTime;  //Aumenta el tamaño
             CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
-            //score += scaleIncrement * Time.deltaTime * pointsMul;
             float screen = Mathf.Round(score);
             screenPoints.text ="SCORE: "+screen.ToString();
         }
