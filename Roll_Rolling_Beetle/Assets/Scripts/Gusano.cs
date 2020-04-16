@@ -70,11 +70,11 @@ public class Gusano : MonoBehaviour
 
             RaycastHit hit;
 
-            Debug.DrawRay(posicionRayo.transform.position, posicionRayo.transform.forward * 10, Color.red);
+            Debug.DrawRay(posicionRayo.transform.position, posicionRayo.transform.forward * 15, Color.red);
 
             Ray direction = new Ray(posicionRayo.transform.position, posicionRayo.transform.forward);
 
-            if (Physics.Raycast(direction, out hit,10f,detection))
+            if (Physics.Raycast(direction, out hit,15f,detection))
             {
                 Debug.Log(hit.collider.gameObject.tag);
                 if (hit.collider.gameObject.CompareTag("Player"))
