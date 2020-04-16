@@ -136,7 +136,6 @@ public class Personaje : MonoBehaviour
     public void ShootPoop()
     {
         state = PlayerState.THROWING;
-        animBeetle.SetTrigger("shoot");
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
         canHold = true;
