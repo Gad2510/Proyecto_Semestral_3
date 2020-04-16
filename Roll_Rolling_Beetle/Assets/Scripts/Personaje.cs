@@ -21,7 +21,7 @@ public class Personaje : MonoBehaviour
     public PlayerState state;
     public GameObject poopPrefab;
     public GameObject actualPoop;
-
+    public FrontCollider frontCollider;
 
     Vector3 fingerDir;
 
@@ -144,17 +144,27 @@ public class Personaje : MonoBehaviour
         timeTouched = 0f;
         actualPoop = null;
     }
+
+    public void FrontColliderAction()
+    {
+        if (frontCollider.isPoop)
+        {
+            actualPoop = frontCollider.collide.gameObject;
+            poopRigid = actualPoop.GetComponent<Rigidbody>();
+            animBeetle.SetTrigger("holding");
+            poopRigid.transform.SetParent(transform);
+            canHold = false;
+            Debug.Log("hola");
+            frontCollider.collide.gameObject.transform.localPosition = new Vector3(0, 0, .183f);
+        }
+    }
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Poop")
         {
             if (canHold)
             {
-                actualPoop = collision.gameObject;
-                poopRigid = actualPoop.GetComponent<Rigidbody>();
-                animBeetle.SetTrigger("holding");
-                poopRigid.transform.SetParent(transform);
-                canHold = false;
+                FrontColliderAction();
             }
         }
         if (isAlive && collision.gameObject.tag == "Enemigo")
