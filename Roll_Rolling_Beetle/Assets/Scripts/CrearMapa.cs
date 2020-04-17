@@ -5,7 +5,8 @@ using UnityEngine;
 public class CrearMapa : MonoBehaviour
 {
     public MapaAleatorio terrenoD;
-    public Object player;
+
+    public Personaje playerRef;
 
     GameObject[] mapaRef;
     void Awake()
@@ -13,6 +14,7 @@ public class CrearMapa : MonoBehaviour
         mapaRef = new GameObject[9];
         StartLevel();
     }
+
 
     private void SetCoord(Vector3 coord, Transform g)
     {
@@ -44,11 +46,11 @@ public class CrearMapa : MonoBehaviour
 
                 if (x == 1 && y == 1)
                 {
-                    g = Instantiate(terrenoD.terrenos[17], null);
+                    g = Instantiate(terrenoD.terrenos[17],this.transform);
                 }
                 else
                 {
-                    g = Instantiate(terrenoD.ObtenerTerreno(), null);
+                    g = Instantiate(terrenoD.ObtenerTerreno(), this.transform);
 
                 }
                 mapaRef[x + (3 * y)] = g;
@@ -59,13 +61,14 @@ public class CrearMapa : MonoBehaviour
     }
     public void RestartLevel()
     {
+        playerRef.gameObject.SetActive(true);
+        playerRef.Revive();
+
         for(int i = 0; i < mapaRef.Length; i++)
         {
             Destroy(mapaRef[i]);
         }
 
         StartLevel();
-
-        Instantiate(player);
     }
 }

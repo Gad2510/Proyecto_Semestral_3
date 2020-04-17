@@ -11,16 +11,24 @@ public class Scene_Manager_BH : MonoBehaviour
     [SerializeField]
     LevelLogic[] niveles;
 
+
+    AudioSource audio;
     SceneManage[] managers;
     public bool restart;
     int index = 0;
+    string lastLv;
 
-
+    public string LastLv
+    {
+        set { lastLv = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         index = 0;
+        lastLv = "";
+        audio = GetComponent<AudioSource>();
         SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
         if (_instance == null)
         {
@@ -43,31 +51,38 @@ public class Scene_Manager_BH : MonoBehaviour
     public void ChangeLevel(bool restart, int level)
     {
         this.restart = restart;
-        
-        if (!niveles[index].aditiveToLast)
+        if (!niveles[level].aditiveToLast)
         {
             SceneManager.UnloadSceneAsync(niveles[index].nombre);
+            if (niveles[index].aditiveToLast && !restart)
+            {
+                SceneManager.UnloadSceneAsync(lastLv);
+            }
+        }
+        else
+        {
+            lastLv = niveles[index].nombre;
         }
         index = level;
-        SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
 
-        managers = GameObject.FindObjectsOfType<SceneManage>();
+        if(!restart)
+            SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
 
-        for(int i = 0; i < managers.Length; i++)
-        {
-            Debug.Log(managers[i].name);
-        }
-
+        if(niveles[index].background!=null)
+            audio.clip = niveles[index].background;
     }
 
-    public bool RestartLevel(string levelName)
+    public bool RestartLevel()
     {
-        return niveles[index].nombre == levelName && restart;
+        return niveles[index].nombre == lastLv && restart;
     }
+
+    
 }
 [System.Serializable]
 public class LevelLogic
 {
     public string nombre;
     public bool aditiveToLast;
+    public AudioClip background;
 }

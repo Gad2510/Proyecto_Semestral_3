@@ -134,6 +134,12 @@ public class Personaje : MonoBehaviour
                 poopshooted = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            animBeetle.SetTrigger("dead");
+            isAlive = false;
+        }
     }
 
     private void TapCalculation()
@@ -182,7 +188,6 @@ public class Personaje : MonoBehaviour
             animBeetle.SetTrigger("holding");
             poopRigid.transform.SetParent(transform);
             canHold = false;
-            Debug.Log("hola");
             frontCollider.collide.gameObject.transform.localPosition = new Vector3(0, 0, .183f);
         }
     }
@@ -199,7 +204,6 @@ public class Personaje : MonoBehaviour
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
-            ChangeScene();//Change Escene
         }
 
     }
@@ -216,7 +220,8 @@ public class Personaje : MonoBehaviour
             ChangeScene();
             FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
             cam.PlayerPos = null;
-            Destroy(this.transform.parent.gameObject);
+            isAlive = false;
+            this.gameObject.SetActive(false);
         }
         if (other.gameObject.tag == "bonus" && canHold)
         {
@@ -249,7 +254,15 @@ public class Personaje : MonoBehaviour
     public void SpawnPosition()
     {
         int indexTeleport = Random.Range(0,spawners.Length);
-        Debug.Log(indexTeleport);
         gameObject.transform.position = spawners[indexTeleport].transform.position;
+    }
+
+    public void Revive()
+    {   
+        isAlive = true;
+        animBeetle.SetTrigger("revive");
+
+        SpawnPosition();
+
     }
 }

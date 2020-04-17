@@ -22,13 +22,16 @@ public class SceneManage : MonoBehaviour
 
     private void Update()
     {
-        
+        if (refToManager.RestartLevel())
+        {
+            restartEvent.Invoke();
+            refToManager.LastLv = "";
+        }
     }
 
     public void ChangeLevel(int index)
     {
         refToManager.ChangeLevel(restart,index);
     }
-
 
 }
