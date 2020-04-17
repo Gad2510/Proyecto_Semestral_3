@@ -5,58 +5,13 @@ using UnityEngine;
 public class CrearMapa : MonoBehaviour
 {
     public MapaAleatorio terrenoD;
-    
+    public Object player;
+
+    GameObject[] mapaRef;
     void Awake()
     {
-        GameObject g;
-        Vector3 coord=Vector4.zero;
-
-        for(int x = 0; x < 3; x++)
-        {
-            coord.x = x;
-            for(int y = 0; y < 3; y++)
-            {
-                coord.z = y;
-
-                if(x==1 && y == 1)
-                {
-                    g = Instantiate(terrenoD.terrenos[17], null);
-                }
-                else
-                {
-                    g = Instantiate(terrenoD.ObtenerTerreno(), null);
-                    
-                }
-                g.transform.localPosition = coord * 100f;
-                SetCoord(coord, g.transform);
-            }
-        }
-        /*g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 1
-        g.transform.localPosition = new Vector3(0, 0, 0); //Posicion de terreno 1
-        
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 2
-        g.transform.localPosition = new Vector3(0, 0, 100); //Posicion de terreno 2
-
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 3
-        g.transform.localPosition = new Vector3(0, 0, 200); //Posicion de terreno 3
-
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 4
-        g.transform.localPosition = new Vector3(100, 0, 0); //Posicion de terreno 4
-
-        g = Instantiate(terrenoD.terrenos[17], null); //Crear terreno 5
-        g.transform.localPosition = new Vector3(100, 0, 100); //Posicion de terreno 5
-
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 6
-        g.transform.localPosition = new Vector3(100, 0, 200); //Posicion de terreno 6
-
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 7
-        g.transform.localPosition = new Vector3(200, 0, 0); //Posicion de terreno 7
-
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 8
-        g.transform.localPosition = new Vector3(200, 0, 100); //Posicion de terreno 8
-
-        g = Instantiate(terrenoD.ObtenerTerreno(), null); //Crear terreno 9
-        g.transform.localPosition = new Vector3(200, 0, 200); //Posicion de terreno 9*/
+        mapaRef = new GameObject[9];
+        StartLevel();
     }
 
     private void SetCoord(Vector3 coord, Transform g)
@@ -73,5 +28,44 @@ public class CrearMapa : MonoBehaviour
                 r.SetVector("_Cord", loc);
             }
         }
+    }
+
+    private void StartLevel()
+    {
+        GameObject g;
+        Vector3 coord = Vector4.zero;
+
+        for (int x = 0; x < 3; x++)
+        {
+            coord.x = x;
+            for (int y = 0; y < 3; y++)
+            {
+                coord.z = y;
+
+                if (x == 1 && y == 1)
+                {
+                    g = Instantiate(terrenoD.terrenos[17], null);
+                }
+                else
+                {
+                    g = Instantiate(terrenoD.ObtenerTerreno(), null);
+
+                }
+                mapaRef[x + (3 * y)] = g;
+                g.transform.localPosition = coord * 100f;
+                SetCoord(coord, g.transform);
+            }
+        }
+    }
+    public void RestartLevel()
+    {
+        for(int i = 0; i < mapaRef.Length; i++)
+        {
+            Destroy(mapaRef[i]);
+        }
+
+        StartLevel();
+
+        Instantiate(player);
     }
 }

@@ -213,7 +213,7 @@ public class Personaje : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Bird"))
         {
-            //ChangeScene();
+            ChangeScene();
             FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
             cam.PlayerPos = null;
             Destroy(this.transform.parent.gameObject);
@@ -242,8 +242,8 @@ public class Personaje : MonoBehaviour
         float score = Mathf.Round(PoopIncrement.score);
         GameObject canvas = GameObject.FindGameObjectWithTag("UI");
         canvas.SetActive(false);
-        SceneManage._instance.settings.UpdateScore(score);
-        SceneManage._instance.ChangeLevel("GameOver", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        Scene_Manager_BH._instance.settings.UpdateScore(score);
+        Scene_Manager_BH._instance.ChangeLevel(false,3);
     }
 
     public void SpawnPosition()
