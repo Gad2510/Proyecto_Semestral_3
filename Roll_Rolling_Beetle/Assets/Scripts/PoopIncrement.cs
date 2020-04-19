@@ -19,7 +19,7 @@ public class PoopIncrement : MonoBehaviour
     float scaleIncrement=0.01f, maxScale=2f; //Valores para maxima escala y ratio de inclemento
 
     [SerializeField]
-    Personaje playerForward=null;//Referencia al player
+    Personaje playerForward;//Referencia al player
     public SpawnPopoManager index;
 
     Vector3 InitScale;//Para guardar la escala inicial de la caca
@@ -34,6 +34,7 @@ public class PoopIncrement : MonoBehaviour
         screenPoints = GameObject.FindGameObjectWithTag("score").GetComponent<Text>();
         float screen = Mathf.Round(score);
         screenPoints.text = "SCORE: " + screen.ToString();
+        playerForward = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
 
         InitScale = transform.localScale; 
         sumV = Vector3.one;

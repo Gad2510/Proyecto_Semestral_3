@@ -17,6 +17,7 @@ public class Personaje : MonoBehaviour
     public float timeSinceShot;
     public float spawnIndex;
     public bool isAlive;
+    public bool isPoopInGame;
     public bool poopshooted;
     public PlayerState state;
     public GameObject poopPrefab;
@@ -111,11 +112,22 @@ public class Personaje : MonoBehaviour
                 movementSpeed = 5;
                 rotationSpeed = 25;
             }
-            
+            if (GameObject.FindGameObjectsWithTag("Poop").Length == 0)
+            {
+                isPoopInGame = false;
+            }
+            else
+            {
+                isPoopInGame = true;
+            }
+
             transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0,  y* Time.deltaTime * movementSpeed);
             float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));
-            isMoving = (!poopRigid.IsSleeping())&& tringulate>0.1f;
+            if (isPoopInGame)
+            {
+                isMoving = (!poopRigid.IsSleeping()) && tringulate > 0.1f;
+            }
             animBeetle.SetBool("isWalking", tringulate > 0.1f);
 
 
@@ -187,7 +199,9 @@ public class Personaje : MonoBehaviour
             animBeetle.SetTrigger("holding");
             poopRigid.transform.SetParent(transform);
             canHold = false;
-            frontCollider.collide.gameObject.transform.localPosition = new Vector3(0, 0, .183f);
+
+            Debug.Log(actualPoop.transform.localScale.x * .1f);
+            frontCollider.collide.gameObject.transform.localPosition = new Vector3(0, 0, .183f + (actualPoop.transform.localScale.x * .03f));
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -222,12 +236,17 @@ public class Personaje : MonoBehaviour
             isAlive = false;
             this.gameObject.SetActive(false);
         }
-        if (other.gameObject.tag == "bonus" && canHold)
+        if (other.gameObject.tag == "bonus" && canHold && !isPoopInGame)
         {
             Destroy(other.gameObject);
             poopPrefab = GameObject.Instantiate(poopPrefab, transform.position, Quaternion.identity, this.transform);
+            actualPoop = poopPrefab;
             poopPrefab.transform.localScale = new Vector3(1, 1, 1);
-            poopPrefab.transform.position = new Vector3(poopPrefab.transform.position.x, 1f,poopPrefab.transform.position.z +2f);
+            poopPrefab.transform.localPosition = frontCollider.transform.localScale;
+            Debug.Log(actualPoop.transform.localScale.x * .1f);
+            poopPrefab.transform.localPosition += new Vector3(0,0,.183f + (actualPoop.transform.localScale.x * .03f));
+            frontCollider.isPoop = true;
+            poopRigid = poopPrefab.GetComponent<Rigidbody>();
             animBeetle.SetTrigger("holding");
             canHold = false;
         }
