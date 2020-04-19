@@ -22,6 +22,7 @@ public class Personaje : MonoBehaviour
     public GameObject poopPrefab;
     public GameObject actualPoop;
     public FrontCollider frontCollider;
+    public float CacaRotVel;
 
     Vector3 fingerDir;
 
@@ -62,6 +63,7 @@ public class Personaje : MonoBehaviour
         endTouch = 0f;
         timeTouched = 0f;
         SpawnPosition();
+        CacaRotVel = 30.0f;
     }
     void Update()
     {
@@ -72,6 +74,32 @@ public class Personaje : MonoBehaviour
             float y = Input.GetAxis("Vertical");
             //float x = fingerDir.x;
             //float y = fingerDir.y;
+
+            //Rotacion de Caca-------------------------------------------------------------------------------------------------------------------------------------------//
+            if (!canHold)
+            {
+                //Si se mueve hacia adelante
+                if (y > 0)
+                {
+                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, CacaRotVel * Time.deltaTime);
+                }
+                //Si se mueve hacia atras
+                if (y < 0)
+                {
+                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, -CacaRotVel * Time.deltaTime);
+                }
+                //Si se mueve a la derecha
+                if (x > 0)
+                {
+                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, -CacaRotVel * Time.deltaTime);
+                }
+                //Si se mueve hacia la izquierda
+                if (x < 0)
+                {
+                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, CacaRotVel * Time.deltaTime);
+                }
+            }
+            //-----------------------------------------------------------------------------------------------------------------------------------------------------------//
             timeSinceShot = 0;
             if (canHold)
             {
@@ -105,6 +133,12 @@ public class Personaje : MonoBehaviour
                 state = PlayerState.WALKING;
                 poopshooted = false;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            animBeetle.SetTrigger("dead");
+            isAlive = false;
         }
     }
 
@@ -153,7 +187,6 @@ public class Personaje : MonoBehaviour
             animBeetle.SetTrigger("holding");
             poopRigid.transform.SetParent(transform);
             canHold = false;
-            Debug.Log("hola");
             frontCollider.collide.gameObject.transform.localPosition = new Vector3(0, 0, .183f);
         }
     }
@@ -170,7 +203,6 @@ public class Personaje : MonoBehaviour
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
-            ChangeScene();//Change Escene
         }
 
     }
@@ -184,10 +216,11 @@ public class Personaje : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Bird"))
         {
-            //ChangeScene();
+            ChangeScene();
             FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
             cam.PlayerPos = null;
-            Destroy(this.transform.parent.gameObject);
+            isAlive = false;
+            this.gameObject.SetActive(false);
         }
         if (other.gameObject.tag == "bonus" && canHold)
         {
@@ -213,14 +246,22 @@ public class Personaje : MonoBehaviour
         float score = Mathf.Round(PoopIncrement.score);
         GameObject canvas = GameObject.FindGameObjectWithTag("UI");
         canvas.SetActive(false);
-        SceneManage._instance.settings.UpdateScore(score);
-        SceneManage._instance.ChangeLevel("GameOver", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        Scene_Manager_BH._instance.settings.UpdateScore(score);
+        Scene_Manager_BH._instance.ChangeLevel(false,3);
     }
 
     public void SpawnPosition()
     {
         int indexTeleport = Random.Range(0,spawners.Length);
-        Debug.Log(indexTeleport);
         gameObject.transform.position = spawners[indexTeleport].transform.position;
+    }
+
+    public void Revive()
+    {   
+        isAlive = true;
+        animBeetle.SetTrigger("revive");
+
+        SpawnPosition();
+
     }
 }

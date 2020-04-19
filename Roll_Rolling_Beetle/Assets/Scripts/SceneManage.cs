@@ -6,45 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class SceneManage : MonoBehaviour
 {
-    public static SceneManage _instance;
+    public UnityEvent restartEvent;
+    public bool restart;
 
-    public PlayerSettings settings;
-
-    public UnityEvent myEvent;
-
-    string loadScene;
-
-    bool restart = false;
-
-    // Start is called before the first frame update
-    void Start()
+    public bool Restart
     {
-        if(_instance!= this)
+        set { restart = value; }
+    }
+
+    Scene_Manager_BH refToManager;
+    private void Start()
+    {
+        refToManager = Scene_Manager_BH._instance;
+    }
+
+    private void Update()
+    {
+        if (refToManager.RestartLevel())
         {
-            _instance = this;
+            restartEvent.Invoke();
+            refToManager.LastLv = "";
         }
-        else
-        {
-            Destroy(this);
-        }
-        settings.LoadSettings();
     }
 
-    public void ChangeLevel(string index, LoadSceneMode mode=LoadSceneMode.Single)
+    public void ChangeLevel(int index)
     {
-        loadScene = index;
-        SceneManager.LoadScene(index,mode);
+        refToManager.ChangeLevel(restart,index);
     }
-    public void UnloadScene()
-    {
-        Debug.Log(loadScene);
-        SceneManager.UnloadSceneAsync("GameOver");
-        myEvent.Invoke();
-    }
-    public void ChangeLevel(string index)
-    {
-        SceneManager.LoadScene(index);
-    }
-
 
 }

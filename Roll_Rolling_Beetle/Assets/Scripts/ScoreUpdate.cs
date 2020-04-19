@@ -10,7 +10,7 @@ public class ScoreUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score.text = "Puntuacion: \n" + SceneManage._instance.settings.score;
+        score.text = "Puntuacion: \n" + Scene_Manager_BH._instance.settings.score;
     }
 
     // Update is called once per frame
