@@ -17,11 +17,20 @@ public class DestruirTrigger : MonoBehaviour
         //Destruir al ser tocadas por la bola
         if(other.gameObject.CompareTag("Poop"))
         {
-            if(poop.GetComponent<Transform>().localScale.y < maxScale)
+            if(poop == null)
             {
-                PoopIncrement.score += 1.0f;
-                Destroy(gameObject);
+                poop = GameObject.FindGameObjectWithTag("Poop");
+
             }
+            else
+            {
+                if (poop.GetComponent<Transform>().localScale.y < maxScale)
+                {
+                    PoopIncrement.score += 1.0f;
+                    Destroy(gameObject);
+                }
+            }
+            
             
             
             //Debug.Log(PoopIncrement.score);

@@ -8,6 +8,7 @@ public class Mantis : MonoBehaviour
     public Collider selfcoll;
     public SphereCollider rango;
     public GameObject player;
+    public GameObject caca;
     public float radioDeteccion;
     public PoopIncrement poopSize;
 
@@ -64,6 +65,10 @@ public class Mantis : MonoBehaviour
             walkSpeed = 1.0f;
             anim.speed = walkSpeed;
         }
+        if (poopSize == null)
+        {
+            poopSize = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
+        }
     }
 
     void ChooseWalkPoint()
@@ -108,7 +113,7 @@ public class Mantis : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.collider.GetComponent<Personaje>().isAlive) //Verifica si el jugador sige vivo
             {
@@ -116,16 +121,22 @@ public class Mantis : MonoBehaviour
                 Debug.Log("Golpe");
                 anim.SetTrigger("attack");
                 navAgent.isStopped = true;
-                navAgent.isStopped=true;
+                navAgent.isStopped = true;
                 isIdle = true;
                 anim.SetBool("walking", !isIdle);
 
             }
         }
 
-            if (collision.gameObject.CompareTag("Poop"))//Nada mas comparar si choca destruir la mantis en 1 segundo
+        else
+        {
+            if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true && poopSize.transform.localScale.y > 16.0f)
             {
-                Destroy(gameObject,1f);
+                anim.SetTrigger("dead");
+                Debug.Log(poopSize.transform.localScale.y);
+                selfcoll.enabled = false;
+                Destroy(gameObject, 0.5f);
             }
+        }
     }
 }

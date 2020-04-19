@@ -17,6 +17,7 @@ public class Personaje : MonoBehaviour
     public float timeSinceShot;
     public float spawnIndex;
     public bool isAlive;
+    public bool isPoopInGame;
     public bool poopshooted;
     public PlayerState state;
     public GameObject poopPrefab;
@@ -75,31 +76,6 @@ public class Personaje : MonoBehaviour
             //float x = fingerDir.x;
             //float y = fingerDir.y;
 
-            //Rotacion de Caca-------------------------------------------------------------------------------------------------------------------------------------------//
-            if (!canHold)
-            {
-                //Si se mueve hacia adelante
-                if (y > 0)
-                {
-                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, CacaRotVel * Time.deltaTime);
-                }
-                //Si se mueve hacia atras
-                if (y < 0)
-                {
-                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, -CacaRotVel * Time.deltaTime);
-                }
-                //Si se mueve a la derecha
-                if (x > 0)
-                {
-                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, -CacaRotVel * Time.deltaTime);
-                }
-                //Si se mueve hacia la izquierda
-                if (x < 0)
-                {
-                    actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, CacaRotVel * Time.deltaTime);
-                }
-            }
-            //-----------------------------------------------------------------------------------------------------------------------------------------------------------//
             timeSinceShot = 0;
             if (canHold)
             {
@@ -110,18 +86,29 @@ public class Personaje : MonoBehaviour
             {
                 movementSpeed = 5;
                 rotationSpeed = 25;
+                RotationPoop(x,y);
             }
-            
+            if (GameObject.FindGameObjectsWithTag("Poop").Length == 0)
+            {
+                isPoopInGame = false;
+            }
+            else
+            {
+                isPoopInGame = true;
+            }
+
             transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0,  y* Time.deltaTime * movementSpeed);
             float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));
-            isMoving = (!poopRigid.IsSleeping())&& tringulate>0.1f;
+            if (isPoopInGame)
+            {
+                isMoving = (!poopRigid.IsSleeping()) && tringulate > 0.1f;
+            }
             animBeetle.SetBool("isWalking", tringulate > 0.1f);
 
 
             if (Input.GetKeyDown(KeyCode.Space) && !canHold)
             {
-                state = PlayerState.THROWING;
                 animBeetle.SetTrigger("shoot");
             }
         }
@@ -170,7 +157,6 @@ public class Personaje : MonoBehaviour
     public void ShootPoop()
     {
         state = PlayerState.THROWING;
-       //animBeetle.SetTrigger("shoot");
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
         canHold = true;
@@ -178,7 +164,6 @@ public class Personaje : MonoBehaviour
         timeTouched = 0f;
         actualPoop = null;
     }
-
     public void FrontColliderAction()
     {
         if (frontCollider.isPoop)
@@ -207,7 +192,6 @@ public class Personaje : MonoBehaviour
         }
 
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Baba"))
@@ -223,17 +207,20 @@ public class Personaje : MonoBehaviour
             isAlive = false;
             this.gameObject.SetActive(false);
         }
-        if (other.gameObject.tag == "bonus" && canHold)
+        if (other.gameObject.tag == "bonus" && canHold&&!isPoopInGame)
         {
             Destroy(other.gameObject);
             poopPrefab = GameObject.Instantiate(poopPrefab, transform.position, Quaternion.identity, this.transform);
+            actualPoop = poopPrefab;
             poopPrefab.transform.localScale = new Vector3(1, 1, 1);
-            poopPrefab.transform.position = new Vector3(poopPrefab.transform.position.x, 1f,poopPrefab.transform.position.z +2f);
+            poopPrefab.transform.localPosition = frontCollider.transform.localScale;
+            poopPrefab.transform.localPosition += new Vector3(0, 0, .183f + (actualPoop.transform.localScale.z * .03f));
+            frontCollider.isPoop = true;
+            poopRigid = poopPrefab.GetComponent<Rigidbody>();
             animBeetle.SetTrigger("holding");
             canHold = false;
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Baba"))
@@ -242,7 +229,6 @@ public class Personaje : MonoBehaviour
             movementSpeed = movementSpeed * 2;
         }
     }
-
     public void ChangeScene() {
         float score = Mathf.Round(PoopIncrement.score);
         GameObject canvas = GameObject.FindGameObjectWithTag("UI");
@@ -250,13 +236,11 @@ public class Personaje : MonoBehaviour
         Scene_Manager_BH._instance.settings.UpdateScore(score);
         Scene_Manager_BH._instance.ChangeLevel(false,3);
     }
-
     public void SpawnPosition()
     {
         int indexTeleport = Random.Range(0,spawners.Length);
         gameObject.transform.position = spawners[indexTeleport].transform.position;
     }
-
     public void Revive()
     {   
         isAlive = true;
@@ -264,5 +248,31 @@ public class Personaje : MonoBehaviour
 
         SpawnPosition();
 
+    }
+    public void RotationPoop(float x, float y)
+    {
+        if (isPoopInGame && actualPoop != null)
+        {
+            //Si se mueve hacia adelante
+            if (y > 0)
+            {
+                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, CacaRotVel * Time.deltaTime);
+            }
+            //Si se mueve hacia atras
+            if (y < 0)
+            {
+                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, -CacaRotVel * Time.deltaTime);
+            }
+            //Si se mueve a la derecha
+            if (x > 0)
+            {
+                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, -CacaRotVel * Time.deltaTime);
+            }
+            //Si se mueve hacia la izquierda
+            if (x < 0)
+            {
+                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, CacaRotVel * Time.deltaTime);
+            }
+        }
     }
 }
