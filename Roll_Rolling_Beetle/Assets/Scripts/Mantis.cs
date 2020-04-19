@@ -121,14 +121,11 @@ public class Mantis : MonoBehaviour
                 anim.SetBool("walking", !isIdle);
 
             }
-            
         }
-        if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true && poopSize.transform.localScale.y > 16.0f)
-        {
-            anim.SetTrigger("dead");
-            Debug.Log(poopSize.transform.localScale.y);
-            selfcoll.enabled = false;
-            Destroy(gameObject,1f);
-        }
+
+            if (collision.gameObject.CompareTag("Poop"))//Nada mas comparar si choca destruir la mantis en 1 segundo
+            {
+                Destroy(gameObject,1f);
+            }
     }
 }
