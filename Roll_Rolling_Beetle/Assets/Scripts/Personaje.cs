@@ -178,13 +178,13 @@ public class Personaje : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Poop")
+        /*if (collision.gameObject.tag == "TriggerPoop")
         {
             if (canHold)
             {
                 FrontColliderAction();
             }
-        }
+        }*/
         if (isAlive && collision.gameObject.tag == "Enemigo")
         {
             animBeetle.SetTrigger("dead");
@@ -194,7 +194,15 @@ public class Personaje : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Baba"))
+        if (other.gameObject.tag == "TriggerPoop")
+        {
+            if (canHold)
+            {
+                FrontColliderAction();
+            }
+        }
+
+        if (other.gameObject.CompareTag("Baba"))
         {
             maxMovementSpeed = maxMovementSpeed / 2;
             movementSpeed = movementSpeed / 2;

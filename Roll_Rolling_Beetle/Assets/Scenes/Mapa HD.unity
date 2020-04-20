@@ -1573,6 +1573,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743367795}
   m_Mesh: {fileID: 4300000, guid: b37a3cb77b4f69b4abb4ba8ba494180e, type: 3}
+--- !u!1 &810963278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4570147818556972908, guid: 13ec9b9b41320104088c97314ae00976,
+    type: 3}
+  m_PrefabInstance: {fileID: 3468171550026210071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &810963282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810963278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e36497fc207dc4cb20006a4fe4414c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CacaRotVel: 0
+  centro: {fileID: 1366299585}
 --- !u!1 &817822298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,6 +2900,12 @@ Transform:
   m_Father: {fileID: 1407087393}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1366299585 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5846340090092059784, guid: 13ec9b9b41320104088c97314ae00976,
+    type: 3}
+  m_PrefabInstance: {fileID: 3468171550026210071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1381005607
 GameObject:
   m_ObjectHideFlags: 0
@@ -6062,10 +6088,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: beetle
       objectReference: {fileID: 0}
+    - target: {fileID: 4129626264024607467, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570147818556972908, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: m_TagString
+      value: Poop
+      objectReference: {fileID: 0}
     - target: {fileID: 6370808355871509170, guid: 13ec9b9b41320104088c97314ae00976,
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370808355871509170, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: m_TagString
+      value: Poop
       objectReference: {fileID: 0}
     - target: {fileID: 7840707160483262955, guid: 13ec9b9b41320104088c97314ae00976,
         type: 3}

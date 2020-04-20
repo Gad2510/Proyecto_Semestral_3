@@ -10,6 +10,7 @@ public class FrontCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Poop"))
         {
+            Debug.Log("Toco");
             isPoop = true;
             collide = other;
         }
