@@ -9,6 +9,8 @@ public class Bala : MonoBehaviour
     float velAumento2;
     public Transform rastro;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,9 +42,11 @@ public class Bala : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Poop"))
         {
-            Destroy(gameObject);
+            collision.gameObject.GetComponent<PoopIncrement>().Decrement();
+
+            Destructor();
         }
     }
 

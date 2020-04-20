@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gusano : MonoBehaviour
 {
     BoxCollider coll;
+    SphereCollider trig;
     public GameObject posicionBala;
     public GameObject posicionRayo;
     GameObject jugador;
@@ -13,10 +14,11 @@ public class Gusano : MonoBehaviour
     public float cadencia = 3.0f;
     public LayerMask detection;
     Animator anim;
-    bool aumento = false;
+    bool aumento = false,dead= false;
     void Start()
     {
         coll = GetComponent<BoxCollider>();
+        trig = GetComponent<SphereCollider>();
         anim = GetComponent<Animator>();
         jugador = GameObject.FindGameObjectWithTag("Player");
     }
@@ -24,11 +26,15 @@ public class Gusano : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Aumento de cadencia cuando el jugador llega a 1500 puntos
-        if (PoopIncrement.score > 1500 && !aumento)
+        if (!dead)
         {
-            cadencia = 2.0f;
-            aumento = true;
+            //Aumento de cadencia cuando el jugador llega a 1500 puntos
+            if (PoopIncrement.score > 1500 && !aumento)
+            {
+                cadencia = 2.0f;
+                aumento = true;
+            }
+            Detection();
         }
     }
 
@@ -37,8 +43,9 @@ public class Gusano : MonoBehaviour
         if(collision.gameObject.CompareTag("Poop"))
         {
             coll.enabled = false;
+            trig.enabled = false;
             anim.SetTrigger("hit");
-            Destroy(gameObject,2f);
+            Invoke("Restart", 10f);
         }
     }
 
@@ -46,6 +53,7 @@ public class Gusano : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            coll.enabled = true;
             anim.SetBool("in_out", true);//Elevar torreta
         }
     }
@@ -54,9 +62,11 @@ public class Gusano : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            coll.enabled = false;
             anim.SetBool("in_out", false); //Esconder torreta
             recarga = 0;
         }
+        
     }
 
     private void OnTriggerStay(Collider other)
@@ -67,35 +77,51 @@ public class Gusano : MonoBehaviour
             transform.LookAt(jugador.transform);
             transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
             posicionRayo.transform.rotation = Quaternion.Euler(0.0f, posicionRayo.transform.localEulerAngles.y, posicionRayo.transform.localEulerAngles.z);
+        }
+    }
 
-            RaycastHit hit;
+    private void Detection()
+    {
+        RaycastHit hit;
 
-            Debug.DrawRay(posicionRayo.transform.position, posicionRayo.transform.forward * 15, Color.red);
+       
 
-            Ray direction = new Ray(posicionRayo.transform.position, posicionRayo.transform.forward);
+        Ray direction = new Ray(posicionRayo.transform.position, posicionRayo.transform.forward);
 
-            if (Physics.Raycast(direction, out hit,15f,detection))
+        if (Physics.Raycast(direction, out hit, 15f, detection))
+        {
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log(hit.collider.gameObject.tag);
-                if (hit.collider.gameObject.CompareTag("Player"))
-                {
-                    transform.LookAt(jugador.transform); //Mirar al jugador
-                    transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
+                transform.LookAt(jugador.transform); //Mirar al jugador
+                transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
 
-                    recarga += Time.deltaTime;
-                    anim.SetBool("shoot", false);
-                }
-                else
+                recarga += Time.deltaTime;
+                if (recarga >= cadencia)
                 {
+                    anim.SetTrigger("shoot");
                     recarga = 0;
                 }
             }
-            if(recarga >= cadencia)
+            else
             {
-                anim.SetBool("shoot", true);
-                Instantiate(bala, posicionBala.transform);
                 recarga = 0;
             }
         }
+    }
+
+    private void OnGUI()
+    {
+        Debug.DrawRay(posicionRayo.transform.position, posicionRayo.transform.forward * 15, Color.red);
+    }
+
+    public void Shoot()
+    {
+        Instantiate(bala, posicionBala.transform);
+    }
+
+    private void Restart()
+    {
+        dead = false;
+        trig.enabled = true;
     }
 }

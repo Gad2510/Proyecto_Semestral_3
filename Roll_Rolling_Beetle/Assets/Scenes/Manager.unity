@@ -155,15 +155,19 @@ MonoBehaviour:
   niveles:
   - nombre: Menu
     aditiveToLast: 0
+    loopBg: 1
     background: {fileID: 8300000, guid: 86c1773b097d3014c908a903879090e1, type: 3}
   - nombre: options
     aditiveToLast: 0
+    loopBg: 0
     background: {fileID: 0}
   - nombre: Mapa HD
     aditiveToLast: 0
+    loopBg: 1
     background: {fileID: 8300000, guid: b70a6167ea8bcc840af1dbd907b5a69c, type: 3}
   - nombre: GameOver
     aditiveToLast: 1
+    loopBg: 0
     background: {fileID: 8300000, guid: 30509307db15b5e47b38444ab22bcd45, type: 3}
   restart: 0
 --- !u!4 &1326155529

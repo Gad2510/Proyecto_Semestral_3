@@ -12,7 +12,7 @@ public class Scene_Manager_BH : MonoBehaviour
     LevelLogic[] niveles;
 
 
-    AudioSource audio;
+    AudioSource audioSr;
     SceneManage[] managers;
     public bool restart;
     int index = 0;
@@ -28,7 +28,7 @@ public class Scene_Manager_BH : MonoBehaviour
     {
         index = 0;
         lastLv = "";
-        audio = GetComponent<AudioSource>();
+        audioSr = GetComponent<AudioSource>();
         SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
         if (_instance == null)
         {
@@ -68,8 +68,13 @@ public class Scene_Manager_BH : MonoBehaviour
         if(!restart)
             SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
 
-        if(niveles[index].background!=null)
-            audio.clip = niveles[index].background;
+        if (niveles[index].background != null)
+        {
+            audioSr.clip = niveles[index].background;
+            audioSr.Play();
+            audioSr.loop = niveles[index].loopBg;
+        }
+            
     }
 
     public bool RestartLevel()
@@ -83,6 +88,6 @@ public class Scene_Manager_BH : MonoBehaviour
 public class LevelLogic
 {
     public string nombre;
-    public bool aditiveToLast;
+    public bool aditiveToLast,loopBg;
     public AudioClip background;
 }

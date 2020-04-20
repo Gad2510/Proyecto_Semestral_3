@@ -8,7 +8,7 @@ public class PoopIncrement : MonoBehaviour
     Text screenPoints;
     
     [SerializeField]
-    float bonusPoints=5;
+    float bonusPoints=20;
     [SerializeField]
     float pointsMul=100f;
     public static float score = 0;
@@ -36,7 +36,8 @@ public class PoopIncrement : MonoBehaviour
         screenPoints.text = "SCORE: " + screen.ToString();
         playerForward = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
 
-        InitScale = transform.localScale; 
+        InitScale = this.transform.localScale;
+        print(InitScale);
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
         
@@ -68,6 +69,28 @@ public class PoopIncrement : MonoBehaviour
             index.poopNumber--;
             Corroboration();
         }
+    }
+
+    public void Decrement()//Cuando es golpeado por el gusano
+    {
+        float points = 20;
+
+        float espontaniusDecrement = (points / pointsMul);
+
+        if ((transform.localScale.y- espontaniusDecrement) < InitScale.y)
+        {
+            espontaniusDecrement = InitScale.y;
+        }
+        transform.localScale -=sumV* espontaniusDecrement;  //decremento tamaño el tamaño
+        score -= points;
+
+        if (score < 0)
+        {
+            score = 0f;
+        }
+
+        float screen = Mathf.Round(score);
+        screenPoints.text = "SCORE: " + screen.ToString();
     }
 
     private void Corroboration()
