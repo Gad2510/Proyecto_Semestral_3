@@ -14,8 +14,8 @@ public class Scene_Manager_BH : MonoBehaviour
 
     AudioSource audioSr;
     SceneManage[] managers;
-    public bool restart;
-    int index = 0;
+    public bool loadScene,restart;
+    public int index = 0;
     string lastLv;
 
     public string LastLv
@@ -26,10 +26,15 @@ public class Scene_Manager_BH : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        index = 0;
         lastLv = "";
         audioSr = GetComponent<AudioSource>();
-        SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
+        if(loadScene)
+            SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
+        else
+        {
+            audioSr.enabled = false;
+        }
+
         if (_instance == null)
         {
             _instance = this;
