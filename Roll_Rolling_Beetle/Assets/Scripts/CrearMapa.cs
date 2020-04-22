@@ -9,12 +9,19 @@ public class CrearMapa : MonoBehaviour
     public Personaje playerRef;
 
     GameObject[] mapaRef;
+    Renderer[] mapRender;
     void Awake()
     {
+        mapRender = new Renderer[9];
         mapaRef = new GameObject[9];
+
         StartLevel();
     }
 
+    private void Update()
+    {
+        
+    }
 
     private void SetCoord(Vector3 coord, Transform g)
     {
@@ -58,9 +65,34 @@ public class CrearMapa : MonoBehaviour
                 SetCoord(coord, g.transform);
             }
         }
+
+        GameObject[] inScene = GameObject.FindGameObjectsWithTag("Ground");
+        
+        for(int i=0;i<inScene.Length;i++)
+        {
+            mapRender[i]=inScene[i].GetComponent<Renderer>();
+        }
+
+        InvokeRepeating("OutputVisibleRenderers", 1f, 1f);
+    }
+
+    void OutputVisibleRenderers()
+    {
+        foreach (var renderer in mapRender)
+        {
+            renderer.transform.parent.gameObject.SetActive(IsVisible(renderer));
+        }
+    }
+
+    private bool IsVisible(Renderer renderer)// Regresa si el objeto esta en la camara
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+
+        return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
     }
     public void RestartLevel()
     {
+        CancelInvoke();
         playerRef.gameObject.SetActive(true);
         playerRef.Revive();
 
