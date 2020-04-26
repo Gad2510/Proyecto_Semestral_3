@@ -91,7 +91,6 @@ public class Gusano : MonoBehaviour
             
             if (hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log(hit.transform.gameObject.name);
                 transform.LookAt(jugador.transform); //Mirar al jugador
                 transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
 

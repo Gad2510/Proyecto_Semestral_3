@@ -6,17 +6,17 @@ using UnityEngine.UI;
 public class PoopIncrement : MonoBehaviour
 {
     Text screenPoints;
-    
+
     [SerializeField]
-    float bonusPoints=20;
+    float bonusPoints = 20;
     [SerializeField]
-    float pointsMul=100f;
+    float pointsMul = 100f;
     public static float score = 0;
-    public bool IsScaling=false;
+    public bool IsScaling = false;
     Slider CacaPorcentage; // Slider UI para medir porcentaje
 
     [SerializeField]
-    float scaleIncrement=0.01f, maxScale=2f; //Valores para maxima escala y ratio de inclemento
+    float scaleIncrement = 0.01f, maxScale = 2f; //Valores para maxima escala y ratio de inclemento
 
     [SerializeField]
     Personaje playerForward;//Referencia al player
@@ -40,21 +40,30 @@ public class PoopIncrement : MonoBehaviour
         print(InitScale);
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
-        
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerForward.IsMoving && transform.localScale.y<maxScale) //Revisa si esta en movimietno la caca y si no ha llegado a su maxima escala
-        {
-            transform.localScale += sumV * scaleIncrement * Time.deltaTime;  //Aumenta el tamaño
-            CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
-            float screen = Mathf.Round(score);
-            screenPoints.text ="SCORE: "+screen.ToString();
-        }
+        
     }
 
+    public bool AddScore()
+    {
+        bool state = playerForward.IsMoving && transform.localScale.y < maxScale;
+        if (state) //Revisa si esta en movimietno la caca y si no ha llegado a su maxima escala
+        {
+            transform.localScale += sumV * scaleIncrement * Time.deltaTime;  //Aumenta el tamaño
+            score++;
+            CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
+            float screen = Mathf.Round(score);
+            screenPoints.text = "SCORE: " + screen.ToString();
+        }
+
+        return state;
+    }
     public void RestartScale() //Reinicia los stats a los iniciales
     {
         transform.localScale = InitScale;

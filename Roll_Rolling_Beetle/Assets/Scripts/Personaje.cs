@@ -173,7 +173,7 @@ public class Personaje : MonoBehaviour
             animBeetle.SetTrigger("holding");
             poopRigid.transform.SetParent(transform);
             canHold = false;
-            frontCollider.collide.gameObject.transform.localPosition = new Vector3(0, 0, .183f);
+            frontCollider.collide.gameObject.transform.position = frontCollider.transform.position;
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -261,6 +261,7 @@ public class Personaje : MonoBehaviour
     {
         if (isPoopInGame && actualPoop != null)
         {
+            
             //Si se mueve hacia adelante
             if (y > 0)
             {

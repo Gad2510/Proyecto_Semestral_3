@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DestruirTrigger : MonoBehaviour
 {
-    public GameObject poop;
+    public PoopIncrement poop;
     float maxScale = 3f;
     private void Start()
     {
-        poop = GameObject.FindGameObjectWithTag("Poop");
+        poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
     }
 
     //Aumentar puntuación
@@ -19,14 +19,13 @@ public class DestruirTrigger : MonoBehaviour
         {
             if(poop == null)
             {
-                poop = GameObject.FindGameObjectWithTag("Poop");
+                poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
 
             }
             else
             {
-                if (poop.GetComponent<Transform>().localScale.y < maxScale)
+                if (poop.AddScore())
                 {
-                    PoopIncrement.score += 1.0f;
                     Destroy(gameObject);
                 }
             }

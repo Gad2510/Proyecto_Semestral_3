@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class RodarCaca : MonoBehaviour
 {
-    GameObject escarabajo;
+    Personaje escarabajo;
     public float CacaRotVel;
     public GameObject centro;
 
 
     void Start()
     {
-        escarabajo = GameObject.FindGameObjectWithTag("Player");
+        escarabajo = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
         CacaRotVel = 3.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(escarabajo.GetComponent<Personaje>().poopshooted)
+        if(escarabajo.poopshooted)
         {
-           transform.RotateAround(centro.transform.position, centro.transform.right, CacaRotVel /** Time.deltaTime*/);
+           //transform.RotateAround(centro.transform.position, centro.transform.right, CacaRotVel /** Time.deltaTime*/);
         }
     }
 }
