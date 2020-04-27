@@ -68,8 +68,9 @@ public class CrearMapa : MonoBehaviour
 
         GameObject[] inScene = GameObject.FindGameObjectsWithTag("Ground");
         
-        for(int i=0;i<inScene.Length;i++)
+        for(int i=0;i<mapRender.Length;i++)
         {
+            Debug.Log("Creacion escena:- "+inScene[i].name+ " numero: "+i);
             mapRender[i]=inScene[i].GetComponent<Renderer>();
         }
 
@@ -93,6 +94,14 @@ public class CrearMapa : MonoBehaviour
     public void RestartLevel()
     {
         CancelInvoke();
+
+        GameObject[] popos = GameObject.FindGameObjectsWithTag("Poop");
+
+        for(int i = 1; i < popos.Length; i++)
+        {
+            Destroy(popos[i]);
+        }
+
         playerRef.gameObject.SetActive(true);
         playerRef.Revive();
 
@@ -101,6 +110,6 @@ public class CrearMapa : MonoBehaviour
             Destroy(mapaRef[i]);
         }
 
-        StartLevel();
+        Invoke("StartLevel",0.1f);
     }
 }

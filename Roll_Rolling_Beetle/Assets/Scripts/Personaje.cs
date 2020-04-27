@@ -243,7 +243,11 @@ public class Personaje : MonoBehaviour
     {   
         isAlive = true;
         animBeetle.SetTrigger("revive");
-
+        GameObject poop = GameObject.FindGameObjectWithTag("Poop");
+        poop.transform.position = frontCollider.transform.position;
+        poop.transform.parent = this.transform;
+        canHold = false;
+        spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         SpawnPosition();
 
     }
