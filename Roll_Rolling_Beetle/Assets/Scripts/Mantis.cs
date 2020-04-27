@@ -10,7 +10,7 @@ public class Mantis : MonoBehaviour
     public GameObject player;
     public GameObject caca;
     public float radioDeteccion;
-    public PoopIncrement poopSize;
+    public Transform poopSize;
 
     public Transform[] walkPoints;
     public float walkSpeed = 1.0f;
@@ -65,10 +65,7 @@ public class Mantis : MonoBehaviour
             walkSpeed = 1.0f;
             anim.speed = walkSpeed;
         }
-        if (poopSize == null)
-        {
-            poopSize = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
-        }
+            
     }
 
     void ChooseWalkPoint()
@@ -130,12 +127,16 @@ public class Mantis : MonoBehaviour
 
         else
         {
-            if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true && poopSize.transform.localScale.y > 16.0f)
+            if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true)
             {
-                anim.SetTrigger("dead");
-                Debug.Log(poopSize.transform.localScale.y);
-                selfcoll.enabled = false;
-                Destroy(gameObject, 0.5f);
+                poopSize= collision.transform;
+                if (poopSize.transform.localScale.y > 2.0f)
+                {
+                    anim.SetTrigger("dead");
+                    Debug.Log(poopSize.transform.localScale.y);
+                    selfcoll.enabled = false;
+                    Destroy(gameObject, 0.5f);
+                }
             }
         }
     }
