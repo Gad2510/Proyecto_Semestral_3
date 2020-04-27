@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 310668522983828429}
   - component: {fileID: 8526187390308728169}
   - component: {fileID: -3925504751796838103}
+  - component: {fileID: 3386548791585315499}
   m_Layer: 0
   m_Name: Roca
   m_TagString: Untagged
@@ -106,7 +107,23 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 2.2710001, y: 0.95900005, z: 3.0040002}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.010000001, y: 0.95900005, z: 0.18100001}
   m_TimeToStationary: 0.5
+--- !u!114 &3386548791585315499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310668522985996079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 4.72, y: 2.58, z: 6.44}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff

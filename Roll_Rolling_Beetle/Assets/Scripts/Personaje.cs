@@ -174,6 +174,8 @@ public class Personaje : MonoBehaviour
             poopRigid.transform.SetParent(transform);
             canHold = false;
             frontCollider.collide.gameObject.transform.position = frontCollider.transform.position;
+            //Girar al agarrar. por favor no lo borren
+            actualPoop.transform.rotation = this.transform.rotation;
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -189,7 +191,7 @@ public class Personaje : MonoBehaviour
     {
         if (other.gameObject.CompareTag("TriggerPoop"))
         {
-            print("hola");
+            //print("hola");
             if (canHold)
             {
                 FrontColliderAction();

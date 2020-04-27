@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6043503645716981747}
   - component: {fileID: 4027555104655151244}
   - component: {fileID: 6162116410717906253}
+  - component: {fileID: 2080611432904856524}
+  - component: {fileID: 433294487280972746}
   m_Layer: 0
   m_Name: Arbol-Mod-2
   m_TagString: Untagged
@@ -168,6 +170,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8658562, y: 2.181614, z: 2.5111847}
   m_Center: {x: 0.42354965, y: 3.117297, z: 0.29199982}
+--- !u!208 &2080611432904856524
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5997611053288943887}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.205, y: 2.104, z: 0.26}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.104, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &433294487280972746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5997611053288943887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 0.42, y: 3, z: 0.59}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &6696522198753005621
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +213,6 @@ GameObject:
   - component: {fileID: 9213561008250954392}
   - component: {fileID: 5759875431383691392}
   - component: {fileID: 1797912430759883440}
-  - component: {fileID: 5398518146095186315}
   m_Layer: 1
   m_Name: Plane
   m_TagString: Untagged
@@ -248,17 +281,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5398518146095186315
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6696522198753005621}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

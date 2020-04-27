@@ -8,17 +8,19 @@ public class TriggerScore : MonoBehaviour
     public BoxCollider puntos;
     //Padre que contiene todos los triggers
     public GameObject padre;
+    public int cantidad;
+    public float distancia;
 
     void Awake()
     {
         //Llenar de triggers el plano donde esta parado el jugador 
         //Colocar el GeneradorTriggers en el centro de cada plano
-        for (int i = 0; i <= 100; i++)
+        for (int i = 0; i <= cantidad; i++)
         {
-            for (int j = 0; j <= 100; j++)
+            for (int j = 0; j <= cantidad; j++)
             {
                 BoxCollider t = Instantiate(puntos, padre.transform);
-                t.transform.localPosition = new Vector3(i, 0.5f, j);
+                t.transform.localPosition = new Vector3(i*distancia, 0.5f, j*distancia);
             }
         }
         //Desactivar el padre que contiene todos los trigger del plano

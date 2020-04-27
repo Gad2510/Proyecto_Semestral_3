@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 5795890125569063845}
   - component: {fileID: 8357425807964942694}
   - component: {fileID: 8229428217388299556}
+  - component: {fileID: 7507271613244097347}
+  - component: {fileID: 6468503353571725500}
   m_Layer: 0
   m_Name: Armol-Mod-3
   m_TagString: Untagged
@@ -247,3 +249,35 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.2360382, y: 1.9587896, z: 1.5402756}
   m_Center: {x: 0.3990345, y: 3.6969173, z: 0.07284927}
+--- !u!208 &7507271613244097347
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5803176556599727185}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.18, y: 2.338, z: 0.27}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.338, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &6468503353571725500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5803176556599727185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 0.42, y: 3, z: 0.57}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff

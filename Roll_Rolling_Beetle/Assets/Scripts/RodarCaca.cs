@@ -20,7 +20,8 @@ public class RodarCaca : MonoBehaviour
     {
         if(escarabajo.poopshooted)
         {
-           //transform.RotateAround(centro.transform.position, centro.transform.right, CacaRotVel /** Time.deltaTime*/);
+            //Pero por favor no comenten mis cosas, pero oigame no me ahorco
+           transform.RotateAround(centro.transform.position, centro.transform.right, CacaRotVel /** Time.deltaTime*/);
         }
     }
 }
