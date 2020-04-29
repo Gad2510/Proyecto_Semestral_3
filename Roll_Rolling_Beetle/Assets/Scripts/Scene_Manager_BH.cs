@@ -13,11 +13,11 @@ public class Scene_Manager_BH : MonoBehaviour
 
 
     AudioSource audioSr;
-    SceneManage[] managers;
     public bool loadScene,restart;
     public int index = 0;
     string lastLv;
 
+    LoadSceneMode mode = LoadSceneMode.Additive;
     public string LastLv
     {
         set { lastLv = value; }
@@ -28,11 +28,13 @@ public class Scene_Manager_BH : MonoBehaviour
     {
         lastLv = "";
         audioSr = GetComponent<AudioSource>();
-        if(loadScene)
+        settings.LoadSettings();
+        if (loadScene)
             SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
         else
         {
             audioSr.enabled = false;
+            mode=LoadSceneMode.Single;
         }
 
         if (_instance == null)
@@ -44,7 +46,7 @@ public class Scene_Manager_BH : MonoBehaviour
             Destroy(this);
         }
 
-        settings.LoadSettings();
+        
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class Scene_Manager_BH : MonoBehaviour
     public void ChangeLevel(bool restart, int level)
     {
         this.restart = restart;
-        if (!niveles[level].aditiveToLast)
+        if (mode!=LoadSceneMode.Single && !niveles[level].aditiveToLast)
         {
             SceneManager.UnloadSceneAsync(niveles[index].nombre);
             if (niveles[index].aditiveToLast && !restart)
@@ -70,10 +72,13 @@ public class Scene_Manager_BH : MonoBehaviour
         }
         index = level;
 
-        if(!restart)
-            SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
+        if (mode == LoadSceneMode.Single || !restart)
+        {
+            SceneManager.LoadScene(niveles[index].nombre, mode);
+        }
+            
 
-        if (niveles[index].background != null)
+        if (mode != LoadSceneMode.Single && niveles[index].background != null)
         {
             audioSr.clip = niveles[index].background;
             audioSr.Play();
