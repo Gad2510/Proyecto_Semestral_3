@@ -5,7 +5,7 @@ using UnityEngine;
 public class DestruirTrigger : MonoBehaviour
 {
     public PoopIncrement poop;
-    float maxScale = 3f;
+
     private void Start()
     {
         poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();

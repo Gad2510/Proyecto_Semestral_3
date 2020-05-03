@@ -116,6 +116,7 @@ public class Personaje : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && !canHold)
             {
                 animBeetle.SetTrigger("shoot");
+                actualPoop.GetComponent<Rigidbody>().isKinematic = false;
             }
         }
         else if (state == PlayerState.THROWING)
@@ -193,6 +194,7 @@ public class Personaje : MonoBehaviour
             poopRigid = actualPoop.GetComponent<Rigidbody>();
             animBeetle.SetTrigger("holding");
             poopRigid.transform.SetParent(transform);
+            poopRigid.isKinematic = true;
             canHold = false;
             frontCollider.collide.gameObject.transform.position = frontCollider.transform.position;
             //Girar al agarrar. por favor no lo borren
@@ -232,12 +234,13 @@ public class Personaje : MonoBehaviour
             isAlive = false;
             this.gameObject.SetActive(false);
         }
-        if (other.gameObject.CompareTag("bonus") && canHold&&!isPoopInGame)
+        if (other.gameObject.CompareTag("bonus") && canHold && !isPoopInGame)
         {
             Destroy(other.gameObject);
-            actualPoop = GameObject.Instantiate(poopPrefab, frontCollider.transform.position, Quaternion.identity, this.transform);
+            actualPoop = Instantiate(poopPrefab, frontCollider.transform.position, Quaternion.identity, this.transform);
             frontCollider.isPoop = true;
             poopRigid = actualPoop.GetComponent<Rigidbody>();
+            poopRigid.isKinematic = true;
             animBeetle.SetTrigger("holding");
             canHold = false;
         }
@@ -300,5 +303,15 @@ public class Personaje : MonoBehaviour
                 actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, CacaRotVel * Time.deltaTime);
             }
         }
+    }
+
+    public void IfNoPoop()
+    {
+        state = PlayerState.WALKING;
+        poopRigid.transform.parent = null;
+        poopRigid.velocity = transform.forward * 10;
+        canHold = true;
+        timeTouched = 0f;
+        actualPoop = null;
     }
 }

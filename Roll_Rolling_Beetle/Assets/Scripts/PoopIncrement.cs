@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PoopIncrement : MonoBehaviour
 {
-    Text screenPoints;
+    public Text screenPoints;
 
     [SerializeField]
     float bonusPoints = 20;
@@ -13,7 +13,7 @@ public class PoopIncrement : MonoBehaviour
     float pointsMul = 100f;
     public static float score = 0;
     public bool IsScaling = false;
-    Slider CacaPorcentage; // Slider UI para medir porcentaje
+    public Slider CacaPorcentage; // Slider UI para medir porcentaje
 
     [SerializeField]
     float scaleIncrement = 0.01f, maxScale = 2f; //Valores para maxima escala y ratio de inclemento
@@ -40,15 +40,8 @@ public class PoopIncrement : MonoBehaviour
         print(InitScale);
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
-
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public bool AddScore()
     {

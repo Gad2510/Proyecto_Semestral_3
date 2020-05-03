@@ -8,13 +8,13 @@ public class Mantis : MonoBehaviour
     public Collider selfcoll;
     public SphereCollider rango;
     public GameObject player;
-    public GameObject caca;
+    //public GameObject caca;
     public float radioDeteccion;
     public Transform poopSize;
 
     public Transform[] walkPoints;
     public float walkSpeed = 1.0f;
-    public bool isIdle;
+    public bool isIdle = false;
 
     float aumento1 = 1.3f;
     float aumento2 = 1.6f;
@@ -23,7 +23,7 @@ public class Mantis : MonoBehaviour
     int walkIndexPrev;
 
     NavMeshAgent navAgent;
-    Animator anim;
+    public Animator anim;
 
     public bool siguiendoJugador = false;
 
@@ -41,13 +41,14 @@ public class Mantis : MonoBehaviour
     {
         //Activar aniimaciones en base al bool isIdle
         anim = GetComponentInChildren<Animator>();
-        anim.SetBool("walking", !isIdle);
+        anim.SetBool("walking", true);
     }
 
     private void Update()
     {
         if (!isIdle)
         {
+            anim.SetBool("walking", true);
             ChooseWalkPoint();
         }
         if(PoopIncrement.score > 1500 && siguiendoJugador)//Primer aumento
@@ -120,7 +121,7 @@ public class Mantis : MonoBehaviour
                 navAgent.isStopped = true;
                 navAgent.isStopped = true;
                 isIdle = true;
-                anim.SetBool("walking", !isIdle);
+                anim.SetBool("walking", false);
 
             }
         }
