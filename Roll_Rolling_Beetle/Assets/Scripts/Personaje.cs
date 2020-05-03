@@ -25,6 +25,11 @@ public class Personaje : MonoBehaviour
     public FrontCollider frontCollider;
     public float CacaRotVel;
 
+    //Flecha de direccion de popo
+    public bool pointerPoop;
+    public GameObject poopFollow;
+    public GameObject Arrow;
+
     Vector3 fingerDir;
 
     float startTouch, endTouch, timeTouched;
@@ -65,6 +70,7 @@ public class Personaje : MonoBehaviour
         timeTouched = 0f;
         SpawnPosition();
         CacaRotVel = 30.0f;
+        Arrow.SetActive(false);
     }
     void Update()
     {
@@ -156,6 +162,16 @@ public class Personaje : MonoBehaviour
     }
     public void ShootPoop()
     {
+        pointerPoop = true;
+        if(pointerPoop == true) //Hacer que aparezca la flecha si es true
+        {
+            Arrow.SetActive(true); 
+            Arrow.transform.LookAt(poopFollow.transform); //decirle que siga la popo
+            Arrow.transform.rotation = Quaternion.Euler(118.258f, 0.0f, transform.localEulerAngles.z);//Asignarle valor en x y y para que se mueva en z
+
+        }
+
+        //
         state = PlayerState.THROWING;
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
@@ -166,6 +182,11 @@ public class Personaje : MonoBehaviour
     }
     public void FrontColliderAction()
     {
+        pointerPoop = false;
+        if(pointerPoop==false)
+        {
+            Arrow.SetActive(false); //Si agarra la popo desactiva la flecha
+        }
         if (frontCollider.isPoop)
         {
             actualPoop = frontCollider.collide.gameObject;
