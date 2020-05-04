@@ -5,10 +5,25 @@ using UnityEngine;
 public class DestruirTrigger : MonoBehaviour
 {
     public PoopIncrement poop;
+    public FrontCollider frontPL; 
 
     private void Start()
     {
-        poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
+        GameObject check = GameObject.FindGameObjectWithTag("Poop");
+        if(check != null)
+        {
+            poop = check.GetComponent<PoopIncrement>();
+        }
+
+        frontPL = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>().frontCollider;
+    }
+
+    private void Update()
+    {
+        if(frontPL.isPoop)
+        {
+            poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
+        }
     }
 
     //Aumentar puntuación

@@ -7,7 +7,6 @@ public enum PlayerState { WALKING, THROWING, DEAD}
 public class Personaje : MonoBehaviour
 {
     Animator animBeetle;
-    Rigidbody rigi;
     public GameObject[] spawners;
     public Rigidbody poopRigid;
     public float maxMovementSpeed;
@@ -26,8 +25,6 @@ public class Personaje : MonoBehaviour
     public float CacaRotVel;
 
     //Flecha de direccion de popo
-    public bool pointerPoop;
-    public GameObject poopFollow;
     public GameObject Arrow;
 
     Vector3 fingerDir;
@@ -58,7 +55,6 @@ public class Personaje : MonoBehaviour
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();
-        rigi = GetComponent<Rigidbody>();
         canHold = false;
         isMoving = false;
         poopshooted = false;
@@ -163,17 +159,9 @@ public class Personaje : MonoBehaviour
     }
     public void ShootPoop()
     {
-        pointerPoop = true;
-        if(pointerPoop == true) //Hacer que aparezca la flecha si es true
-        {
-            Arrow.SetActive(true); 
-            Arrow.transform.LookAt(poopFollow.transform); //decirle que siga la popo
-            Arrow.transform.rotation = Quaternion.Euler(118.258f, 0.0f, transform.localEulerAngles.z);//Asignarle valor en x y y para que se mueva en z
-
-        }
-
-        //
+        Arrow.SetActive(true); 
         state = PlayerState.THROWING;
+        animBeetle.SetBool("holding", true);
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
         canHold = true;
@@ -183,16 +171,13 @@ public class Personaje : MonoBehaviour
     }
     public void FrontColliderAction()
     {
-        pointerPoop = false;
-        if(pointerPoop==false)
-        {
-            Arrow.SetActive(false); //Si agarra la popo desactiva la flecha
-        }
+        Arrow.SetActive(false); //Si agarra la popo desactiva la flecha
+
         if (frontCollider.isPoop)
         {
             actualPoop = frontCollider.collide.gameObject;
             poopRigid = actualPoop.GetComponent<Rigidbody>();
-            animBeetle.SetTrigger("holding");
+            animBeetle.SetBool("holding", false);
             poopRigid.transform.SetParent(transform);
             poopRigid.isKinematic = true;
             canHold = false;
@@ -239,9 +224,10 @@ public class Personaje : MonoBehaviour
             Destroy(other.gameObject);
             actualPoop = Instantiate(poopPrefab, frontCollider.transform.position, Quaternion.identity, this.transform);
             frontCollider.isPoop = true;
+            actualPoop.transform.rotation = this.transform.rotation;
             poopRigid = actualPoop.GetComponent<Rigidbody>();
             poopRigid.isKinematic = true;
-            animBeetle.SetTrigger("holding");
+            animBeetle.SetBool("holding", false);
             canHold = false;
         }
     }
@@ -307,7 +293,8 @@ public class Personaje : MonoBehaviour
 
     public void IfNoPoop()
     {
-        state = PlayerState.WALKING;
+        frontCollider.isPoop = false;
+        animBeetle.SetBool("holding", true);
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10;
         canHold = true;

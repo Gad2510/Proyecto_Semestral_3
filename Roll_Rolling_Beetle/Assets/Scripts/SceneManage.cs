@@ -11,7 +11,7 @@ public class SceneManage : MonoBehaviour
 
     public bool Restart
     {
-        set { restart = value; }
+        set { if (value) { PoopIncrement.score = 0; } restart = value; }
     }
 
     Scene_Manager_BH refToManager;

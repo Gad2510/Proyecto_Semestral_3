@@ -19,8 +19,8 @@ public class Nido : MonoBehaviour
         {
             per.IfNoPoop();
             poop.CacaPorcentage.value = 0.0f;
-            PoopIncrement.score += Mathf.Round(500.0f);
-            poop.screenPoints.text = "SCORE: " + PoopIncrement.score.ToString();
+            PoopIncrement.score += 500.0f;
+            poop.screenPoints.text = "SCORE: " + Mathf.Round(PoopIncrement.score).ToString();
 
             
             Destroy(other.gameObject);

@@ -296,7 +296,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -325,9 +325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dacaef3a8584e9438ac082151c2bef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenPoints: {fileID: 0}
   bonusPoints: 20
   pointsMul: 100
   IsScaling: 0
+  CacaPorcentage: {fileID: 0}
   scaleIncrement: 0.4
   maxScale: 3
   playerForward: {fileID: 0}
