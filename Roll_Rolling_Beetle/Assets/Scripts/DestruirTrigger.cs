@@ -5,7 +5,8 @@ using UnityEngine;
 public class DestruirTrigger : MonoBehaviour
 {
     public PoopIncrement poop;
-    public FrontCollider frontPL; 
+    public FrontCollider frontPL;
+    float timeToReactivate = 30.0f;
 
     private void Start()
     {
@@ -39,15 +40,24 @@ public class DestruirTrigger : MonoBehaviour
             }
             else
             {
-                if (poop.AddScore())
+                if(poop.AddScore())
                 {
-                    Destroy(gameObject);
+                    //Desactivar trigger
+                    gameObject.SetActive(false);
                 }
             }
-            
-            
-            
-            //Debug.Log(PoopIncrement.score);
         }
+    }
+
+    //Reactivar despues de un tiempo
+    private void OnDisable()
+    {
+        Invoke("EsperaryActivar", timeToReactivate);
+    }
+
+    //Funcion para reacativar triggers
+    public void EsperaryActivar()
+    {
+        gameObject.SetActive(true);
     }
 }

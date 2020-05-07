@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PoopIncrement : MonoBehaviour
 {
+    public float separacion;
     public Text screenPoints;
 
     [SerializeField]
@@ -49,6 +50,9 @@ public class PoopIncrement : MonoBehaviour
         if (state) //Revisa si esta en movimietno la caca y si no ha llegado a su maxima escala
         {
             transform.localScale += sumV * scaleIncrement * Time.deltaTime;  //Aumenta el tamaño
+            //Mover un poco hacia el frente
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + separacion);
+
             score++;
             CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
             float screen = Mathf.Round(score);

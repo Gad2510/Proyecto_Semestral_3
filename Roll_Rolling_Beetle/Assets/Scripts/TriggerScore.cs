@@ -41,7 +41,6 @@ public class TriggerScore : MonoBehaviour
         //Desactivar cuando el jugador sale de un plano
         if (other.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Se fue el jugador");
             padre.SetActive(false);
         }
     }
