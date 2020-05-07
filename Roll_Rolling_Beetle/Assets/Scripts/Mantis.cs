@@ -8,7 +8,7 @@ public class Mantis : MonoBehaviour
     public Collider selfcoll;
     public SphereCollider rango;
     public GameObject player;
-    //public GameObject caca;
+    UnityEngine.UI.Slider CacaPorcentage;
     public float radioDeteccion;
     public Transform poopSize;
 
@@ -30,6 +30,7 @@ public class Mantis : MonoBehaviour
     private void Awake()
     {
         selfcoll = GetComponent<Collider>();
+        CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
@@ -131,7 +132,7 @@ public class Mantis : MonoBehaviour
             if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true)
             {
                 poopSize= collision.transform;
-                if (poopSize.transform.localScale.y > 2.0f)
+                if (CacaPorcentage.value >= 0.7f)
                 {
                     anim.SetTrigger("dead");
                     Debug.Log(poopSize.transform.localScale.y);

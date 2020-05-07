@@ -8,6 +8,7 @@ public class Gusano : MonoBehaviour
     SphereCollider trig;
     public GameObject posicionBala;
     public GameObject posicionRayo;
+    UnityEngine.UI.Slider CacaPorcentage;
     GameObject jugador;
     public GameObject bala;
     public float recarga = 0;
@@ -20,6 +21,7 @@ public class Gusano : MonoBehaviour
         coll = GetComponent<BoxCollider>();
         trig = GetComponent<SphereCollider>();
         anim = GetComponent<Animator>();
+        CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
         jugador = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -39,7 +41,7 @@ public class Gusano : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Poop"))
+        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value>=0.4f)
         {
             coll.enabled = false;
             trig.enabled = false;
