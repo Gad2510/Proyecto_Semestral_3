@@ -23,20 +23,8 @@ public class Scene_Manager_BH : MonoBehaviour
         set { lastLv = value; }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        lastLv = "";
-        audioSr = GetComponent<AudioSource>();
-        settings.LoadSettings();
-        if (loadScene)
-            SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
-        else
-        {
-            audioSr.enabled = false;
-            mode=LoadSceneMode.Single;
-        }
-
         if (_instance == null)
         {
             _instance = this;
@@ -45,8 +33,22 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             Destroy(this);
         }
+    }
 
-        
+    // Start is called before the first frame update
+    void Start()
+    {
+        lastLv = "";
+        audioSr = GetComponent<AudioSource>();
+        settings = Resources.Load<PlayerSettings>("PlayerSettings");
+        settings.LoadSettings();
+        if (loadScene)
+            SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
+        else
+        {
+            audioSr.enabled = false;
+            mode = LoadSceneMode.Single;
+        }
     }
 
     // Update is called once per frame

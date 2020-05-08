@@ -12,6 +12,7 @@ public class CrearMapa : MonoBehaviour
     Renderer[] mapRender;
     void Awake()
     {
+        terrenoD = Resources.Load<MapaAleatorio>("MapaAleatorio");
         mapRender = new Renderer[9];
         mapaRef = new GameObject[9];
 
