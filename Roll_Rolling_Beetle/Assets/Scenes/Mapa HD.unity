@@ -6479,12 +6479,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1879006298, guid: e9b93240785c0f14eaf0588550772dd2, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1879006302, guid: e9b93240785c0f14eaf0588550772dd2, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 965470267}
+    - target: {fileID: 1879006302, guid: e9b93240785c0f14eaf0588550772dd2, type: 3}
+      propertyPath: newpoop
+      value: 
+      objectReference: {fileID: 7514471294119661951, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
+        type: 3}
     - target: {fileID: 1256934651790967183, guid: e9b93240785c0f14eaf0588550772dd2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6715,6 +6720,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2850286658136582031, guid: e9b93240785c0f14eaf0588550772dd2,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 965470267}
+    - target: {fileID: 7963016758875720174, guid: e9b93240785c0f14eaf0588550772dd2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9b93240785c0f14eaf0588550772dd2, type: 3}
 --- !u!1 &1256934652801324259 stripped
@@ -6738,6 +6753,12 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_EffectDistance: {x: 6, y: 6}
   m_UseGraphicAlpha: 1
+--- !u!1 &1256934652801324261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3847092884839759151, guid: e9b93240785c0f14eaf0588550772dd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1256934652801324258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1405058180414202863
 GameObject:
   m_ObjectHideFlags: 0
@@ -7222,6 +7243,11 @@ PrefabInstance:
       propertyPath: Arrow
       value: 
       objectReference: {fileID: 1419180567}
+    - target: {fileID: 7840707160483262955, guid: 13ec9b9b41320104088c97314ae00976,
+        type: 3}
+      propertyPath: ArrowHome
+      value: 
+      objectReference: {fileID: 1256934652801324261}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13ec9b9b41320104088c97314ae00976, type: 3}
 --- !u!114 &3468171550026210072 stripped
