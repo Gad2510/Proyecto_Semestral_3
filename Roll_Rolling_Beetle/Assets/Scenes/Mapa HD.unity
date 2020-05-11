@@ -3704,12 +3704,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 2.5, y: 1.07, z: 0.002}
   m_TimeToStationary: 0.5
---- !u!1 &1419180567 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1879006297, guid: e9b93240785c0f14eaf0588550772dd2,
+--- !u!114 &1419180569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1879006302, guid: e9b93240785c0f14eaf0588550772dd2,
     type: 3}
   m_PrefabInstance: {fileID: 1256934652801324258}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018f57713f684fd40a8566285920c1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1438430564 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6370808355871509170, guid: 13ec9b9b41320104088c97314ae00976,
@@ -7677,7 +7683,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Arrow
       value: 
-      objectReference: {fileID: 1419180567}
+      objectReference: {fileID: 1419180569}
     - target: {fileID: 7840707160483262955, guid: 13ec9b9b41320104088c97314ae00976,
         type: 3}
       propertyPath: ArrowHome
