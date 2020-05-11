@@ -71,11 +71,10 @@ public class CrearMapa : MonoBehaviour
         
         for(int i=0;i<mapRender.Length;i++)
         {
-            Debug.Log("Creacion escena:- "+inScene[i].name+ " numero: "+i);
             mapRender[i]=inScene[i].GetComponent<Renderer>();
         }
 
-        InvokeRepeating("OutputVisibleRenderers", 1f, 1f);
+        InvokeRepeating("OutputVisibleRenderers", 1f, 0.5f);
     }
 
     void OutputVisibleRenderers()
