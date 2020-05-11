@@ -46,6 +46,6 @@ public class apuntar : MonoBehaviour
     public void searchnewpoop()
     {
         //Falta ponerle que se haga cuando se destruya la otra poop
-        objetToPoint = GetComponent<Personaje>().actualPoop;
+        objetToPoint = GameObject.FindGameObjectWithTag(tagObject);
     }
 }

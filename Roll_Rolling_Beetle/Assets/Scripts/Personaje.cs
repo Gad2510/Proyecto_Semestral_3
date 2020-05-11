@@ -26,7 +26,7 @@ public class Personaje : MonoBehaviour
     float dir=1f;
 
     //Flecha de direccion de popo
-    public GameObject Arrow;
+    public apuntar Arrow;
     public GameObject ArrowHome;
 
     FollowPlayer camPos;
@@ -70,7 +70,7 @@ public class Personaje : MonoBehaviour
         timeTouched = 0f;
         SpawnPosition();
         CacaRotVel = 30.0f;
-        Arrow.SetActive(false);
+        Arrow.gameObject.SetActive(false);
         ArrowHome.SetActive(true);
     }
     void Update()
@@ -164,7 +164,7 @@ public class Personaje : MonoBehaviour
     }
     public void ShootPoop()
     {
-        Arrow.SetActive(true); //Activa la flecha al apuntar
+        Arrow.gameObject.SetActive(true); //Activa la flecha al apuntar
         ArrowHome.SetActive(false); //Desactivar la de la casa
         state = PlayerState.THROWING;
         animBeetle.SetBool("holding", true);
@@ -177,7 +177,7 @@ public class Personaje : MonoBehaviour
     }
     public void FrontColliderAction()
     {
-        Arrow.SetActive(false); //Si agarra la popo desactiva la flecha
+        Arrow.gameObject.SetActive(false); //Si agarra la popo desactiva la flecha
         ArrowHome.SetActive(true);
         if (frontCollider.isPoop )
         {
@@ -251,6 +251,8 @@ public class Personaje : MonoBehaviour
             poopRigid.isKinematic = true;
             animBeetle.SetBool("holding", false);
             canHold = false;
+            Arrow.searchnewpoop();
+
         }
     }
     private void OnTriggerExit(Collider other)
