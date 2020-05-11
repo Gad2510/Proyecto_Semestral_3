@@ -21,12 +21,15 @@ public class Personaje : MonoBehaviour
     public PlayerState state;
     public GameObject poopPrefab;
     public GameObject actualPoop;
-    public FrontCollider frontCollider;
+    public FrontCollider frontCollider, backCollider;
     public float CacaRotVel;
+    float dir=1f;
 
     //Flecha de direccion de popo
     public GameObject Arrow;
     public GameObject ArrowHome;
+
+    FollowPlayer camPos;
 
     Vector3 fingerDir;
 
@@ -51,8 +54,8 @@ public class Personaje : MonoBehaviour
     void Start()
     {
         
-        FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
-        cam.PlayerPos = this.transform.Find("CameraPoint").gameObject;
+        camPos = Camera.main.GetComponent<FollowPlayer>();
+        camPos.PlayerPos = this.transform.Find("CameraPoint").gameObject;
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();
@@ -79,7 +82,7 @@ public class Personaje : MonoBehaviour
             float y = Input.GetAxis("Vertical");
             //float x = fingerDir.x;
             //float y = fingerDir.y;
-
+            y *= dir;
             timeSinceShot = 0;
             if (canHold)
             {
@@ -166,7 +169,7 @@ public class Personaje : MonoBehaviour
         state = PlayerState.THROWING;
         animBeetle.SetBool("holding", true);
         poopRigid.transform.parent = null;
-        poopRigid.velocity = transform.forward * 10;
+        poopRigid.velocity = transform.forward * 10* dir;
         canHold = true;
         poopshooted = true;
         timeTouched = 0f;
@@ -176,17 +179,34 @@ public class Personaje : MonoBehaviour
     {
         Arrow.SetActive(false); //Si agarra la popo desactiva la flecha
         ArrowHome.SetActive(true);
-        if (frontCollider.isPoop)
+        if (frontCollider.isPoop )
         {
-            actualPoop = frontCollider.collide.gameObject;
-            poopRigid = actualPoop.GetComponent<Rigidbody>();
-            animBeetle.SetBool("holding", false);
-            poopRigid.transform.SetParent(transform);
-            poopRigid.isKinematic = true;
-            canHold = false;
-            frontCollider.collide.gameObject.transform.position = frontCollider.transform.position; //Girar al agarrar. por favor no lo borren
-            actualPoop.transform.rotation = this.transform.rotation;
+            ChooseCollider(frontCollider);
+            animBeetle.SetLayerWeight(0, 1f);
+            animBeetle.SetLayerWeight(1, 0f);
+            camPos.InverseRot=false;
+            dir = 1f;
         }
+        else if (backCollider.isPoop)
+        {
+            ChooseCollider(backCollider);
+            animBeetle.SetLayerWeight(0, 0f);
+            animBeetle.SetLayerWeight(1, 1f);
+            camPos.InverseRot = true;
+            dir = -1f;
+        }
+    }
+
+    void ChooseCollider(FrontCollider currentColl, bool animState=false)
+    {
+        actualPoop = currentColl.collide.gameObject;
+        poopRigid = actualPoop.GetComponent<Rigidbody>();
+        animBeetle.SetBool("holding", false);
+        poopRigid.transform.SetParent(transform);
+        poopRigid.isKinematic = true;
+        canHold = false;
+        currentColl.collide.gameObject.transform.position = currentColl.transform.position; //Girar al agarrar. por favor no lo borren
+        actualPoop.transform.rotation = this.transform.rotation;
     }
     void OnCollisionEnter(Collision collision)
     {

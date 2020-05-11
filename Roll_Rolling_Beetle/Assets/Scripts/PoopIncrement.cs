@@ -38,7 +38,6 @@ public class PoopIncrement : MonoBehaviour
         playerForward = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
 
         InitScale = this.transform.localScale;
-        print(InitScale);
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
     }

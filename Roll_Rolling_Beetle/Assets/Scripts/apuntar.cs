@@ -5,51 +5,47 @@ using UnityEngine.UI;
 
 public class apuntar : MonoBehaviour
 {
-    public GameObject poop;
+    GameObject objetToPoint;
     public Camera cam;
-    public GameObject newpoop;
+
+    public string tagObject;
 
     private void Start()
     {
-        poop = GameObject.FindGameObjectWithTag("Poop"); //Buscamos la popo por su etiqueta
-        
+        objetToPoint = GameObject.FindGameObjectWithTag(tagObject); //Buscamos la Casa por su etiqueta
     }
 
     void Update()
     {
-        MovePointer();
-        //searchnewpoop();
+        MovePointerHome();
     }
-    
-    void MovePointer()
+
+    void MovePointerHome()
     {
-       Vector3 screenObj = cam.WorldToScreenPoint(poop.transform.position);
-        
-            if (Vector3.Distance(transform.position, screenObj) > 15)
+        Vector3 screenObj = cam.WorldToScreenPoint(objetToPoint.transform.position);
+        if (Vector3.Distance(transform.position, screenObj) > 15)
+        {
+            float distance = Vector3.Distance(cam.transform.position, objetToPoint.transform.transform.position);
+            Vector3 forward = cam.transform.forward;
+            Vector3 objPos = (objetToPoint.transform.position - cam.transform.position).normalized;
+            float dot = Vector3.Dot(objPos, forward);
+
+            float zRotation = (Mathf.Atan2(screenObj.y - transform.position.y, screenObj.x - transform.position.x) * Mathf.Rad2Deg);
+
+            if (dot < 0.0f)//Checa si el objeto esta fuera de pantalla y corrige la ubicacion
             {
-                float distance = Vector3.Distance(cam.transform.position, poop.transform.transform.position);
-                Vector2 forward = new Vector2(cam.transform.forward.x, cam.transform.forward.z);
-                Vector2 objPos = new Vector2(poop.transform.transform.position.x - cam.transform.position.x, poop.transform.transform.position.z - cam.transform.position.z) / distance;
-                float dot = Vector2.Dot(objPos, forward);
-                float anglepos = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-
-                float zRotation = (Mathf.Atan2(screenObj.y - transform.position.y, screenObj.x - transform.position.x) * Mathf.Rad2Deg);
-
-                if (anglepos < 90.0f)
-                {
-                    transform.eulerAngles = new Vector3(0, 0, zRotation + 90);
-                }
-                else
-                {
-                    transform.eulerAngles = new Vector3(0, 0, zRotation - 90);
-                }
+                transform.eulerAngles = new Vector3(0, 0, zRotation - 90);
             }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, zRotation + 90);
+            }
+        }
     }
 
-   public void searchnewpoop()
+    public void searchnewpoop()
     {
         //Falta ponerle que se haga cuando se destruya la otra poop
-        poop = GetComponent<Personaje>().actualPoop;
+        objetToPoint = GetComponent<Personaje>().actualPoop;
     }
 }
