@@ -164,7 +164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &127613327
 GameObject:
@@ -442,7 +442,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1.01
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5696501172869492892, guid: 48dfb3f86676fdb40ba8e8cde6f4cd72, type: 3}
+    - {fileID: 5696501172869492883, guid: 48dfb3f86676fdb40ba8e8cde6f4cd72, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 48dfb3f86676fdb40ba8e8cde6f4cd72, type: 3}
 --- !u!1 &547687164
 GameObject:
@@ -469,15 +471,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547687164}
   m_LocalRotation: {x: 0.27822003, y: 0, z: 0, w: 0.96051735}
-  m_LocalPosition: {x: 0, y: 0, z: 188}
-  m_LocalScale: {x: 45.782974, y: 79.26559, z: 16.565409}
+  m_LocalPosition: {x: 0, y: 0, z: 154}
+  m_LocalScale: {x: 55.40655, y: 79.26559, z: 16.565409}
   m_Children: []
   m_Father: {fileID: 1220464277}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 32.308002, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 29, y: -212}
+  m_AnchoredPosition: {x: 11, y: -266}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &547687166
@@ -602,7 +604,7 @@ Transform:
   m_LocalScale: {x: 5.4683547, y: 5.4683547, z: 5.4683547}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &702720084
 GameObject:
@@ -1026,6 +1028,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2005615575154353128, guid: d8ba438bf92cfc94fa6c83b20535aab4,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857125, guid: d8ba438bf92cfc94fa6c83b20535aab4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1096,12 +1103,23 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8733298226997857128, guid: d8ba438bf92cfc94fa6c83b20535aab4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8733298226997857130, guid: d8ba438bf92cfc94fa6c83b20535aab4,
         type: 3}
       propertyPath: m_Name
       value: Mantis (UI)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8733298226997857129, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
+    - {fileID: 8733298226997857128, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
+    - {fileID: 8733298226997857124, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
+    - {fileID: 8733298226997857123, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
+    - {fileID: 8733298226997857122, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
+    - {fileID: 7680554805006947071, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d8ba438bf92cfc94fa6c83b20535aab4, type: 3}
 --- !u!1001 &1351715340
 PrefabInstance:
@@ -1110,20 +1128,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2906338266222679332, guid: cd0da44f6ae237643aeb03d795578431,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4338150247515505447, guid: cd0da44f6ae237643aeb03d795578431,
         type: 3}
       propertyPath: m_Name
       value: SceneManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338150247515505448, guid: cd0da44f6ae237643aeb03d795578431,
-        type: 3}
-      propertyPath: loadScene
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338150247515505448, guid: cd0da44f6ae237643aeb03d795578431,
-        type: 3}
-      propertyPath: index
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4338150247515505449, guid: cd0da44f6ae237643aeb03d795578431,
         type: 3}
@@ -1215,7 +1228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 111}
+  m_AnchoredPosition: {x: 6, y: 179}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1572442965
