@@ -6,7 +6,8 @@
         _ColorWarnnig("Color Advetencia",Color)=(1,0,0,0)
         _ShadowIntensity("ShadowIntensity", Range(0,1))=0.5
         _MainTex ("Texture", 2D) = "white" {}
-
+        _SecTex ("Ground", 2D)="white"{}
+        _Mask("Mascara", 2D)="black"{}
         _Water("Agua",2D)="white" {}
         _ShadowsMask("Mask", 2D)="white" {}
 
@@ -42,6 +43,8 @@
             };
 
             sampler2D _MainTex;
+            sampler2D _SecTex;
+            sampler2D _Mask;
             sampler2D _ShadowsMask;
             sampler2D _Water;
             float _ShadowIntensity;
@@ -64,24 +67,29 @@
                 fixed2 uv = ((i.uv) + fixed2(_Cord.x,_Cord.y))/_Cord.z;
                 fixed4 mask=tex2D(_ShadowsMask,uv);
 
+                fixed4 grass=tex2D(_MainTex, i.uv*20);
+                fixed4 ground=tex2D(_SecTex, i.uv*20);
+                fixed4 texmask=tex2D(_Mask, i.uv);
                 // sample the texture
                 fixed4 tex;
                 if(mask.b>0.3){
                     tex=tex2D(_Water, i.uv*20);
 				} 
                 else{
-                    tex= tex2D(_MainTex, i.uv*20);   
+                    
+                    tex= lerp(grass,ground,texmask.r);
+                    
 				}
                 
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, tex);
                 
-                fixed4 birdCol=_ColorWarnnig;
+                /*fixed4 birdCol=_ColorWarnnig;
                 birdCol.g=abs(sin(_Time.w));
 
                 float4 col=lerp(_Color,_Color*_ShadowIntensity,mask.g);
-                col=lerp(col,birdCol,mask.r);
-                return tex*col;
+                col=lerp(col,birdCol,mask.r);*/
+                return tex;
             }
             ENDCG
         }
