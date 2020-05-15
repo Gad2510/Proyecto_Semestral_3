@@ -266,7 +266,7 @@ public class Personaje : MonoBehaviour
     public void ChangeScene() {
         float score = Mathf.Round(PoopIncrement.score);
         GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-        canvas.SetActive(false);
+        //canvas.SetActive(false);
         Scene_Manager_BH._instance.settings.UpdateScore(score);
         Scene_Manager_BH._instance.ChangeLevel(false,3);
     }
