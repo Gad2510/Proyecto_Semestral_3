@@ -85,17 +85,12 @@ public class DestruirTrigger : MonoBehaviour
                 {
                     FindMat();
                     ChangeColor(Color.white);
+                    Invoke("EsperaryActivar", timeToReactivate);
                     //Desactivar trigger
                     gameObject.SetActive(false);
                 }
             }
         }
-    }
-
-    //Reactivar despues de un tiempo
-    private void OnDisable()
-    {
-        Invoke("EsperaryActivar", timeToReactivate);
     }
 
     //Funcion para reacativar triggers
