@@ -11,10 +11,15 @@ public class AudioManager : MonoBehaviour
     public BackgrounByType[] backgroundSounds;
     public AudioSource[] g_audio;
 
-    public bool sfxEnable;
-    public bool musicEnable;
+    public bool sfxEnable = true;
+    public bool musicEnable = true;
 
     public void Start()
+    {
+        sfx.enabled = true;
+    }
+
+    public void Awake() 
     {
         if (_instance == null)
         {
@@ -32,27 +37,32 @@ public class AudioManager : MonoBehaviour
     {
         return _instance;
     }
-
     public void PlayAudio(AUDIO_TYPE _t) //2d
     {
-        for(int i = 0; i < audios.Length; i++)
+        if (sfxEnable)
         {
-            if(audios[i].type == _t)
+            for (int i = 0; i < audios.Length; i++)
             {
-                sfx.PlayOneShot(audios[i].clip);
-                break;
+                if (audios[i].type == _t)
+                {
+                    sfx.PlayOneShot(audios[i].clip);
+                    break;
+                }
             }
         }
     }
     public void PlayBackground(BACKGROUND_TYPE _t) //2d
     {
-        for (int i = 0; i < backgroundSounds.Length; i++)
+        if (musicEnable)
         {
-            if (backgroundSounds[i].type == _t)
+            for (int i = 0; i < backgroundSounds.Length; i++)
             {
-                music.clip = backgroundSounds[i].clip;
-                music.Play();
-                break;
+                if (backgroundSounds[i].type == _t)
+                {
+                    music.clip = backgroundSounds[i].clip;
+                    music.Play();
+                    break;
+                }
             }
         }
     }
@@ -68,11 +78,19 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+    public void SfxEnableConfiguration()
+    {
+        sfxEnable = !sfxEnable;
+    }
+    public void MusicEnableConfiguration()
+    {
+        musicEnable = !musicEnable;
+    }
 }
 
 public enum AUDIO_TYPE
 {
-    BUTTON,APLASTADO_CACA,MUERTE_MANTIS,MUERTE_GUSANO,MUERTE_JUGADOR
+    BUTTON, APLASTADO_CACA, MUERTE_MANTIS, MUERTE_GUSANO, MUERTE_JUGADOR
 }
 public enum BACKGROUND_TYPE
 {
