@@ -10,6 +10,8 @@ public class FollowPlayer : MonoBehaviour
     float rotation;// Modifica la rotacion de la camara
     float offset;//Modifica la posicion de la camara
     public float transitionDuration = 0.5f; // Duracion del cambio de camara
+    [Range (0f,1f)]
+    public float diferrenceTrans_Rot = 0.25f;
     GameObject refToPlayer;//Referencia al jugador
 
     public GameObject PlayerPos {
@@ -54,19 +56,35 @@ public class FollowPlayer : MonoBehaviour
     {
         float offsetPos = offset;
         float rot = rotation;
-        float counter = 0f;
-        while (counter < 1f)
+        float counterTrans = 0f;
+        float counterRot = 0f;
+        while (counterRot < 1f)
         {
-            float dir = (inverseRot) ? counter : 1-counter;//Selecciona una manera de mover las variables
-            offsetPos = (dir * offsetDistance);//Multiplica el valor total por las fracciones del resultante
-            rot = (dir * 180);
-            offset = offsetPos;//Pone los valores en su respectivo lugar
+            float dirRot = (inverseRot) ? counterRot : 1- counterRot;//Selecciona una manera de mover las variables
+            rot = (dirRot * 180);
             rotation = rot;
-            counter += Time.deltaTime/transitionDuration;
+            counterRot += Time.deltaTime / transitionDuration;
+
+            if (counterRot >= diferrenceTrans_Rot)
+            {
+                float dirTrans= (inverseRot) ? counterTrans : 1 - counterTrans;//Selecciona una manera de mover las variables
+                offsetPos = (dirTrans * offsetDistance);//Multiplica el valor total por las fracciones del resultante
+                offset = offsetPos;//Pone los valores en su respectivo lugar
+                counterTrans+= Time.deltaTime / transitionDuration;
+            }
+
             yield return null;
         }
-
         rotation = (inverseRot) ? 180f:0f;//Set para que queden los valores en posiciones exactas
+        while (counterTrans < 1f)
+        {
+            float dirTrans = (inverseRot) ? counterTrans : 1 - counterTrans;//Selecciona una manera de mover las variables
+            offsetPos = (dirTrans * offsetDistance);//Multiplica el valor total por las fracciones del resultante
+            offset = offsetPos;//Pone los valores en su respectivo lugar
+            counterTrans += Time.deltaTime / transitionDuration;
+
+            yield return null;
+        }
         offset = (inverseRot) ? offsetDistance:0f;
     }
 }
