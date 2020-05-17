@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
+public enum SCENE_STATE{ MENU, OPTIONS, JUEGO, GAMEOVER}
+
 public class Scene_Manager_BH : MonoBehaviour
 {
     public static Scene_Manager_BH _instance;
     public PlayerSettings settings;
+    public SCENE_STATE currentScene;
     [SerializeField]
     LevelLogic[] niveles;
 
-
-    AudioSource audioSr;
     public bool loadScene,restart;
     public int index = 0;
     string lastLv;
@@ -39,14 +40,12 @@ public class Scene_Manager_BH : MonoBehaviour
     void Start()
     {
         lastLv = "";
-        audioSr = GetComponent<AudioSource>();
         settings = Resources.Load<PlayerSettings>("PlayerSettings");
         settings.LoadSettings();
         if (loadScene)
             SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
         else
         {
-            audioSr.enabled = false;
             mode = LoadSceneMode.Single;
         }
     }
@@ -78,15 +77,14 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             SceneManager.LoadScene(niveles[index].nombre, mode);
         }
-            
-
-        if (mode != LoadSceneMode.Single && niveles[index].background != null)
+        if(level == 3)
         {
-            audioSr.clip = niveles[index].background;
-            audioSr.Play();
-            audioSr.loop = niveles[index].loopBg;
+            AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.GAME_OVER);
         }
-            
+        if (level == 0)
+        {
+            AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL1);
+        }
     }
 
     public bool RestartLevel()
@@ -101,5 +99,4 @@ public class LevelLogic
 {
     public string nombre;
     public bool aditiveToLast,loopBg;
-    public AudioClip background;
 }

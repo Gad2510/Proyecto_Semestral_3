@@ -31,6 +31,7 @@ public class SceneManage : MonoBehaviour
 
     public void ChangeLevel(int index)
     {
+        AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.BUTTON);
         refToManager.ChangeLevel(restart,index);
     }
 

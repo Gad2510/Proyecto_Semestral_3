@@ -25,6 +25,10 @@ public class Personaje : MonoBehaviour
     public float CacaRotVel;
     float dir=1f;
 
+    bool lvl2music;
+    bool lvl3music;
+    bool lvl4music;
+
     //Flecha de direccion de popo
     public apuntar Arrow;
     public GameObject ArrowHome;
@@ -130,6 +134,18 @@ public class Personaje : MonoBehaviour
             }
         }
 
+        //////////////// Musica ////////////////
+        if (PoopIncrement.score > 50 && !lvl2music)
+        {
+            lvl2music = true;
+            AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL2);
+        }
+        else if (PoopIncrement.score > 100 && !lvl3music)
+        {
+            lvl3music = true;
+            AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL3);
+        }
+        ////////////////////////////////////////
         if (Input.GetKeyDown(KeyCode.H))
         {
             animBeetle.SetTrigger("dead");
@@ -214,6 +230,7 @@ public class Personaje : MonoBehaviour
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_JUGADOR);
         }
 
     }
