@@ -44,19 +44,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 1d093d7a1b2b17645a4318741e348df1, type: 2}
+  currentScene:
+    nombre: 
+    aditiveToLast: 0
+    InitMusic: 0
   niveles:
   - nombre: Menu
     aditiveToLast: 0
-    loopBg: 1
+    InitMusic: 1
   - nombre: options
     aditiveToLast: 0
-    loopBg: 0
+    InitMusic: 1
   - nombre: Mapa HD
     aditiveToLast: 0
-    loopBg: 1
+    InitMusic: 2
   - nombre: GameOver
-    aditiveToLast: 1
-    loopBg: 0
+    aditiveToLast: 0
+    InitMusic: 0
   loadScene: 0
   restart: 0
   index: 3

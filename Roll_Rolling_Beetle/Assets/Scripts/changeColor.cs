@@ -19,7 +19,7 @@ public class changeColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.canHold==true && player.actualPoop == null)
+        if(player.canHold==true && player.poopRigid == null)
         {
             mesh.material.color = Color.Lerp(initCol, whiteRef, Mathf.Sin(Time.time*2));
         }

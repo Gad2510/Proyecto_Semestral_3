@@ -16,25 +16,21 @@ public class AudioManager : MonoBehaviour
 
     public void Start()
     {
-        sfx.enabled = true;
-    }
-
-    public static AudioManager GetInstance()
-    {
-        return _instance;
-    }
-
-    public void Awake()
-    {
         if (_instance == null)
         {
             _instance = this;
+            PlayBackground(Scene_Manager_BH._instance.currentScene.InitMusic);
             DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public static AudioManager GetInstance()
+    {
+        return _instance;
     }
 
     public void PlayAudio(AUDIO_TYPE _t) //2d

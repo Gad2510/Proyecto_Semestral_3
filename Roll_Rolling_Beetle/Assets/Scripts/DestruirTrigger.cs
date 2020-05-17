@@ -8,7 +8,6 @@ public class DestruirTrigger : MonoBehaviour
     Texture2D texture;//Textura que modifica para ponerla en la final
     int alcance=2;// Alcanse del cambio en pixeles
     public Vector2 COORD;//Cordenadas en las UV para saber donde esta en el objeto
-    public string nameGO;
     public PoopIncrement poop;
     public FrontCollider frontPL, backPL;
     float timeToReactivate = 30.0f;
@@ -74,14 +73,15 @@ public class DestruirTrigger : MonoBehaviour
         //Destruir al ser tocadas por la bola
         if(other.gameObject.CompareTag("Poop"))
         {
+            
             if(poop == null)
             {
-                poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
+                poop = other.GetComponent<PoopIncrement>();
 
             }
             else
             {
-                if(poop.AddScore())
+                if (poop.AddScore())
                 {
                     FindMat();
                     ChangeColor(Color.white);

@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public enum SCENE_STATE{ MENU, OPTIONS, JUEGO, GAMEOVER}
-
 public class Scene_Manager_BH : MonoBehaviour
 {
     public static Scene_Manager_BH _instance;
     public PlayerSettings settings;
-    public SCENE_STATE currentScene;
+    public LevelLogic currentScene;
     [SerializeField]
     LevelLogic[] niveles;
 
@@ -34,27 +32,28 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             Destroy(this);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        lastLv = "";
         settings = Resources.Load<PlayerSettings>("PlayerSettings");
         settings.LoadSettings();
         if (loadScene)
+        {
             SceneManager.LoadScene(niveles[index].nombre, LoadSceneMode.Additive);
+            currentScene = niveles[index];
+        }
         else
         {
             mode = LoadSceneMode.Single;
+
+            foreach (LevelLogic lv in niveles)
+            {
+                if (lv.nombre == SceneManager.GetActiveScene().name)
+                {
+                    currentScene = lv;
+                }
+            }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void ChangeLevel(bool restart, int level)
     {
@@ -77,6 +76,7 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             SceneManager.LoadScene(niveles[index].nombre, mode);
         }
+
         if(level == 3)
         {
             AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.GAME_OVER);
@@ -98,5 +98,6 @@ public class Scene_Manager_BH : MonoBehaviour
 public class LevelLogic
 {
     public string nombre;
-    public bool aditiveToLast,loopBg;
+    public bool aditiveToLast;
+    public BACKGROUND_TYPE InitMusic;
 }

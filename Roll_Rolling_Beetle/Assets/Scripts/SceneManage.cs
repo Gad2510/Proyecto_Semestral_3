@@ -35,4 +35,8 @@ public class SceneManage : MonoBehaviour
         refToManager.ChangeLevel(restart,index);
     }
 
+    public void RestartScore()
+    {
+        PoopIncrement.score = 0;
+    }
 }

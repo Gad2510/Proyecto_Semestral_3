@@ -6,28 +6,23 @@ public enum PlayerState { WALKING, THROWING, DEAD}
 
 public class Personaje : MonoBehaviour
 {
-    Animator animBeetle;
-    public GameObject[] spawners;
-    public Rigidbody poopRigid;
-    public float maxMovementSpeed;
-    public float minMovementSpeed;
-    public float maxRotationSpeed;
-    public float minRotationSpeed;
-    public float timeSinceShot;
-    public float spawnIndex;
-    public bool isAlive;
+    Animator animBeetle; //Referencia al animador
+    public GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
+    public Rigidbody poopRigid; //Referencia al rigidbody de la popo
+    public float maxMovementSpeed;// Velocidad sin caca
+    public float maxRotationSpeed;// Rotacion sin caca
+    public float timeSinceShot; //Contador para evitar que el jugador se mueve despues de disparar
+    public bool isAlive;// Bool para saber si esta vivo el jugador
     public bool isPoopInGame;
-    public bool poopshooted;
-    public PlayerState state;
-    public GameObject poopPrefab;
-    public GameObject actualPoop;
-    public FrontCollider frontCollider, backCollider;
-    public float CacaRotVel;
-    float dir=1f;
+    public bool poopshooted;//Bool para la rotacion de la caca cuando pierde su referencia con la misma
+    public PlayerState state;//Estado del juegador
+    public GameObject poopPrefab; //Prefab de la caca
+    public FrontCollider frontCollider, backCollider;//Referencia a sus colliders para cuando tiene que agarrarla
+    public float CacaRotVel; //Velocidad de rotacion
+    float dir=1f; //Float para saber la direccion en la que tiene que moverse el jugador, cambia al agarrar la popo por detras
 
     bool lvl2music;
     bool lvl3music;
-    bool lvl4music;
 
     //Flecha de direccion de popo
     public apuntar Arrow;
@@ -39,12 +34,14 @@ public class Personaje : MonoBehaviour
 
     float startTouch, endTouch, timeTouched;
 
+    public Vector2 move;
+
     [SerializeField]
     float movementSpeed, rotationSpeed;
     
 
     public bool canHold, isMoving;
-
+    public float t;
     public bool IsMoving
     {
         get { return isMoving; }
@@ -79,15 +76,16 @@ public class Personaje : MonoBehaviour
     }
     void Update()
     {
+        TapCalculation();
+
         if (isAlive && state == PlayerState.WALKING)
         {
-            TapCalculation();
-            float x = Input.GetAxis("Horizontal");
-            float y = Input.GetAxis("Vertical");
-            //float x = fingerDir.x;
-            //float y = fingerDir.y;
-            y *= dir;
-            timeSinceShot = 0;
+            //float x = Input.GetAxis("Horizontal");
+            //float y = Input.GetAxis("Vertical");
+            float x = fingerDir.x;
+            float y = fingerDir.y;
+            y *= dir;//Cambio de dirreccion cuando se aggara por atras
+            
             if (canHold)
             {
                 movementSpeed = maxMovementSpeed;
@@ -99,21 +97,15 @@ public class Personaje : MonoBehaviour
                 rotationSpeed = 25;
                 RotationPoop(x,y);
             }
-            if (GameObject.FindGameObjectsWithTag("Poop").Length == 0)
-            {
-                isPoopInGame = false;
-            }
-            else
-            {
-                isPoopInGame = true;
-            }
+
+            isPoopInGame = GameObject.FindGameObjectsWithTag("Poop").Length > 0;
 
             transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0,  y* Time.deltaTime * movementSpeed);
-            float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));
-            if (isPoopInGame)
+            float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));//Para saber si el jugador se esta moviendo
+            if (poopRigid!= null)
             {
-                isMoving = (!poopRigid.IsSleeping()) && tringulate > 0.1f;
+                isMoving = (!poopRigid.IsSleeping()) || tringulate > 0.1f;
             }
             animBeetle.SetBool("isWalking", tringulate > 0.1f);
 
@@ -121,7 +113,9 @@ public class Personaje : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && !canHold)
             {
                 animBeetle.SetTrigger("shoot");
-                actualPoop.GetComponent<Rigidbody>().isKinematic = false;
+                poopshooted = true;
+                poopRigid.isKinematic = false;
+                state = PlayerState.THROWING;
             }
         }
         else if (state == PlayerState.THROWING)
@@ -130,6 +124,7 @@ public class Personaje : MonoBehaviour
             if(timeSinceShot >= 1.5f)
             {
                 state = PlayerState.WALKING;
+                timeSinceShot = 0;
                 poopshooted = false;
             }
         }
@@ -148,33 +143,49 @@ public class Personaje : MonoBehaviour
         ////////////////////////////////////////
         if (Input.GetKeyDown(KeyCode.H))
         {
-            animBeetle.SetTrigger("dead");
-            isAlive = false;
+            KillPlayer();
         }
     }
 
+    public void KillPlayer()//funcion para borrar
+    {
+        animBeetle.SetTrigger("dead");
+        isAlive = false;
+    }
     private void TapCalculation()
     {
+        if (state == PlayerState.THROWING)
+            return;
+
         if (Input.touchCount > 0)
         {
-            if (Input.touches[0].phase == TouchPhase.Moved)
+            if (Input.touches[0].phase == TouchPhase.Began)
+            {
+                startTouch = Time.realtimeSinceStartup;
+            }
+            else if (Input.touches[0].phase == TouchPhase.Moved)
             {
                 fingerDir = Input.touches[0].deltaPosition;
-                fingerDir.x = fingerDir.x / (Screen.width/100);
-                fingerDir.y = fingerDir.y / (Screen.height/100);
-                startTouch = Time.realtimeSinceStartup;
+                fingerDir.x = fingerDir.x / (Screen.width/50);
+                fingerDir.y = fingerDir.y / (Screen.height/50);
+                
             }
             else if(Input.touches[0].phase==TouchPhase.Ended)
             {
                 fingerDir = Vector3.zero;
                 endTouch = Time.realtimeSinceStartup;
                 timeTouched = endTouch-startTouch;
+
+                if (!canHold && timeTouched < 0.3f)
+                {
+                    animBeetle.SetTrigger("shoot");
+                    poopshooted = true;
+                    poopRigid.isKinematic = false;
+                    state = PlayerState.THROWING;
+                }
             }
 
-            if (!canHold && timeTouched > 1f)
-            {
-                ShootPoop();
-            }
+            
 
         }
     }
@@ -182,47 +193,55 @@ public class Personaje : MonoBehaviour
     {
         Arrow.gameObject.SetActive(true); //Activa la flecha al apuntar
         ArrowHome.SetActive(false); //Desactivar la de la casa
-        state = PlayerState.THROWING;
         animBeetle.SetBool("holding", true);
         poopRigid.transform.parent = null;
         poopRigid.velocity = transform.forward * 10* dir;
+        poopRigid = null;
         canHold = true;
-        poopshooted = true;
-        timeTouched = 0f;
-        actualPoop = null;
+        
     }
     public void FrontColliderAction()
     {
         Arrow.gameObject.SetActive(false); //Si agarra la popo desactiva la flecha
-        ArrowHome.SetActive(true);
-        if (frontCollider.isPoop )
+        ArrowHome.SetActive(true);//Activa la flecha a casa
+        if (frontCollider.isPoop )// Un if para saber con cual collider fue agarrado
         {
             ChooseCollider(frontCollider);
-            animBeetle.SetLayerWeight(0, 1f);
-            animBeetle.SetLayerWeight(1, 0f);
-            camPos.InverseRot=false;
-            dir = 1f;
+            SetDirection(frontCollider.gameObject);
         }
         else if (backCollider.isPoop)
         {
             ChooseCollider(backCollider);
+            SetDirection(backCollider.gameObject);
+        }
+    }
+
+    private void SetDirection(GameObject collider)
+    {
+        if (collider == backCollider.gameObject)
+        {
             animBeetle.SetLayerWeight(0, 0f);
             animBeetle.SetLayerWeight(1, 1f);
             camPos.InverseRot = true;
             dir = -1f;
         }
+        else
+        {
+            animBeetle.SetLayerWeight(0, 1f);
+            animBeetle.SetLayerWeight(1, 0f);
+            camPos.InverseRot = false;
+            dir = 1f;
+        }
     }
 
     void ChooseCollider(FrontCollider currentColl, bool animState=false)
     {
-        actualPoop = currentColl.collide.gameObject;
-        poopRigid = actualPoop.GetComponent<Rigidbody>();
+        poopRigid = currentColl.collide.attachedRigidbody;
         animBeetle.SetBool("holding", false);
         poopRigid.transform.SetParent(transform);
         poopRigid.isKinematic = true;
         canHold = false;
-        currentColl.collide.gameObject.transform.position = currentColl.transform.position; //Girar al agarrar. por favor no lo borren
-        actualPoop.transform.rotation = this.transform.rotation;
+        poopRigid.transform.position = currentColl.transform.position; //Pone en posicion el objeto
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -238,7 +257,6 @@ public class Personaje : MonoBehaviour
     {
         if (other.gameObject.CompareTag("TriggerPoop"))
         {
-            //print("hola");
             if (canHold)
             {
                 FrontColliderAction();
@@ -258,19 +276,18 @@ public class Personaje : MonoBehaviour
             isAlive = false;
             this.gameObject.SetActive(false);
         }
-        if (other.gameObject.CompareTag("bonus") && canHold && !isPoopInGame)
-        {
-            Destroy(other.gameObject);
-            actualPoop = Instantiate(poopPrefab, frontCollider.transform.position, Quaternion.identity, this.transform);
-            frontCollider.isPoop = true;
-            actualPoop.transform.rotation = this.transform.rotation;
-            poopRigid = actualPoop.GetComponent<Rigidbody>();
-            poopRigid.isKinematic = true;
-            animBeetle.SetBool("holding", false);
-            canHold = false;
-            Arrow.searchnewpoop();
+       
+    }
 
-        }
+    public void CreateNewPoop(GameObject coll)
+    {
+        GameObject poop = Instantiate(poopPrefab, coll.transform.position, Quaternion.identity, this.transform) ;
+        SetDirection(coll);
+        poopRigid = poop.GetComponent<Rigidbody>();
+        poopRigid.isKinematic = true;
+        animBeetle.SetBool("holding", false);
+        canHold = false;
+        Arrow.searchnewpoop();
     }
     private void OnTriggerExit(Collider other)
     {
@@ -283,7 +300,10 @@ public class Personaje : MonoBehaviour
     public void ChangeScene() {
         float score = Mathf.Round(PoopIncrement.score);
         GameObject canvas = GameObject.FindGameObjectWithTag("UI");
-        //canvas.SetActive(false);
+
+        if(canvas != null)
+            canvas.SetActive(false);
+
         Scene_Manager_BH._instance.settings.UpdateScore(score);
         Scene_Manager_BH._instance.ChangeLevel(false,3);
     }
@@ -294,40 +314,55 @@ public class Personaje : MonoBehaviour
     }
     public void Revive()
     {   
+        //Restart player
         isAlive = true;
         animBeetle.SetTrigger("revive");
+        animBeetle.SetLayerWeight(0, 1f);
+        animBeetle.SetLayerWeight(1, 0f);
+        camPos.InverseRot = false;
+        dir = 1f;
+        //RestartPoop
         GameObject poop = GameObject.FindGameObjectWithTag("Poop");
-        poop.transform.position = frontCollider.transform.position;
-        poop.transform.parent = this.transform;
-        canHold = false;
+        if (poop != null)
+        {
+            poop.transform.position = frontCollider.transform.position;
+            poop.transform.localScale = Vector3.one;
+            poop.transform.parent = this.transform;
+            canHold = false;
+        }
+        else
+        {
+            CreateNewPoop(frontCollider.gameObject);
+        }
+        //Restart Spawners
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         SpawnPosition();
 
     }
     public void RotationPoop(float x, float y)
     {
-        if (isPoopInGame && actualPoop != null)
+        if (poopRigid != null)
         {
             
             //Si se mueve hacia adelante
             if (y > 0)
             {
-                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, CacaRotVel * Time.deltaTime);
+                poopRigid.transform.GetChild(0).RotateAround(poopRigid.transform.GetChild(1).position, poopRigid.transform.right, CacaRotVel * Time.deltaTime);
             }
             //Si se mueve hacia atras
             if (y < 0)
             {
-                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.right, -CacaRotVel * Time.deltaTime);
+                poopRigid.transform.GetChild(0).RotateAround(poopRigid.transform.GetChild(1).position, poopRigid.transform.right, -CacaRotVel * Time.deltaTime);
             }
             //Si se mueve a la derecha
             if (x > 0)
             {
-                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, -CacaRotVel * Time.deltaTime);
+                poopRigid.transform.GetChild(0).RotateAround(poopRigid.transform.GetChild(1).position, poopRigid.transform.forward, -CacaRotVel * Time.deltaTime);
             }
             //Si se mueve hacia la izquierda
             if (x < 0)
             {
-                actualPoop.transform.GetChild(0).RotateAround(actualPoop.transform.GetChild(1).position, actualPoop.transform.forward, CacaRotVel * Time.deltaTime);
+                poopRigid.transform.GetChild(0).RotateAround(poopRigid.transform.GetChild(1).position, poopRigid.transform.forward, CacaRotVel * Time.deltaTime);
             }
         }
     }
@@ -335,11 +370,13 @@ public class Personaje : MonoBehaviour
     public void IfNoPoop()
     {
         frontCollider.isPoop = false;
+        backCollider.isPoop = false;
         animBeetle.SetBool("holding", true);
-        poopRigid.transform.parent = null;
-        poopRigid.velocity = transform.forward * 10;
+
+        if(poopRigid!= null)
+            poopRigid.transform.parent = null;
+
+        poopRigid = null;
         canHold = true;
-        timeTouched = 0f;
-        actualPoop = null;
     }
 }

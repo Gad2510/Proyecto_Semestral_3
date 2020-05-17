@@ -23,15 +23,13 @@ public class Nido : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Comprobar si entra la bola y esta a su tamaño maximo
-        if(other.gameObject.CompareTag("Poop") && CacaPorcentage.value >= 0.9f)
+        if(other.gameObject.CompareTag("Poop") /*&& CacaPorcentage.value >= 0.9f*/)
         {
             per.IfNoPoop();//Funcion del jugador para resetear sus valores
-            PoopIncrement poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>(); // Busco la referencia aqui encaso que se destruya la original
+            PoopIncrement poop = other.GetComponent<PoopIncrement>(); // Busco la referencia aqui encaso que se destruya la original
             poop.CacaPorcentage.value = 0.0f;//El slider regresa a cero
             PoopIncrement.score += 500.0f;//Da un bonus de puntuación por entregarla
             poop.screenPoints.text = "SCORE: " + Mathf.Round(PoopIncrement.score).ToString();//Se imprime en la pantalla
-           // a.searchnewpoop();
-
             StartCoroutine(Entrega(poop.transform));
         }
     }

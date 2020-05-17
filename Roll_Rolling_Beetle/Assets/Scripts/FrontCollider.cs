@@ -6,14 +6,27 @@ public class FrontCollider : MonoBehaviour
 {
     public bool isPoop;
     public Collider collide;
+
+    Personaje player;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Poop"))
         {
-            Debug.Log("Toco");
             isPoop = true;
             collide = other;
         }
+        if (other.gameObject.CompareTag("bonus") && player.canHold && !(player.isPoopInGame))
+        {
+            Destroy(other.gameObject);
+            player.CreateNewPoop(this.gameObject);
+        }
+
     }
     public void OnTriggerExit(Collider other)
     {

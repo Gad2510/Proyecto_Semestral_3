@@ -84,12 +84,12 @@
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, tex);
                 
-                /*fixed4 birdCol=_ColorWarnnig;
+                fixed4 birdCol=_ColorWarnnig;
                 birdCol.g=abs(sin(_Time.w));
 
                 float4 col=lerp(_Color,_Color*_ShadowIntensity,mask.g);
-                col=lerp(col,birdCol,mask.r);*/
-                return tex;
+                col=lerp(col,birdCol,mask.r);
+                return tex*col;
             }
             ENDCG
         }
