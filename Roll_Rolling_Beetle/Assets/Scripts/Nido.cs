@@ -31,6 +31,7 @@ public class Nido : MonoBehaviour
             PoopIncrement.score += 500.0f;//Da un bonus de puntuación por entregarla
             poop.screenPoints.text = "SCORE: " + Mathf.Round(PoopIncrement.score).ToString();//Se imprime en la pantalla
             StartCoroutine(Entrega(poop.transform));
+            HomeUI_icon.escalando = false; //Dejar de escalar el icono de casa en UI
         }
     }
 
