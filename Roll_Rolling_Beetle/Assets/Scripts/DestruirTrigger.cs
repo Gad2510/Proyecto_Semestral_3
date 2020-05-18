@@ -1,31 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class DestruirTrigger : MonoBehaviour
 {
-    Material mat; //Referencia al material
-    Texture2D texture;//Textura que modifica para ponerla en la final
+    static MeshRenderer mat; //Referencia al material
+    static Texture2D texture;//Textura que modifica para ponerla en la final
     int alcance=2;// Alcanse del cambio en pixeles
-    public Vector2 COORD;//Cordenadas en las UV para saber donde esta en el objeto
-    public PoopIncrement poop;
-    public FrontCollider frontPL, backPL;
+    int initX, initY,fX=2,fY=2;//Cordenadas en las UV para saber donde esta en el objeto
+    PoopIncrement poop;
+    FrontCollider frontPL, backPL;
     float timeToReactivate = 30.0f;
+    public Transform init, final;
     private void Awake()
     {
         FindMat();
 
-        texture = (Texture2D)mat.GetTexture("_Mask");// Creca si ya tiene una textura
+        texture = (Texture2D)mat.material.GetTexture("_Mask");// Creca si ya tiene una textura
 
         if (texture == null)
         {
-            texture = new Texture2D(64, 64);
-            int size = 64 * 64;
+            texture = new Texture2D(256, 256);
+            int size = 256 * 256;
             Color[] whites = new Color[size];
             texture.SetPixels(whites);
             texture.Apply();
 
-            mat.SetTexture("_Mask", texture);
+            mat.material.SetTexture("_Mask", texture);
         }
     }
     private void Start()
@@ -38,24 +40,40 @@ public class DestruirTrigger : MonoBehaviour
 
         frontPL = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>().frontCollider;
         backPL= GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>().backCollider;
+
         //BUSCA LA REFERENCIA AL MATERIAL DEL PISO Y SU POSICION EN EL MESH
-        Ray rayo = new Ray(this.transform.position, Vector3.down);
+        Vector2 pos1=Vector2.zero,pos2=Vector2.zero;
+        Ray rayo = new Ray(this.init.position, Vector3.down);
         RaycastHit hit;
         LayerMask mask = LayerMask.NameToLayer("Piso");
         if (Physics.Raycast(rayo, out hit, mask))
         {
-            COORD = hit.textureCoord;
+            pos1 = hit.textureCoord;
         }
+        rayo= new Ray(this.final.position, Vector3.down);
+        if (Physics.Raycast(rayo, out hit, mask))
+        {
+            pos2 = hit.textureCoord;
+        }
+        GetInfo(pos1, pos2);
+    }
+
+    private void GetInfo(Vector2 pos1,Vector2 pos2)
+    {
+        Vector2Int UVposX=new Vector2Int((int)(pos1.x * texture.width), (int)(pos2.x * texture.width));
+
+        initX = (UVposX.x < UVposX.y) ? UVposX.x : UVposX.y;
+
+        Vector2Int UVposY = new Vector2Int((int)(pos1.y * texture.height), (int)(pos2.y * texture.height));
+
+        initY=(UVposY.x < UVposY.y)? UVposY.x:UVposY.y;
     }
 
     void FindMat()
     {
-        Ray rayo = new Ray(this.transform.position, Vector3.down);
-        RaycastHit hit;
-        LayerMask mask = LayerMask.NameToLayer("Piso");
-        if (Physics.Raycast(rayo, out hit, mask))
+        if (mat == null)
         {
-            mat = hit.collider.GetComponent<MeshRenderer>().material;
+            mat = GameObject.Find("Grass").GetComponent<MeshRenderer>();
         }
     }
 
@@ -81,14 +99,14 @@ public class DestruirTrigger : MonoBehaviour
             }
             else
             {
-                if (poop.AddScore())
+                ChangeColor(Color.white);
+                Invoke("EsperaryActivar", timeToReactivate);
+                //Desactivar trigger
+                gameObject.SetActive(false);
+                /*if (poop.AddScore())
                 {
-                    FindMat();
-                    ChangeColor(Color.white);
-                    Invoke("EsperaryActivar", timeToReactivate);
-                    //Desactivar trigger
-                    gameObject.SetActive(false);
-                }
+                    
+                }*/
             }
         }
     }
@@ -97,37 +115,33 @@ public class DestruirTrigger : MonoBehaviour
     public void EsperaryActivar()
     {
         gameObject.SetActive(true);
-        //FindMat();
         ChangeColor(Color.black);
     }
     void ChangeColor(Color col)
     {
-        if(mat.HasProperty("_Mask")){
-            texture = (Texture2D)mat.GetTexture("_Mask");// Actualiza la textura
+        if(mat.material.HasProperty("_Mask")){
+            texture = (Texture2D)mat.material.GetTexture("_Mask");// Actualiza la textura
 
             if (texture == null)
             {
-                texture = new Texture2D(64, 64);
-                int size = 64 * 64;
+                texture = new Texture2D(256, 256);
+                int size = 256 * 256;
                 Color[] whites = new Color[size];
                 texture.SetPixels(whites);
                 texture.Apply();
 
-                mat.SetTexture("_Mask", texture);
+                mat.material.SetTexture("_Mask", texture);
             }
 
-            int initX = (int)(COORD.x * texture.width);//Calcula la posicion en pixeles
-            int initY = (int)(COORD.y * texture.height);
-
-            for (int y = -alcance / 2; y < alcance / 2; y++)
+            for (int y = initY; y <=initY+fY; y++)
             {
-                for (int x = -alcance / 2; x < alcance / 2; x++)
+                for (int x = initX; x <=initX+fX; x++)
                 {
-                    texture.SetPixel(initX + x, initY + y, col);
+                    texture.SetPixel(x, y, col);
                 }
             }
             texture.Apply();
-            mat.SetTexture("_Mask", texture);
+            mat.material.SetTexture("_Mask", texture);
         }
         
     }

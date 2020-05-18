@@ -55,7 +55,6 @@ public class Personaje : MonoBehaviour
     {
         
         camPos = Camera.main.GetComponent<FollowPlayer>();
-        camPos.PlayerPos = this.transform.Find("CameraPoint").gameObject;
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();
@@ -82,7 +81,7 @@ public class Personaje : MonoBehaviour
             float y = Input.GetAxis("Vertical");
             //float x = fingerDir.x;
             //float y = fingerDir.y;
-            y *= dir;//Cambio de dirreccion cuando se aggara por atras
+            y *= dir;//Cambio de dirreccion cuando se agarra por atras
             
             if (canHold)
             {
@@ -270,8 +269,6 @@ public class Personaje : MonoBehaviour
         if (other.gameObject.CompareTag("Bird"))
         {
             ChangeScene();
-            FollowPlayer cam = Camera.main.GetComponent<FollowPlayer>();
-            cam.PlayerPos = null;
             isAlive = false;
             this.gameObject.SetActive(false);
         }

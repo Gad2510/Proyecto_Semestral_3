@@ -10,8 +10,6 @@
         _Mask("Mascara", 2D)="black"{}
         _Water("Agua",2D)="white" {}
         _ShadowsMask("Mask", 2D)="white" {}
-
-        _Cord("Cordenadas",Vector)=(0,0,0,0)
         
     }
     SubShader
@@ -64,19 +62,18 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed2 uv = ((i.uv) + fixed2(_Cord.x,_Cord.y))/_Cord.z;
-                fixed4 mask=tex2D(_ShadowsMask,uv);
+                fixed4 mask=tex2D(_ShadowsMask,i.uv);
 
-                fixed4 grass=tex2D(_MainTex, i.uv*20);
-                fixed4 ground=tex2D(_SecTex, i.uv*20);
-                fixed4 texmask=tex2D(_Mask, i.uv);
+                
                 // sample the texture
                 fixed4 tex;
                 if(mask.b>0.3){
                     tex=tex2D(_Water, i.uv*20);
 				} 
                 else{
-                    
+                    fixed4 grass=tex2D(_MainTex, i.uv*40);
+                    fixed4 ground=tex2D(_SecTex, i.uv*40);
+                    fixed4 texmask=tex2D(_Mask, i.uv);
                     tex= lerp(grass,ground,texmask.r);
                     
 				}
