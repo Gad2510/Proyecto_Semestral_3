@@ -16,11 +16,6 @@ public class AudioManager : MonoBehaviour
 
     public void Start()
     {
-        sfx.enabled = true;
-    }
-
-    public void Awake() 
-    {
         if (_instance == null)
         {
             _instance = this;

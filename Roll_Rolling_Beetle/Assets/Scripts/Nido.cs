@@ -8,7 +8,7 @@ public class Nido : MonoBehaviour
     float centerrTrans = 1f, downTransicion = 1f;
     Personaje per;// referencia al personaje
     Slider CacaPorcentage;//Referencia al slider de crecimiento
-    private apuntar a;
+    //public apuntar a;
 
     ParticleSystem [] effect;
     void Start()
@@ -16,7 +16,7 @@ public class Nido : MonoBehaviour
         effect = GetComponentsInChildren<ParticleSystem>();
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();// Referencia al slider
         per = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
-        a = FindObjectOfType<apuntar>();
+        //a = FindObjectOfType<apuntar>();
         
     }
 

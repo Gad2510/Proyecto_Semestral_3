@@ -97,7 +97,7 @@ public class DestruirTrigger : MonoBehaviour
     public void EsperaryActivar()
     {
         gameObject.SetActive(true);
-        FindMat();
+        //FindMat();
         ChangeColor(Color.black);
     }
     void ChangeColor(Color col)

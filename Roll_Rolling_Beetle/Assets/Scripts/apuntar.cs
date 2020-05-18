@@ -17,7 +17,10 @@ public class apuntar : MonoBehaviour
 
     void Update()
     {
-        MovePointerHome();
+        if (objetToPoint != null)
+        {
+            MovePointerHome();
+        }
     }
 
     void MovePointerHome()

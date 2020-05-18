@@ -26,7 +26,6 @@ public class Personaje : MonoBehaviour
 
     //Flecha de direccion de popo
     public apuntar Arrow;
-    public GameObject ArrowHome;
 
     FollowPlayer camPos;
 
@@ -72,7 +71,6 @@ public class Personaje : MonoBehaviour
         SpawnPosition();
         CacaRotVel = 30.0f;
         Arrow.gameObject.SetActive(false);
-        ArrowHome.SetActive(true);
     }
     void Update()
     {
@@ -80,10 +78,10 @@ public class Personaje : MonoBehaviour
 
         if (isAlive && state == PlayerState.WALKING)
         {
-            //float x = Input.GetAxis("Horizontal");
-            //float y = Input.GetAxis("Vertical");
-            float x = fingerDir.x;
-            float y = fingerDir.y;
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
+            //float x = fingerDir.x;
+            //float y = fingerDir.y;
             y *= dir;//Cambio de dirreccion cuando se aggara por atras
             
             if (canHold)
@@ -192,10 +190,12 @@ public class Personaje : MonoBehaviour
     public void ShootPoop()
     {
         Arrow.gameObject.SetActive(true); //Activa la flecha al apuntar
-        ArrowHome.SetActive(false); //Desactivar la de la casa
         animBeetle.SetBool("holding", true);
-        poopRigid.transform.parent = null;
-        poopRigid.velocity = transform.forward * 10* dir;
+        if(poopRigid != null)
+        {
+            poopRigid.transform.parent = null;
+            poopRigid.velocity = transform.forward * 10 * dir;
+        }
         poopRigid = null;
         canHold = true;
         
@@ -203,7 +203,6 @@ public class Personaje : MonoBehaviour
     public void FrontColliderAction()
     {
         Arrow.gameObject.SetActive(false); //Si agarra la popo desactiva la flecha
-        ArrowHome.SetActive(true);//Activa la flecha a casa
         if (frontCollider.isPoop )// Un if para saber con cual collider fue agarrado
         {
             ChooseCollider(frontCollider);
@@ -372,7 +371,7 @@ public class Personaje : MonoBehaviour
         frontCollider.isPoop = false;
         backCollider.isPoop = false;
         animBeetle.SetBool("holding", true);
-
+        Arrow.gameObject.SetActive(false); 
         if(poopRigid!= null)
             poopRigid.transform.parent = null;
 
