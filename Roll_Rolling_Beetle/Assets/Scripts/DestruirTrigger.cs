@@ -99,14 +99,14 @@ public class DestruirTrigger : MonoBehaviour
             }
             else
             {
-                ChangeColor(Color.white);
-                Invoke("EsperaryActivar", timeToReactivate);
-                //Desactivar trigger
-                gameObject.SetActive(false);
-                /*if (poop.AddScore())
+                
+                if (poop.AddScore())
                 {
-                    
-                }*/
+                    ChangeColor(Color.white);
+                    Invoke("EsperaryActivar", timeToReactivate);
+                    //Desactivar trigger
+                    gameObject.SetActive(false);
+                }
             }
         }
     }
