@@ -41,7 +41,7 @@ public class Gusano : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value>=0.4f)
+        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value>=0.4f) //Comparar si la popo esta al porcentaje adecuado para que te mate
         {
             coll.enabled = false;
             trig.enabled = false;

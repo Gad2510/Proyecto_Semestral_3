@@ -14,7 +14,12 @@ public class PoopIncrement : MonoBehaviour
     float pointsMul = 100f;
     public static float score = 0;
     public bool IsScaling = false;
+
+    //UI
     public Slider CacaPorcentage; // Slider UI para medir porcentaje
+    public Text gusanoK;
+    public Text mantisK;
+    public Color color1;
 
     [SerializeField]
     float scaleIncrement = 0.01f, maxScale = 2f; //Valores para maxima escala y ratio de inclemento
@@ -96,6 +101,14 @@ public class PoopIncrement : MonoBehaviour
 
         float screen = Mathf.Round(score);
         screenPoints.text = "SCORE: " + screen.ToString();
+    }
+    
+    public  void showText()
+    {
+        if(CacaPorcentage.value <=4)
+        {
+
+        }
     }
 
     private void Corroboration()
