@@ -14,7 +14,20 @@ public class PoopIncrement : MonoBehaviour
     float pointsMul = 100f;
     public static float score = 0;
     public bool IsScaling = false;
+
+    //UI
     public Slider CacaPorcentage; // Slider UI para medir porcentaje
+    public Text gusanoK; //Texto de que puedes matar al gusano
+    public Text mantisK;// Texto de matar mantis
+    public Color color1;
+    public Color color2;
+    float alpha; //Transparencia
+    float alpha2;
+    bool desactivarG = false; //Booleano para desactivar los textos una vez se usen
+    bool desactivarM = false;
+    public float speed;
+    
+
 
     [SerializeField]
     float scaleIncrement = 0.01f, maxScale = 2f; //Valores para maxima escala y ratio de inclemento
@@ -40,6 +53,25 @@ public class PoopIncrement : MonoBehaviour
         InitScale = this.transform.localScale;
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
+
+        color1 = gusanoK.color;
+        color2 = mantisK.color;
+        alpha = 0;
+        alpha2 = 0;
+    }
+
+    private void Update()
+    {
+        showTextG();
+         if(desactivarG == true)
+        {
+            gusanoK.color = new Color(0, 0, 0, 0);
+        }
+         showTextM();
+        if (desactivarM == true)
+        {
+            mantisK.color = new Color(0, 0, 0, 0);
+        }
     }
 
 
@@ -96,6 +128,55 @@ public class PoopIncrement : MonoBehaviour
 
         float screen = Mathf.Round(score);
         screenPoints.text = "SCORE: " + screen.ToString();
+    }
+    
+    public  void showTextG() // Vamos a mostrar el texto del gusano
+    {
+        if(CacaPorcentage.value >=0.38f && CacaPorcentage.value <= 0.45f)
+        {
+            alpha += Time.deltaTime * speed; //Aparecemos en deltatime el texto
+            if(alpha >= 1)
+            {
+                alpha = 1;
+                gusanoK.color = new Color(color1.r,color1.g,color1.b, alpha);
+                print("Holatexto");
+            }
+        }
+        else if(CacaPorcentage.value >= 0.5f) // Despues de tanto porcentaje se devanece
+        {
+            alpha -= Time.deltaTime * speed;
+            if (alpha <= 0)
+            {
+                alpha = 0;
+                gusanoK.color = new Color(color1.r, color1.g, color1.b, alpha);
+            }
+            desactivarG = true; //Una vez ya pase su tiempo se desactivara
+        }
+        
+    }
+     public void showTextM()
+    {
+        if (CacaPorcentage.value >= 0.68f && CacaPorcentage.value <= 0.75f)
+        {
+            alpha2 += Time.deltaTime * speed;
+            if (alpha2 >= 1)
+            {
+                alpha2 = 1;
+                mantisK.color = new Color(0, 0, 0, alpha2);
+                print("mantis");
+            }
+        }
+
+        else if (CacaPorcentage.value <= 0.75) // Despues de tanto porcentaje se devanece
+        {
+            alpha2 -= Time.deltaTime * speed;
+            if (alpha2 <= 0)
+            {
+                alpha2 = 0;
+                mantisK.color = new Color(0, 0, 0, alpha2);
+            }
+            desactivarM = true; //Se hace true para que ya no vuelva a aparecer
+        }
     }
 
     private void Corroboration()

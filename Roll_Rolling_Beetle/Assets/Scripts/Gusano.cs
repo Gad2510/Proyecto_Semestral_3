@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gusano : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Gusano : MonoBehaviour
     public LayerMask detection;
     Animator anim;
     bool aumento = false,dead= false;
+   
+
     void Start()
     {
         coll = GetComponent<BoxCollider>();
@@ -23,6 +26,8 @@ public class Gusano : MonoBehaviour
         anim = GetComponent<Animator>();
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
         jugador = GameObject.FindGameObjectWithTag("Player");
+
+
     }
 
     void Update()
@@ -37,11 +42,12 @@ public class Gusano : MonoBehaviour
             }
             
         }
+ 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value>=0.4f)
+        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value>=0.4f) //Comparar si la popo esta al porcentaje adecuado para que te mate
         {
             coll.enabled = false;
             trig.enabled = false;
@@ -109,6 +115,7 @@ public class Gusano : MonoBehaviour
             }
         }
     }
+
 
     private void OnGUI()
     {
