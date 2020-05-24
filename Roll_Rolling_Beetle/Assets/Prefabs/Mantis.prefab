@@ -161,7 +161,6 @@ MonoBehaviour:
   selfcoll: {fileID: 0}
   rango: {fileID: 0}
   player: {fileID: 0}
-  caca: {fileID: 0}
   radioDeteccion: 12
   poopSize: {fileID: 0}
   walkPoints:
@@ -171,6 +170,7 @@ MonoBehaviour:
   - {fileID: 0}
   walkSpeed: 1
   isIdle: 0
+  anim: {fileID: 0}
   siguiendoJugador: 0
 --- !u!195 &8733298226997857123
 NavMeshAgent:
@@ -330,6 +330,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mantis
       objectReference: {fileID: 0}
+    - target: {fileID: 473440469389078946, guid: c7be7cff72001f943ab23b49b54b1202,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6592e6bd9ad85fd4293d0621d416e3d0, type: 2}
     - target: {fileID: 5293391398964508661, guid: c7be7cff72001f943ab23b49b54b1202,
         type: 3}
       propertyPath: m_LocalRotation.x

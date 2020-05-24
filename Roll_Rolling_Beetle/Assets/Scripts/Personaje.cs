@@ -301,7 +301,7 @@ public class Personaje : MonoBehaviour
             canvas.SetActive(false);
 
         Scene_Manager_BH._instance.settings.UpdateScore(score);
-        Scene_Manager_BH._instance.ChangeLevel(false,3);
+        Scene_Manager_BH._instance.ChangeLevel(3);
     }
     public void SpawnPosition()
     {

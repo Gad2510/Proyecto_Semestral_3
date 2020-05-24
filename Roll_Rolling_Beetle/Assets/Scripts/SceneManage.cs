@@ -7,17 +7,12 @@ using UnityEngine.SceneManagement;
 public class SceneManage : MonoBehaviour
 {
     public UnityEvent restartEvent;
-    public bool restart;
-
-    public bool Restart
-    {
-        set { if (value) { PoopIncrement.score = 0; } restart = value; }
-    }
 
     Scene_Manager_BH refToManager;
     private void Start()
     {
         refToManager = Scene_Manager_BH._instance;
+        refToManager.LastFrame = Camera.main.activeTexture;
     }
 
     private void Update()
@@ -32,7 +27,8 @@ public class SceneManage : MonoBehaviour
     public void ChangeLevel(int index)
     {
         AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.BUTTON);
-        refToManager.ChangeLevel(restart,index);
+        RestartScore();
+        refToManager.ChangeLevel(index);
     }
 
     public void RestartScore()

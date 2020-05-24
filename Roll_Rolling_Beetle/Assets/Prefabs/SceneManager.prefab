@@ -47,19 +47,24 @@ MonoBehaviour:
   currentScene:
     nombre: 
     aditiveToLast: 0
+    loading: 0
     InitMusic: 0
   niveles:
   - nombre: Menu
     aditiveToLast: 0
+    loading: 0
     InitMusic: 1
   - nombre: options
     aditiveToLast: 0
+    loading: 0
     InitMusic: 1
   - nombre: Mapa HD
     aditiveToLast: 0
+    loading: 1
     InitMusic: 2
   - nombre: GameOver
     aditiveToLast: 0
+    loading: 0
     InitMusic: 0
   loadScene: 0
   restart: 0

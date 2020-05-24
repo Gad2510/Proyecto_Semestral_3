@@ -12,11 +12,21 @@ public class Scene_Manager_BH : MonoBehaviour
     [SerializeField]
     LevelLogic[] niveles;
 
+    AsyncOperation currentLoad;
+
     public bool loadScene,restart;
     public int index = 0;
     string lastLv;
 
     LoadSceneMode mode = LoadSceneMode.Additive;
+
+    public RenderTexture LastFrame { get; set; }
+
+    public AsyncOperation CurrentLoad
+    {
+        get { return currentLoad; }
+    }
+
     public string LastLv
     {
         set { lastLv = value; }
@@ -54,10 +64,13 @@ public class Scene_Manager_BH : MonoBehaviour
         }
     }
 
-
-    public void ChangeLevel(bool restart, int level)
+    public void UnloadLoding()
     {
-        this.restart = restart;
+        SceneManager.UnloadSceneAsync("LoadingScene");
+    }
+
+    public void ChangeLevel(int level)
+    {
         if (mode!=LoadSceneMode.Single && !niveles[level].aditiveToLast)
         {
             SceneManager.UnloadSceneAsync(niveles[index].nombre);
@@ -74,9 +87,14 @@ public class Scene_Manager_BH : MonoBehaviour
 
         if (mode == LoadSceneMode.Single || !restart)
         {
-            SceneManager.LoadScene(niveles[index].nombre, mode);
-        }
+            currentLoad=SceneManager.LoadSceneAsync(niveles[level].nombre, mode);
 
+            if (niveles[level].loading)
+            {
+                SceneManager.LoadScene("LoadingScene",LoadSceneMode.Additive);
+            }
+        }
+        //Musica
         if(level == 3)
         {
             AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.GAME_OVER);
@@ -98,6 +116,6 @@ public class Scene_Manager_BH : MonoBehaviour
 public class LevelLogic
 {
     public string nombre;
-    public bool aditiveToLast;
+    public bool aditiveToLast, loading;
     public BACKGROUND_TYPE InitMusic;
 }
