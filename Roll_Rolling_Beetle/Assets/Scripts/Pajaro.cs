@@ -42,7 +42,6 @@ public class Pajaro : MonoBehaviour
                 birdAnimation.SetTrigger("down");
                 StartCoroutine(Attack(other.transform));
                 selfCollider.enabled = false;
-                //Destroy(other.gameObject); //Condicion de derrota
 
             }
             colorWarnning.r = (contadorAtaque / 3);

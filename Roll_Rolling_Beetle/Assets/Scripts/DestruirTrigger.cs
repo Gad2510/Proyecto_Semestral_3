@@ -75,7 +75,7 @@ public class DestruirTrigger : MonoBehaviour
 
     private void Update()
     {
-        if(frontPL.isPoop || backPL.isPoop)
+        if(Personaje.IsAlive && (frontPL.isPoop || backPL.isPoop))
         {
             poop = GameObject.FindGameObjectWithTag("Poop").GetComponent<PoopIncrement>();
         }

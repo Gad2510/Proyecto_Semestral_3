@@ -139,7 +139,6 @@ public class PoopIncrement : MonoBehaviour
             if(alpha >= 1)
             {
                 alpha = 1;
-                print("Holatexto");
             }
             gusanoK.color = new Color(color1.r, color1.g, color1.b, alpha);
         }
