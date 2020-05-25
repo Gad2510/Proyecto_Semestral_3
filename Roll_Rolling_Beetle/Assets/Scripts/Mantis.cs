@@ -114,12 +114,10 @@ public class Mantis : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.collider.GetComponent<Personaje>().isAlive) //Verifica si el jugador sige vivo
+            if (Personaje.IsAlive) //Verifica si el jugador sige vivo
             {
                 //Detenerlo
-                Debug.Log("Golpe");
                 anim.SetTrigger("attack");
-                navAgent.isStopped = true;
                 navAgent.isStopped = true;
                 isIdle = true;
                 anim.SetBool("walking", false);
@@ -129,7 +127,7 @@ public class Mantis : MonoBehaviour
 
         else
         {
-            if (collision.gameObject.CompareTag("Poop") && player.GetComponent<Personaje>().CanHold == true)
+            if (collision.gameObject.CompareTag("Poop") && Personaje.CanHold == true)
             {
                 poopSize= collision.transform;
                 if (CacaPorcentage.value >= 0.7f)

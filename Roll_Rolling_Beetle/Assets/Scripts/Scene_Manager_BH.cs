@@ -10,7 +10,7 @@ public class Scene_Manager_BH : MonoBehaviour
     public PlayerSettings settings;
     public LevelLogic currentScene;
     [SerializeField]
-    LevelLogic[] niveles;
+    LevelLogic[] niveles= null;
 
     AsyncOperation currentLoad;
 

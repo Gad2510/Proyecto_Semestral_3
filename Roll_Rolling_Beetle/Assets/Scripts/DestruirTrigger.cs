@@ -4,7 +4,6 @@ public class DestruirTrigger : MonoBehaviour
 {
     static MeshRenderer mat; //Referencia al material
     static Texture2D texture;//Textura que modifica para ponerla en la final
-    int alcance=2;// Alcanse del cambio en pixeles
     int initX, initY,fX=2,fY=2;//Cordenadas en las UV para saber donde esta en el objeto
     PoopIncrement poop;
     FrontCollider frontPL, backPL;

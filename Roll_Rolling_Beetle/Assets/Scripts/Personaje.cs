@@ -6,52 +6,62 @@ public enum PlayerState { WALKING, THROWING, DEAD}
 
 public class Personaje : MonoBehaviour
 {
-    Animator animBeetle; //Referencia al animador
-    public GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
+    #region Static Variables
+    static bool isAlive;// Bool para saber si esta vivo el jugador
+    static bool canHold;// Bool para saber si puede agarrar una popo
+    static bool isMoving;//Bool para saber si esta en movimiento
+    static bool isPoopInGame;//Checa si ahi una popo en juego
+    #endregion
+
+    #region Public Variables
     public Rigidbody poopRigid; //Referencia al rigidbody de la popo
     public float maxMovementSpeed;// Velocidad sin caca
     public float maxRotationSpeed;// Rotacion sin caca
     public float timeSinceShot; //Contador para evitar que el jugador se mueve despues de disparar
-    public bool isAlive;// Bool para saber si esta vivo el jugador
-    public bool isPoopInGame;
     public bool poopshooted;//Bool para la rotacion de la caca cuando pierde su referencia con la misma
     public PlayerState state;//Estado del juegador
     public GameObject poopPrefab; //Prefab de la caca
     public FrontCollider frontCollider, backCollider;//Referencia a sus colliders para cuando tiene que agarrarla
     public float CacaRotVel; //Velocidad de rotacion
     float dir=1f; //Float para saber la direccion en la que tiene que moverse el jugador, cambia al agarrar la popo por detras
-
+    // Musica //
     public bool lvl2music;
     public bool lvl3music;
     public bool lvl4music;
+    public apuntar Arrow;//Flecha de direccion de popo
+    #endregion
 
-    //Flecha de direccion de popo
-    public apuntar Arrow;
+    #region Private Variables
+    Animator animBeetle; //Referencia al animador
+    GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
+    FollowPlayer camPos; //Referencia al script de la camara
 
-    FollowPlayer camPos;
+    Vector2 fingerDir;//Guarda la direccion del dedo en pantalla
 
-    Vector3 fingerDir;
+    float startTouch, endTouch, timeTouched;//Medidores del touch
+    float movementSpeed=5, rotationSpeed=25;//Velocidad de rotacion y movimiento
+    #endregion
 
-    float startTouch, endTouch, timeTouched;
-
-    public Vector2 move;
-
-    [SerializeField]
-    float movementSpeed, rotationSpeed;
-    
-
-    public bool canHold, isMoving;
-    public float t;
-    public bool IsMoving
+    #region Properties
+    public static bool IsMoving
     {
         get { return isMoving; }
     }
 
-    public bool CanHold
+    public static bool CanHold
     {
         get { return canHold; }
     }
+    public static bool IsPoopInGame
+    {
+        get { return isPoopInGame; }
+    }
 
+    public static bool IsAlive
+    {
+        get { return isAlive; }
+    }
+    #endregion
     void Start()
     {
         camPos = Camera.main.GetComponent<FollowPlayer>();
@@ -65,7 +75,7 @@ public class Personaje : MonoBehaviour
         lvl2music = false;
         lvl3music = false;
         lvl4music = false;
-    maxMovementSpeed = 10;
+        maxMovementSpeed = 10;
         maxRotationSpeed = 50;
         startTouch = 0f;
         endTouch = 0f;
@@ -100,8 +110,6 @@ public class Personaje : MonoBehaviour
             }
             else
             {
-                movementSpeed = 5;
-                rotationSpeed = 25;
                 RotationPoop(x,y);
             }
 
@@ -255,6 +263,8 @@ public class Personaje : MonoBehaviour
         poopRigid.isKinematic = true;
         canHold = false;
         poopRigid.transform.position = currentColl.transform.position; //Pone en posicion el objeto
+        movementSpeed = 5;
+        rotationSpeed = 25;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -300,6 +310,8 @@ public class Personaje : MonoBehaviour
         animBeetle.SetBool("holding", false);
         canHold = false;
         Arrow.searchnewpoop();
+        movementSpeed = 5;
+        rotationSpeed = 25;
     }
     private void OnTriggerExit(Collider other)
     {

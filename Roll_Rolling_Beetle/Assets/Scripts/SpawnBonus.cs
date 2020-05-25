@@ -10,7 +10,7 @@ public class SpawnBonus : MonoBehaviour
     float Radius = 1.0f, altura=0f;
 
     [SerializeField]
-    Object bonus;
+    Object bonus=null;
 
     public void generateBonus()
     {

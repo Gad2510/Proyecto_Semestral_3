@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Nido : MonoBehaviour
 {
     [SerializeField]
-    float centerrTrans = 1f, downTransicion = 1f;
+    float centerrTrans = 1f;
     Personaje per;// referencia al personaje
     Slider CacaPorcentage;//Referencia al slider de crecimiento
     //public apuntar a;

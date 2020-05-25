@@ -15,7 +15,7 @@ public class Pajaro : MonoBehaviour
     Collider selfCollider;
 
     [SerializeField]
-    Collider triggerCollider;
+    Collider triggerCollider =null;
 
     void Start()
     {

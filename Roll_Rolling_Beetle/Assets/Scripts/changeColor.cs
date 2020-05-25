@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class changeColor : MonoBehaviour
 {
-    Personaje player;
     MeshRenderer mesh;
     Color whiteRef, initCol;
     ParticleSystem particulas;
@@ -12,7 +11,6 @@ public class changeColor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
         mesh = GetComponent<MeshRenderer>();
         whiteRef = Color.white;
         initCol = mesh.material.color;
@@ -25,7 +23,7 @@ public class changeColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!player.isPoopInGame )
+        if(!Personaje.IsPoopInGame)
         {
             isChanging=true;
             mesh.material.color = Color.Lerp(initCol, whiteRef, Mathf.Sin(Time.time*2));
