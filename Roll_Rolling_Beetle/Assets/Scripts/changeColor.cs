@@ -16,7 +16,7 @@ public class changeColor : MonoBehaviour
         initCol = mesh.material.color;
 
         particulas = transform.GetChild(0).GetComponent<ParticleSystem>();
-        particulas.Pause(true);
+        particulas.Stop(true);
         
     }
 
@@ -40,7 +40,7 @@ public class changeColor : MonoBehaviour
             isChanging = false;
             playPart = true;
             mesh.material.color = initCol;
-            particulas.Pause(true);
+            particulas.Stop(true);
         }
     }
 }

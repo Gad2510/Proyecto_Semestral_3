@@ -10,7 +10,6 @@ public class Gusano : MonoBehaviour
     public GameObject posicionBala;
     public GameObject posicionRayo;
     UnityEngine.UI.Slider CacaPorcentage;
-    GameObject jugador;
     public GameObject bala;
     public float recarga = 0;
     public float cadencia = 3.0f;
@@ -25,7 +24,6 @@ public class Gusano : MonoBehaviour
         trig = GetComponent<SphereCollider>();
         anim = GetComponent<Animator>();
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
-        jugador = GameObject.FindGameObjectWithTag("Player");
 
 
     }
@@ -81,8 +79,8 @@ public class Gusano : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            posicionRayo.transform.LookAt(jugador.transform);
-            transform.LookAt(jugador.transform);
+            posicionRayo.transform.LookAt(other.transform);
+            transform.LookAt(other.transform);
             transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
             posicionRayo.transform.rotation = Quaternion.Euler(0.0f, posicionRayo.transform.localEulerAngles.y, posicionRayo.transform.localEulerAngles.z);
             Detection();
@@ -100,7 +98,7 @@ public class Gusano : MonoBehaviour
             
             if (hit.collider.gameObject.CompareTag("Player"))
             {
-                transform.LookAt(jugador.transform); //Mirar al jugador
+                transform.LookAt(hit.transform); //Mirar al jugador
                 transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X
 
                 recarga += Time.deltaTime;

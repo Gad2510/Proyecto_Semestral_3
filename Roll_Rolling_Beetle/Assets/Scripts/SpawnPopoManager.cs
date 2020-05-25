@@ -10,22 +10,20 @@ public class SpawnPopoManager : MonoBehaviour
 
     SpawnBonus [] spawnersInScene;
 
-    public int poopNumber;
-    // Start is called before the first frame update
-    void Start()
+    public void Active()
     {
         spawnersInScene = GameObject.FindObjectsOfType<SpawnBonus>(); // Obtiene la referencia de todos los spawners 
         StartPoop();
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {
-        if(poopNumber< maxNUM)//Verifica que este el numero maximo de bonus en el juego siempre
+        /*if(active && poopNumber< maxNUM)//Verifica que este el numero maximo de bonus en el juego siempre
         {
             SpawnPoop();
             
-        }
+        }*/
     }
 
     public void UpdateSpawnersScene() //En caso de volver a empezar la escena
@@ -35,18 +33,16 @@ public class SpawnPopoManager : MonoBehaviour
 
     private void StartPoop()
     {
-        for(byte i=0; i< maxNUM; i++){//Crea todos los bonus 
+        for(int i=0; i< maxNUM; i++){//Crea todos los bonus 
             SpawnPoop();
         }
     }
     
-    private void SpawnPoop()
+    public void SpawnPoop()
     {
         int randomChoice = Random.Range(0, spawnersInScene.Length);//Escoge un spawner al azar para crear un objeto
 
         spawnersInScene[randomChoice].generateBonus();//Activa la funcion de spawn dentro del spawner
-
-        poopNumber++;
     }
 
 }

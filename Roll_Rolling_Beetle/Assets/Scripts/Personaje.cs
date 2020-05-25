@@ -28,14 +28,14 @@ public class Personaje : MonoBehaviour
     public bool lvl2music;
     public bool lvl3music;
     public bool lvl4music;
-    public apuntar Arrow;//Flecha de direccion de popo
+    
     #endregion
 
     #region Private Variables
     Animator animBeetle; //Referencia al animador
     GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
     FollowPlayer camPos; //Referencia al script de la camara
-
+    apuntar Arrow;//Flecha de direccion de popo
     Vector2 fingerDir;//Guarda la direccion del dedo en pantalla
 
     float startTouch, endTouch, timeTouched;//Medidores del touch
@@ -83,6 +83,8 @@ public class Personaje : MonoBehaviour
         timeTouched = 0f;
         SpawnPosition();
         CacaRotVel = 30.0f;
+        Arrow = GameObject.FindGameObjectWithTag("UI").transform.Find("Arrow").GetComponent<apuntar>();
+        Arrow.searchnewpoop();
         Arrow.gameObject.SetActive(false);
     }
     void Update()

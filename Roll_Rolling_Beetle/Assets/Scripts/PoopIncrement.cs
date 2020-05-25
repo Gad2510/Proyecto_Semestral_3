@@ -32,8 +32,6 @@ public class PoopIncrement : MonoBehaviour
     [SerializeField]
     float scaleIncrement = 0.01f, maxScale = 2f; //Valores para maxima escala y ratio de inclemento
 
-    public SpawnPopoManager index;
-
     Vector3 InitScale;//Para guardar la escala inicial de la caca
 
     Vector3 sumV;//Vector para escalar la caca
@@ -102,7 +100,7 @@ public class PoopIncrement : MonoBehaviour
         if (other.CompareTag("bonus"))
         {
             Destroy(other.gameObject);
-            index.poopNumber--;
+            CrearMapa.poopMnager.SpawnPoop();
             Corroboration();
         }
     }

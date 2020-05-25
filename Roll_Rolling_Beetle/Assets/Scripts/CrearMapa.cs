@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class CrearMapa : MonoBehaviour
 {
+    public static SpawnPopoManager poopMnager;
+
     public MapaAleatorio terrenoD;//Scriptableobject que tiene la referencia a todos los prefebs del juego
 
-    public Personaje playerRef;//RReferencia al jugador
-
+    public Transform playerObj;//RReferencia al jugador
+    Personaje player;
     GameObject[] mapaRef;//Referencias a todos los tiles
+    
+    public static float porcentage = 0f;
     //Los culling son objetos desactivados de los cuales solo se revisa si estan en pantalla
     Renderer[] mapRender; //Referencias a su objetos culling
     void Awake()
@@ -16,11 +20,11 @@ public class CrearMapa : MonoBehaviour
         terrenoD = Resources.Load<MapaAleatorio>("MapaAleatorio"); //Carga automaticamente de la carpeta resources el scriptable object
         mapRender = new Renderer[9]; //Inicializamos variables
         mapaRef = new GameObject[9];
-
-        StartLevel();//Empezar el juego
+        poopMnager = GetComponent<SpawnPopoManager>();
+        StartCoroutine(StartLevel());//Empezar el juego
     }
 
-    private void StartLevel()
+    private IEnumerator StartLevel()
     {
         GameObject g; //Crea un gameobject para tener donde depositar las referencias de los prefabs
         Vector3 coord = Vector4.zero;// Empieza la cordenada de conde se crea
@@ -49,10 +53,19 @@ public class CrearMapa : MonoBehaviour
                 {
                     mapRender[x + (3 * y)] = cullingRef.GetComponent<Renderer>();//Guarda la referencia
                 }
-                    
+                porcentage = (x + (3 * y))+1 / 24;
+                yield return null;   
             }
         }
+        GameObject.FindGameObjectWithTag("UI").transform.Find("Home").GetComponentInChildren<apuntar>().searchnewpoop();
+        poopMnager.Active();
+        if(player == null)// Se activa cada que se inicia la escena
+        {
+            Transform pl = Instantiate(playerObj);
+            player = pl.GetComponent<Personaje>();
+        }
 
+        porcentage = 1f;
         InvokeRepeating("OutputVisibleRenderers", 1f, 0.5f); //Empieza el culling que activa y desactiva los objetos cada 0.5 seg
     }
 
@@ -73,16 +86,19 @@ public class CrearMapa : MonoBehaviour
     public void RestartLevel() //Reinicai el nivel si es necesario
     {
         CancelInvoke();
-
         GameObject[] popos = GameObject.FindGameObjectsWithTag("Poop");
 
         for(int i = 1; i < popos.Length; i++)
         {
             Destroy(popos[i]);
         }
-
-        playerRef.gameObject.SetActive(true);
-        playerRef.Revive();
+        porcentage = 0f;
+        if (player != null)
+        {
+            player.gameObject.SetActive(true);
+            player.Revive();
+        }
+        
 
         for(int i = 0; i < mapaRef.Length; i++)
         {

@@ -7,7 +7,6 @@ public class Mantis : MonoBehaviour
 {
     public Collider selfcoll;
     public SphereCollider rango;
-    public GameObject player;
     UnityEngine.UI.Slider CacaPorcentage;
     public float radioDeteccion;
     public Transform poopSize;
@@ -31,7 +30,6 @@ public class Mantis : MonoBehaviour
     {
         selfcoll = GetComponent<Collider>();
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
-        player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         rango = GetComponent<SphereCollider>();
@@ -95,8 +93,8 @@ public class Mantis : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             siguiendoJugador = true;
-            transform.LookAt(player.transform);
-            navAgent.SetDestination(player.transform.position);
+            transform.LookAt(other.transform);
+            navAgent.SetDestination(other.transform.position);
         }
     }
 

@@ -15,8 +15,6 @@ public class Nido : MonoBehaviour
     {
         effect = GetComponentsInChildren<ParticleSystem>();
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();// Referencia al slider
-        per = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
-        //a = FindObjectOfType<apuntar>();
         
     }
 
@@ -25,6 +23,11 @@ public class Nido : MonoBehaviour
         //Comprobar si entra la bola y esta a su tamaño maximo
         if(other.gameObject.CompareTag("Poop") && CacaPorcentage.value >= 0.9f)
         {
+            if (per == null)
+            {
+                per = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
+            }
+
             per.IfNoPoop();//Funcion del jugador para resetear sus valores
             PoopIncrement poop = other.GetComponent<PoopIncrement>(); // Busco la referencia aqui encaso que se destruya la original
             poop.CacaPorcentage.value = 0.0f;//El slider regresa a cero

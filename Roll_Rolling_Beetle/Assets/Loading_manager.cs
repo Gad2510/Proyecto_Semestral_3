@@ -9,7 +9,7 @@ public class Loading_manager : MonoBehaviour
 
     public UnityEngine.UI.Slider loadBar;
 
-    
+    bool isUnloading=false;
     Material camMat;
     public Shader camShader;
     public Texture2D mask;
@@ -33,20 +33,35 @@ public class Loading_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Scene_Manager_BH._instance.CurrentLoad != null)
-            loadBar.value = Scene_Manager_BH._instance.CurrentLoad.progress;
+        if (loadBar.value < 0.48f)
+        {
+            if (Scene_Manager_BH._instance.CurrentLoad != null)
+                loadBar.value = Scene_Manager_BH._instance.CurrentLoad.progress / 2;
+            else
+            {
+                loadBar.value = 0.5f;
+            }
+        }
+        else if(loadBar.value >= 0.48f)
+        {
+            loadBar.value = 0.5f + CrearMapa.porcentage;
+        }
+
+
+        if ( !isUnloading && loadBar.value > 0.95)
+        {
+            isUnloading = true;
+            Scene_Manager_BH._instance.UnloadLoding();
+        }
 
         Vector3 worldPos = endPoint.position;
         worldPos.z = pivotMovement.position.z;
         worldPos.y = pivotMovement.position.y;
 
         pivotMovement.position = worldPos;
-
-        if ( Scene_Manager_BH._instance.CurrentLoad == null || loadBar.value > 0.9)
-        {
-            Scene_Manager_BH._instance.UnloadLoding();
-        }
     }
+
+
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
