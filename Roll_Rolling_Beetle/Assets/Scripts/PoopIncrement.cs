@@ -53,9 +53,11 @@ public class PoopIncrement : MonoBehaviour
         InitScale = this.transform.localScale;
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
+        if (gusanoK != null)
+            color1 = gusanoK.color;
+        if(mantisK != null)
+            color2 = mantisK.color;
 
-        color1 = gusanoK.color;
-        color2 = mantisK.color;
         alpha = 0;
         alpha2 = 0;
     }
@@ -132,15 +134,17 @@ public class PoopIncrement : MonoBehaviour
     
     public  void showTextG() // Vamos a mostrar el texto del gusano
     {
-        if(CacaPorcentage.value >=0.38f && CacaPorcentage.value <= 0.45f)
+        if (gusanoK == null)
+            return;
+        if (CacaPorcentage.value >=0.38f && CacaPorcentage.value <= 0.45f)
         {
             alpha += Time.deltaTime * speed; //Aparecemos en deltatime el texto
             if(alpha >= 1)
             {
                 alpha = 1;
-                gusanoK.color = new Color(color1.r,color1.g,color1.b, alpha);
                 print("Holatexto");
             }
+            gusanoK.color = new Color(color1.r, color1.g, color1.b, alpha);
         }
         else if(CacaPorcentage.value >= 0.5f) // Despues de tanto porcentaje se devanece
         {
@@ -148,34 +152,39 @@ public class PoopIncrement : MonoBehaviour
             if (alpha <= 0)
             {
                 alpha = 0;
-                gusanoK.color = new Color(color1.r, color1.g, color1.b, alpha);
             }
             desactivarG = true; //Una vez ya pase su tiempo se desactivara
+            gusanoK.color = new Color(color1.r, color1.g, color1.b, alpha);
+
         }
-        
+
     }
      public void showTextM()
     {
-        if (CacaPorcentage.value >= 0.68f && CacaPorcentage.value <= 0.75f)
+        if (mantisK == null)
+            return;
+        if (CacaPorcentage.value >= 0.68f && CacaPorcentage.value <= 0.78f)
         {
             alpha2 += Time.deltaTime * speed;
             if (alpha2 >= 1)
             {
                 alpha2 = 1;
-                mantisK.color = new Color(0, 0, 0, alpha2);
-                print("mantis");
+ 
             }
+            mantisK.color = new Color(color2.r, color2.g, color2.b, alpha2);
         }
 
-        else if (CacaPorcentage.value <= 0.75) // Despues de tanto porcentaje se devanece
+
+        else if (CacaPorcentage.value >= 0.75) // Despues de tanto porcentaje se devanece
         {
             alpha2 -= Time.deltaTime * speed;
             if (alpha2 <= 0)
             {
                 alpha2 = 0;
-                mantisK.color = new Color(0, 0, 0, alpha2);
+                
             }
             desactivarM = true; //Se hace true para que ya no vuelva a aparecer
+            mantisK.color = new Color(color2.r, color2.g, color2.b, alpha2);
         }
     }
 
