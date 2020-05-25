@@ -62,7 +62,7 @@ public class CrearMapa : MonoBehaviour
         if(player == null)// Se activa cada que se inicia la escena
         {
             Transform pl = Instantiate(playerObj);
-            player = pl.GetComponent<Personaje>();
+            player = pl.GetComponentInChildren<Personaje>();
         }
 
         porcentage = 1f;
@@ -106,5 +106,11 @@ public class CrearMapa : MonoBehaviour
         }
 
         Invoke("StartLevel",0.1f);
+    }
+
+    public void BeetleShoot()
+    {
+        if(player!=null)
+            player.PrepareToShot();
     }
 }

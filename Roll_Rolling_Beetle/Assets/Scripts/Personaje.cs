@@ -36,9 +36,9 @@ public class Personaje : MonoBehaviour
     GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
     FollowPlayer camPos; //Referencia al script de la camara
     apuntar Arrow;//Flecha de direccion de popo
-    Vector2 fingerDir;//Guarda la direccion del dedo en pantalla
+    public Vector2 fingerDir;//Guarda la direccion del dedo en pantalla
 
-    float startTouch, endTouch, timeTouched;//Medidores del touch
+    Vector2 startTouch, endTouch;//Medidores del touch
     float movementSpeed=5, rotationSpeed=25;//Velocidad de rotacion y movimiento
     #endregion
 
@@ -78,9 +78,6 @@ public class Personaje : MonoBehaviour
         lvl4music = false;
         maxMovementSpeed = 10;
         maxRotationSpeed = 50;
-        startTouch = 0f;
-        endTouch = 0f;
-        timeTouched = 0f;
         SpawnPosition();
         CacaRotVel = 30.0f;
         Arrow = GameObject.FindGameObjectWithTag("UI").transform.Find("Arrow").GetComponent<apuntar>();
@@ -99,8 +96,8 @@ public class Personaje : MonoBehaviour
             y = fingerDir.y;
 #endif
 #if UNITY_EDITOR
-            x = Input.GetAxis("Horizontal");
-            y = Input.GetAxis("Vertical");
+            //x = Input.GetAxis("Horizontal");
+            //y = Input.GetAxis("Vertical");
 #endif
 
 
@@ -130,10 +127,7 @@ public class Personaje : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && !canHold)
             {
-                animBeetle.SetTrigger("shoot");
-                poopshooted = true;
-                poopRigid.isKinematic = false;
-                state = PlayerState.THROWING;
+                PrepareToShot();
             }
         }
         else if (state == PlayerState.THROWING)
@@ -184,33 +178,36 @@ public class Personaje : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)
             {
-                startTouch = Time.realtimeSinceStartup;
+                startTouch = Input.touches[0].position;
             }
             else if (Input.touches[0].phase == TouchPhase.Moved)
             {
-                fingerDir = Input.touches[0].deltaPosition;
-                fingerDir.x = fingerDir.x / (Screen.width/50);
-                fingerDir.y = fingerDir.y / (Screen.height/50);
+                endTouch = Input.touches[0].position;
+                Vector2 dir = endTouch - startTouch;
+                fingerDir.x =(dir.x/Screen.width)*2f;
+                fingerDir.y = (dir.y == 0) ? 0f : (Mathf.Abs(dir.y) / dir.y);
                 
             }
-            else if(Input.touches[0].phase==TouchPhase.Ended)
+            else if (Input.touches[0].phase == TouchPhase.Ended)
             {
-                fingerDir = Vector3.zero;
-                endTouch = Time.realtimeSinceStartup;
-                timeTouched = endTouch-startTouch;
-
-                if (!canHold && timeTouched < 0.3f)
-                {
-                    animBeetle.SetTrigger("shoot");
-                    poopshooted = true;
-                    poopRigid.isKinematic = false;
-                    state = PlayerState.THROWING;
-                }
+                fingerDir = Vector2.zero;
             }
 
             
 
         }
+    }
+
+    public void PrepareToShot()
+    {
+        if(!canHold)
+        {
+            animBeetle.SetTrigger("shoot");
+            poopshooted = true;
+            poopRigid.isKinematic = false;
+            state = PlayerState.THROWING;
+        }
+        
     }
     public void ShootPoop()
     {
