@@ -97,7 +97,8 @@ public class Scene_Manager_BH : MonoBehaviour
         //Musica
         if(level == 3)
         {
-            AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.GAME_OVER);
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.GAME_OVER);
+            AudioManager.GetInstance().PauseBackground();
         }
         if (level == 0)
         {

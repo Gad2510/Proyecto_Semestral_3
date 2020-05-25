@@ -58,20 +58,22 @@ MonoBehaviour:
     type: 3
   - clip: {fileID: 8300000, guid: d7d1315d92642b549bd547443bf57743, type: 3}
     type: 4
-  backgroundSounds:
   - clip: {fileID: 8300000, guid: 30509307db15b5e47b38444ab22bcd45, type: 3}
-    type: 0
-  - clip: {fileID: 8300000, guid: 86c1773b097d3014c908a903879090e1, type: 3}
-    type: 1
-  - clip: {fileID: 8300000, guid: b70a6167ea8bcc840af1dbd907b5a69c, type: 3}
-    type: 2
-  - clip: {fileID: 8300000, guid: 60d7ccef9f1c1604f9d768a3a5bf8c23, type: 3}
-    type: 3
-  - clip: {fileID: 8300000, guid: aca1e5c33c222bc48b9dfb6b393a1cfc, type: 3}
-    type: 4
-  - clip: {fileID: 8300000, guid: 7b34b95e4d15b5c44a43eb73e72abf94, type: 3}
     type: 5
+  backgroundSounds:
+  - clip: {fileID: 8300000, guid: 86c1773b097d3014c908a903879090e1, type: 3}
+    type: 0
+  - clip: {fileID: 8300000, guid: b70a6167ea8bcc840af1dbd907b5a69c, type: 3}
+    type: 1
+  - clip: {fileID: 8300000, guid: 60d7ccef9f1c1604f9d768a3a5bf8c23, type: 3}
+    type: 2
+  - clip: {fileID: 8300000, guid: aca1e5c33c222bc48b9dfb6b393a1cfc, type: 3}
+    type: 3
+  - clip: {fileID: 8300000, guid: 7b34b95e4d15b5c44a43eb73e72abf94, type: 3}
+    type: 4
   g_audio: []
+  sfxEnable: 1
+  musicEnable: 1
 --- !u!82 &8975306298082723103
 AudioSource:
   m_ObjectHideFlags: 0

@@ -61,6 +61,10 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+    public void PauseBackground()
+    {
+        music.Pause();
+    }
     public void PlayAudio(AUDIO_TYPE _t, Vector3 pos) //3d
     {
         for (int i = 0; i < audios.Length; i++)
@@ -85,11 +89,11 @@ public class AudioManager : MonoBehaviour
 
 public enum AUDIO_TYPE
 {
-    BUTTON, APLASTADO_CACA, MUERTE_MANTIS, MUERTE_GUSANO, MUERTE_JUGADOR
+    BUTTON, APLASTADO_CACA, MUERTE_MANTIS, MUERTE_GUSANO, MUERTE_JUGADOR, GAME_OVER
 }
 public enum BACKGROUND_TYPE
 {
-    GAME_OVER, LVL1, LVL2, LVL3, LVL4, INTER
+    LVL1, LVL2, LVL3, LVL4, INTER
 }
 [Serializable]
 public class AudioByType
