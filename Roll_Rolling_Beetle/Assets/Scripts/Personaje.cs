@@ -80,7 +80,7 @@ public class Personaje : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
             //float x = fingerDir.x;
-           // float y = fingerDir.y;
+            //float y = fingerDir.y;
             y *= dir;//Cambio de dirreccion cuando se agarra por atras
             
             if (canHold)

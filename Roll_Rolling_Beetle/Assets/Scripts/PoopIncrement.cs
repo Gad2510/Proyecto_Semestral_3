@@ -67,7 +67,7 @@ public class PoopIncrement : MonoBehaviour
         {
             gusanoK.color = new Color(0, 0, 0, 0);
         }
-        showTextM();
+         showTextM();
         if (desactivarM == true)
         {
             mantisK.color = new Color(0, 0, 0, 0);
@@ -156,7 +156,7 @@ public class PoopIncrement : MonoBehaviour
     }
      public void showTextM()
     {
-        if (CacaPorcentage.value >= 0.68f && CacaPorcentage.value <= 0.79f)
+        if (CacaPorcentage.value >= 0.68f && CacaPorcentage.value <= 0.75f)
         {
             alpha2 += Time.deltaTime * speed;
             if (alpha2 >= 1)
@@ -167,7 +167,7 @@ public class PoopIncrement : MonoBehaviour
             }
         }
 
-        else if (CacaPorcentage.value >= 0.75) // Despues de tanto porcentaje se devanece
+        else if (CacaPorcentage.value <= 0.75) // Despues de tanto porcentaje se devanece
         {
             alpha2 -= Time.deltaTime * speed;
             if (alpha2 <= 0)
