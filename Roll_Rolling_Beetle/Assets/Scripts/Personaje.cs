@@ -53,7 +53,19 @@ public class Personaje : MonoBehaviour
 
     void Start()
     {
-        
+
+
+#if UNITY_IOS
+      Debug.Log("Iphone");
+#endif
+
+#if UNITY_STANDALONE_OSX
+    Debug.Log("Stand Alone OSX");
+#endif
+
+#if UNITY_STANDALONE_WIN
+      Debug.Log("Stand Alone Windows");
+#endif
         camPos = Camera.main.GetComponent<FollowPlayer>();
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
@@ -77,10 +89,17 @@ public class Personaje : MonoBehaviour
 
         if (isAlive && state == PlayerState.WALKING)
         {
-            float x = Input.GetAxis("Horizontal");
-            float y = Input.GetAxis("Vertical");
-            //float x = fingerDir.x;
-            //float y = fingerDir.y;
+            float x, y;
+#if UNITY_ANDROID
+            x = fingerDir.x;
+            y = fingerDir.y;
+#endif
+#if UNITY_EDITOR
+            x = Input.GetAxis("Horizontal");
+            y = Input.GetAxis("Vertical");
+#endif
+
+
             y *= dir;//Cambio de dirreccion cuando se agarra por atras
             
             if (canHold)
