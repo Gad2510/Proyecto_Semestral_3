@@ -96,8 +96,8 @@ public class Personaje : MonoBehaviour
             y = fingerDir.y;
 #endif
 #if UNITY_EDITOR
-            //x = Input.GetAxis("Horizontal");
-            //y = Input.GetAxis("Vertical");
+            x = Input.GetAxis("Horizontal");
+            y = Input.GetAxis("Vertical");
 #endif
 
 

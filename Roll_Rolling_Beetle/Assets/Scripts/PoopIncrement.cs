@@ -48,10 +48,12 @@ public class PoopIncrement : MonoBehaviour
         InitScale = this.transform.localScale;
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
-        if (gusanoK != null)
-            color1 = gusanoK.color;
-        if(mantisK != null)
-            color2 = mantisK.color;
+
+        gusanoK = GameObject.FindGameObjectWithTag("UI").transform.Find("GusanoK").GetComponent<Text>();
+        mantisK = GameObject.FindGameObjectWithTag("UI").transform.Find("Mantisk").GetComponent<Text>();
+
+        color1 = gusanoK.color;
+        color2 = mantisK.color;
 
         alpha = 0;
         alpha2 = 0;
