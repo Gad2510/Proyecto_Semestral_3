@@ -15,6 +15,11 @@ public class AudioManager : MonoBehaviour
     public bool musicEnable = true;
     public bool isPaused = false;
 
+    public bool MusicEnable
+    {
+        set { if (!value) { music.Stop(); } else { music.Play(); } musicEnable = value; }
+    }
+
     public void Start()
     {
         if (_instance == null)
