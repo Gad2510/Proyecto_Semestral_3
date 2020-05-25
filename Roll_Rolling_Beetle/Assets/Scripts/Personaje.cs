@@ -54,19 +54,6 @@ public class Personaje : MonoBehaviour
 
     void Start()
     {
-
-
-#if UNITY_IOS
-      Debug.Log("Iphone");
-#endif
-
-#if UNITY_STANDALONE_OSX
-    Debug.Log("Stand Alone OSX");
-#endif
-
-#if UNITY_STANDALONE_WIN
-      Debug.Log("Stand Alone Windows");
-#endif
         camPos = Camera.main.GetComponent<FollowPlayer>();
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
