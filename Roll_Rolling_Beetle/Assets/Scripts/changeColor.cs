@@ -7,8 +7,8 @@ public class changeColor : MonoBehaviour
     MeshRenderer mesh;
     Color whiteRef, initCol;
     ParticleSystem particulas;
-    bool isChanging=false , playPart=true;
-    // Start is called before the first frame update
+    bool isChanging = false , playPart=true;
+   
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -16,11 +16,11 @@ public class changeColor : MonoBehaviour
         initCol = mesh.material.color;
 
         particulas = transform.GetChild(0).GetComponent<ParticleSystem>();
+        //particulas.main
         particulas.Stop(true);
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!Personaje.IsPoopInGame)
