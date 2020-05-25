@@ -71,6 +71,10 @@ public class Scene_Manager_BH : MonoBehaviour
 
     public void ChangeLevel(int level)
     {
+        if (AudioManager.GetInstance().isPaused)
+        {
+            AudioManager.GetInstance().music.Play();
+        }
         if (mode!=LoadSceneMode.Single && !niveles[level].aditiveToLast)
         {
             SceneManager.UnloadSceneAsync(niveles[index].nombre);

@@ -21,8 +21,9 @@ public class Personaje : MonoBehaviour
     public float CacaRotVel; //Velocidad de rotacion
     float dir=1f; //Float para saber la direccion en la que tiene que moverse el jugador, cambia al agarrar la popo por detras
 
-    bool lvl2music;
-    bool lvl3music;
+    public bool lvl2music;
+    public bool lvl3music;
+    public bool lvl4music;
 
     //Flecha de direccion de popo
     public apuntar Arrow;
@@ -74,7 +75,10 @@ public class Personaje : MonoBehaviour
         isMoving = false;
         poopshooted = false;
         isAlive = true;
-        maxMovementSpeed = 10;
+        lvl2music = false;
+        lvl3music = false;
+        lvl4music = false;
+    maxMovementSpeed = 10;
         maxRotationSpeed = 50;
         startTouch = 0f;
         endTouch = 0f;
@@ -146,15 +150,20 @@ public class Personaje : MonoBehaviour
         }
 
         //////////////// Musica ////////////////
-        if (PoopIncrement.score > 50 && !lvl2music)
+        if (PoopIncrement.score > 800 && !lvl2music)
         {
             lvl2music = true;
             AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL2);
         }
-        else if (PoopIncrement.score > 100 && !lvl3music)
+        else if (PoopIncrement.score > 1600 && !lvl3music)
         {
             lvl3music = true;
             AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL3);
+        }
+        else if (PoopIncrement.score > 2400 && !lvl4music)
+        {
+            lvl4music = true;
+            AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL4);
         }
         ////////////////////////////////////////
         if (Input.GetKeyDown(KeyCode.H))
@@ -290,8 +299,9 @@ public class Personaje : MonoBehaviour
             ChangeScene();
             isAlive = false;
             this.gameObject.SetActive(false);
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_JUGADOR);
         }
-       
+
     }
 
     public void CreateNewPoop(GameObject coll)
