@@ -53,6 +53,7 @@ public class Gusano : MonoBehaviour
             trig.enabled = false;
             anim.SetTrigger("hit");
             Invoke("Restart", 10f);
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_GUSANO);
         }
     }
 

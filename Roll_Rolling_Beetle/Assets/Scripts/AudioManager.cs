@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
 
     public bool sfxEnable = true;
     public bool musicEnable = true;
+    public bool isPaused = false;
 
     public void Start()
     {
@@ -64,6 +65,7 @@ public class AudioManager : MonoBehaviour
     public void PauseBackground()
     {
         music.Pause();
+        isPaused = true;
     }
     public void PlayAudio(AUDIO_TYPE _t, Vector3 pos) //3d
     {

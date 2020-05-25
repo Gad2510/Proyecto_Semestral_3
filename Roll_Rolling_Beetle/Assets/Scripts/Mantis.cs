@@ -138,6 +138,7 @@ public class Mantis : MonoBehaviour
                     Debug.Log(poopSize.transform.localScale.y);
                     selfcoll.enabled = false;
                     Destroy(gameObject, 0.5f);
+                    AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_MANTIS);
                 }
             }
         }
