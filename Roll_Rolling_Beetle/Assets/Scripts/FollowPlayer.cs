@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Schema;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class FollowPlayer : MonoBehaviour
 {
@@ -9,6 +10,16 @@ public class FollowPlayer : MonoBehaviour
     public float transitionDuration = 0.5f; // Duracion del cambio de camara
 
     Transform pivot;
+    ParentConstraint constrain;
+    public Transform Pivot
+    {
+        set { pivot = value;
+            ConstraintSource sr = new ConstraintSource();
+            sr.sourceTransform = pivot;
+            sr.weight = 1;
+            constrain.SetSource(0, sr);
+        }
+    }
 
     public bool InverseRot
     {
@@ -24,13 +35,7 @@ public class FollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        pivot = this.transform.parent;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        constrain = GetComponent<ParentConstraint>();
     }
 
     IEnumerator RotationTransition()

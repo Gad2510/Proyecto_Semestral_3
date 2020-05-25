@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class apuntar : MonoBehaviour
 {
     GameObject objetToPoint;
-    public Camera cam;
+    Camera cam;
 
     public string tagObject;
 
     private void Start()
     {
+        cam = Camera.main;
         objetToPoint = GameObject.FindGameObjectWithTag(tagObject); //Buscamos la Casa por su etiqueta
     }
 

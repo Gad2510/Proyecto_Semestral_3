@@ -65,6 +65,7 @@ public class Personaje : MonoBehaviour
     void Start()
     {
         camPos = Camera.main.GetComponent<FollowPlayer>();
+        camPos.Pivot = transform.Find("PivoteCam");
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();
