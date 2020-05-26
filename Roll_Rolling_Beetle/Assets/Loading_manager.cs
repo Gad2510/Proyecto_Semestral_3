@@ -1,67 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Loading_manager : MonoBehaviour
 {
-    public Transform pivotMovement;
-    public RectTransform endPoint;
+    static float loading = 0f;
+    static int leanId;
 
-    public UnityEngine.UI.Slider loadBar;
-
-    bool isUnloading=false;
-    Material camMat;
     public Shader camShader;
     public Texture2D mask;
-    [Range(0,1)]
-    public float color;
+
+    bool isUnloading = false;
+    Material camMat;
+
+    public static float Loading
+    {
+        set
+        {
+            loading = value;
+            if(loading>=0.95f)
+            {
+                LeanTween.resume(leanId);
+            }
+        }
+    }
+
     private void Awake()
     {
-
         camMat = new Material(camShader);
-        camMat.SetTexture("_Mask", mask);
         camMat.SetFloat("_Alpha", 0);
-        camMat.SetTexture("_SecTex", Scene_Manager_BH._instance.LastFrame);
-        LeanTween.value(gameObject,CameraTransition, 0f, 1f, 1f);
+        LeanTween.value(gameObject,CameraTransition, 0f, 1f, 1f).setOnComplete(LoadNextLevel);
     }
 
     void CameraTransition(float _value)
     {
+        //Debug.Log("LOAD: " + _value);
         camMat.SetFloat("_Alpha", _value);
     }
 
-    // Update is called once per frame
-    void Update()
+    void CameraT(float _value)
     {
-        if (loadBar.value < 0.48f)
-        {
-            if (Scene_Manager_BH._instance.CurrentLoad != null)
-                loadBar.value = Scene_Manager_BH._instance.CurrentLoad.progress / 2;
-            else
-            {
-                loadBar.value = 0.5f;
-            }
-        }
-        else if(loadBar.value >= 0.48f)
-        {
-            loadBar.value = 0.5f + CrearMapa.porcentage;
-        }
-
-
-        if ( !isUnloading && loadBar.value > 0.95)
-        {
-            isUnloading = true;
-            Scene_Manager_BH._instance.UnloadLoding();
-        }
-
-        Vector3 worldPos = endPoint.position;
-        worldPos.z = pivotMovement.position.z;
-        worldPos.y = pivotMovement.position.y;
-
-        pivotMovement.position = worldPos;
+        Debug.Log("LOAD: " + _value);
+        camMat.SetFloat("_Alpha", _value);
     }
 
+    private void LoadNextLevel()
+    {
+        Scene_Manager_BH._instance.loadLevelInLine();
+        leanId = LeanTween.value(gameObject, CameraT, 1f, 0f, 1f).setOnComplete(UnloadScene).id;
+        LeanTween.pause(leanId);
+    }
 
+    private static void UnloadScene()
+    {
+        Scene_Manager_BH._instance.UnloadLoding();
+    }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {

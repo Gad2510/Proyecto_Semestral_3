@@ -3,9 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _SecTex ("Texture", 2D) = "black" {}
         _Alpha("AlphaChange",Range(1.0,0.0))=0.0
-        _Mask("Mask", 2D) = "white" {}
     }
     SubShader
     {
@@ -53,16 +51,12 @@
             {
                 // sample the texture
                 
-                fixed mask = tex2D(_Mask, i.uv).a;
+                fixed4 col = tex2D(_MainTex, i.uv);
                 UNITY_APPLY_FOG(i.fogCoord, col);
 
-                if(mask<_Alpha){
-                    return  tex2D(_MainTex, i.uv);
-				}
-                else{
-                    return tex2D(_SecTex, i.uv);
-				}
-                // apply fog
+                col=lerp(col,fixed4(0,0,0,0),_Alpha);
+
+                return col;
                 
             }
             ENDCG

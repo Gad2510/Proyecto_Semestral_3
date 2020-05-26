@@ -89,17 +89,17 @@ public class Scene_Manager_BH : MonoBehaviour
         }
         index = level;
 
-        if (mode == LoadSceneMode.Single || !restart)
+        if ((mode == LoadSceneMode.Single || !restart) && !niveles[index].loading)
         {
             currentLoad=SceneManager.LoadSceneAsync(niveles[level].nombre, mode);
-
-            if (niveles[level].loading)
-            {
-                SceneManager.LoadScene("LoadingScene",LoadSceneMode.Additive);
-            }
         }
+        else if (niveles[level].loading)
+        {
+            SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
+        }
+
         //Musica
-        if(level == 3)
+        if (level == 3)
         {
             AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.GAME_OVER);
             AudioManager.GetInstance().PauseBackground();
@@ -108,6 +108,11 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             AudioManager.GetInstance().PlayBackground(BACKGROUND_TYPE.LVL1);
         }
+    }
+
+    public void loadLevelInLine()
+    {
+        currentLoad = SceneManager.LoadSceneAsync(niveles[index].nombre, mode);
     }
 
     public bool RestartLevel()

@@ -12,7 +12,6 @@ public class CrearMapa : MonoBehaviour
     Personaje player;
     GameObject[] mapaRef;//Referencias a todos los tiles
     
-    public static float porcentage = 0f;
     //Los culling son objetos desactivados de los cuales solo se revisa si estan en pantalla
     Renderer[] mapRender; //Referencias a su objetos culling
     void Awake()
@@ -53,7 +52,6 @@ public class CrearMapa : MonoBehaviour
                 {
                     mapRender[x + (3 * y)] = cullingRef.GetComponent<Renderer>();//Guarda la referencia
                 }
-                porcentage = (x + (3 * y))+1 / 24;
                 yield return null;   
             }
         }
@@ -65,7 +63,7 @@ public class CrearMapa : MonoBehaviour
             player = pl.GetComponentInChildren<Personaje>();
         }
 
-        porcentage = 1f;
+        Loading_manager.Loading = 1f;
         InvokeRepeating("OutputVisibleRenderers", 1f, 0.5f); //Empieza el culling que activa y desactiva los objetos cada 0.5 seg
     }
 
@@ -92,7 +90,6 @@ public class CrearMapa : MonoBehaviour
         {
             Destroy(popos[i]);
         }
-        porcentage = 0f;
         if (player != null)
         {
             player.gameObject.SetActive(true);
