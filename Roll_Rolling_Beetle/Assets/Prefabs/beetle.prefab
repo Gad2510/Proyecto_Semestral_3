@@ -345,7 +345,7 @@ MonoBehaviour:
   lvl2music: 0
   lvl3music: 0
   lvl4music: 0
-  Arrow: {fileID: 0}
+  fingerDir: {x: 0, y: 0}
 --- !u!1001 &1715360767175700560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1218,6 +1218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: separacion
       value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570147818206632442, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
+        type: 3}
+      propertyPath: speed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4588975881965126578, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
         type: 3}

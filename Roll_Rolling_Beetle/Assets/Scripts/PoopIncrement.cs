@@ -133,7 +133,7 @@ public class PoopIncrement : MonoBehaviour
     {
         if (gusanoK == null)
             return;
-        if (CacaPorcentage.value >=0.38f && CacaPorcentage.value <= 0.45f)
+        if (CacaPorcentage.value >=0.4f && CacaPorcentage.value <= 0.45f)
         {
             alpha += Time.deltaTime * speed; //Aparecemos en deltatime el texto
             if(alpha >= 1)
