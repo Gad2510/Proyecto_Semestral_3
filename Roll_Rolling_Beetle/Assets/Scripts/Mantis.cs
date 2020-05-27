@@ -29,7 +29,7 @@ public class Mantis : MonoBehaviour
     private void Awake()
     {
         selfcoll = GetComponent<Collider>();
-        CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
+        CacaPorcentage = CrearMapa.slider;// Referencia al slider
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         rango = GetComponent<SphereCollider>();

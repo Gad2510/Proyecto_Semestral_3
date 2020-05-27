@@ -35,13 +35,11 @@ public class Loading_manager : MonoBehaviour
 
     void CameraTransition(float _value)
     {
-        //Debug.Log("LOAD: " + _value);
         camMat.SetFloat("_Alpha", _value);
     }
 
     void CameraT(float _value)
     {
-        Debug.Log("LOAD: " + _value);
         camMat.SetFloat("_Alpha", _value);
     }
 

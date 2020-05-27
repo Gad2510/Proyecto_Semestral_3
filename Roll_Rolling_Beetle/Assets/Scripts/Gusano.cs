@@ -23,7 +23,7 @@ public class Gusano : MonoBehaviour
         coll = GetComponent<BoxCollider>();
         trig = GetComponent<SphereCollider>();
         anim = GetComponent<Animator>();
-        CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();// Referencia al slider
+        CacaPorcentage = CrearMapa.slider;// Referencia al slider
 
 
     }

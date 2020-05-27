@@ -14,6 +14,7 @@ public class Personaje : MonoBehaviour
     #endregion
 
     #region Public Variables
+    public Transform camPivot;
     public Rigidbody poopRigid; //Referencia al rigidbody de la popo
     public float maxMovementSpeed;// Velocidad sin caca
     public float maxRotationSpeed;// Rotacion sin caca
@@ -64,8 +65,8 @@ public class Personaje : MonoBehaviour
     #endregion
     void Start()
     {
-        camPos = Camera.main.GetComponent<FollowPlayer>();
-        camPos.Pivot = transform.Find("PivoteCam");
+        camPos = GameObject.FindObjectOfType<FollowPlayer>();
+        camPos.Pivot = camPivot;
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         animBeetle = GetComponent<Animator>();

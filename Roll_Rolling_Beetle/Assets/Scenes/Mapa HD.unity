@@ -676,7 +676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &158288647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,6 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018f57713f684fd40a8566285920c1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1380366153}
   tagObject: home
 --- !u!1 &464615904
 GameObject:
@@ -3891,7 +3892,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 8.100098, y: -4.4003906}
   m_SizeDelta: {x: 80, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5019,7 +5020,7 @@ ParentConstraint:
   m_Enabled: 1
   m_Weight: 1
   m_TranslationAtRest: {x: 100, y: 16.899998, z: 92.03}
-  m_RotationAtRest: {x: 49.969994, y: 0, z: 0}
+  m_RotationAtRest: {x: 49.969997, y: 0, z: 0}
   m_TranslationOffsets:
   - {x: 0, y: 15.999998, z: -8}
   m_RotationOffsets:
@@ -5338,6 +5339,7 @@ MonoBehaviour:
   terrenoD: {fileID: 11400000, guid: 7efe091a47923314ab5856a1d69b32ba, type: 2}
   playerObj: {fileID: 3468171549311745490, guid: 13ec9b9b41320104088c97314ae00976,
     type: 3}
+  canvas: {fileID: 158288646}
 --- !u!4 &1463841755
 Transform:
   m_ObjectHideFlags: 0
@@ -7744,7 +7746,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 2, y: -3}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8675,6 +8677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018f57713f684fd40a8566285920c1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1380366153}
   tagObject: Poop
 --- !u!114 &1256934653133408446
 MonoBehaviour:

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CrearMapa : MonoBehaviour
 {
+    public static UnityEngine.UI.Slider slider;
     public static SpawnPopoManager poopMnager;
 
     public MapaAleatorio terrenoD;//Scriptableobject que tiene la referencia a todos los prefebs del juego
@@ -11,11 +12,15 @@ public class CrearMapa : MonoBehaviour
     public Transform playerObj;//RReferencia al jugador
     Personaje player;
     GameObject[] mapaRef;//Referencias a todos los tiles
-    
+
+    public GameObject canvas;
+
+
     //Los culling son objetos desactivados de los cuales solo se revisa si estan en pantalla
     Renderer[] mapRender; //Referencias a su objetos culling
     void Awake()
     {
+        slider = canvas.transform.transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();
         terrenoD = Resources.Load<MapaAleatorio>("MapaAleatorio"); //Carga automaticamente de la carpeta resources el scriptable object
         mapRender = new Renderer[9]; //Inicializamos variables
         mapaRef = new GameObject[9];
@@ -55,15 +60,21 @@ public class CrearMapa : MonoBehaviour
                 yield return null;   
             }
         }
-        GameObject.FindGameObjectWithTag("UI").transform.Find("Home").GetComponentInChildren<apuntar>().searchnewpoop();
+        
         poopMnager.Active();
         if(player == null)// Se activa cada que se inicia la escena
         {
-            Transform pl = Instantiate(playerObj);
+            Transform pl = Instantiate(playerObj,this.transform);
             player = pl.GetComponentInChildren<Personaje>();
         }
+        canvas.SetActive(true);
+        canvas.transform.Find("Home").GetComponentInChildren<apuntar>().searchnewpoop();
 
-        Loading_manager.Loading = 1f;
+        if (Scene_Manager_BH._instance.loadScene)//Verifica que haya estado en la pantalla de inicio
+        {
+            Loading_manager.Loading = 1f;
+        }
+        
         InvokeRepeating("OutputVisibleRenderers", 1f, 0.5f); //Empieza el culling que activa y desactiva los objetos cada 0.5 seg
     }
 

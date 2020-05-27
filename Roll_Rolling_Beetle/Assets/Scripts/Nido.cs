@@ -14,7 +14,7 @@ public class Nido : MonoBehaviour
     void Start()
     {
         effect = GetComponentsInChildren<ParticleSystem>();
-        CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();// Referencia al slider
+        CacaPorcentage = CrearMapa.slider;// Referencia al slider
         
     }
 

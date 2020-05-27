@@ -75,13 +75,18 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             AudioManager.GetInstance().music.Play();
         }
-        if (mode!=LoadSceneMode.Single && !niveles[level].aditiveToLast)
+        if (mode!=LoadSceneMode.Single && !niveles[level].aditiveToLast && !niveles[level].loading)
         {
             SceneManager.UnloadSceneAsync(niveles[index].nombre);
             if (niveles[index].aditiveToLast && !restart)
             {
                 SceneManager.UnloadSceneAsync(lastLv);
             }
+        }
+        else if (niveles[level].loading)
+        {
+            SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
+            lastLv = niveles[index].nombre;
         }
         else
         {
@@ -93,10 +98,7 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             currentLoad=SceneManager.LoadSceneAsync(niveles[level].nombre, mode);
         }
-        else if (niveles[level].loading)
-        {
-            SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
-        }
+        
 
         //Musica
         if (level == 3)
@@ -112,6 +114,7 @@ public class Scene_Manager_BH : MonoBehaviour
 
     public void loadLevelInLine()
     {
+        SceneManager.UnloadSceneAsync(lastLv);
         currentLoad = SceneManager.LoadSceneAsync(niveles[index].nombre, mode);
     }
 
