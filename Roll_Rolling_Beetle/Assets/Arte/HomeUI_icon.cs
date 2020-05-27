@@ -6,25 +6,23 @@ using UnityEngine.UI;
 public class HomeUI_icon : MonoBehaviour
 {
     Slider CacaPorcentage;
-    public static bool escalando = true,startOver =true;
+    public static bool escalando = true, startOver =true;
 
 
     int leanID;
     void Start()
     {
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();
-        leanID= LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.3f).setLoopPingPong().id;
-        
+        leanID= LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.3f).setLoopPingPong().id; 
     }
 
     void Update()
     {
         //Cuando el slider llegue al maximo, escalar el icono
-        if (CacaPorcentage.value >= 0.9f && !escalando)
+        if (CacaPorcentage.value >= 1.0f && !escalando)
         {
             LeanTween.resume(leanID);
             escalando = true;
-
         }
 
         //Si no se esta escalando, dejar su escala en 1
