@@ -269,10 +269,13 @@ public class Personaje : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (isAlive && collision.gameObject.tag == "Enemigo")
+        if (isAlive && collision.gameObject.CompareTag("Enemigo"))
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
+            //Cambiar estas variables para que al reiniciar el juego no se haga la animacion desde el comienzo
+            HomeUI_icon.startOver = true;
+            //---------------------------
             AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_JUGADOR);
         }
 
@@ -296,6 +299,9 @@ public class Personaje : MonoBehaviour
         {
             ChangeScene();
             isAlive = false;
+            //Cambiar estas variables para que al reiniciar el juego no se haga la animacion desde el comienzo
+            HomeUI_icon.startOver = true;
+
             this.gameObject.SetActive(false);
             AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_JUGADOR);
         }

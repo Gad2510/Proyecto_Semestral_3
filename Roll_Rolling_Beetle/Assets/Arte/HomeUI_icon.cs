@@ -13,7 +13,9 @@ public class HomeUI_icon : MonoBehaviour
     void Start()
     {
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();
-        leanID= LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.3f).setLoopPingPong().id; 
+        leanID= LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.3f).setLoopPingPong().id;
+        escalando = true;
+        startOver = true;
     }
 
     void Update()
@@ -26,7 +28,7 @@ public class HomeUI_icon : MonoBehaviour
         }
 
         //Si no se esta escalando, dejar su escala en 1
-        if(escalando && startOver)
+        if (escalando && startOver)
         {
             escalando = false;
             startOver = false;
