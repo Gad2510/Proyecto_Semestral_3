@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -39,6 +38,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         AudioManager.GetInstance().music.pitch = 1;
         AudioManager.GetInstance().music.volume = 1;
-        SceneManager.LoadScene(1);
+        Scene_Manager_BH._instance.ChangeLevel(0);
     }
 }

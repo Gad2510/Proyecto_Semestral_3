@@ -85,6 +85,7 @@ public class Scene_Manager_BH : MonoBehaviour
         }
         else if (niveles[level].loading)
         {
+            
             SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
             lastLv = niveles[index].nombre;
         }
@@ -93,7 +94,6 @@ public class Scene_Manager_BH : MonoBehaviour
             lastLv = niveles[index].nombre;
         }
         index = level;
-
         if ((mode == LoadSceneMode.Single || !restart) && !niveles[index].loading)
         {
             currentLoad=SceneManager.LoadSceneAsync(niveles[level].nombre, mode);
@@ -115,6 +115,7 @@ public class Scene_Manager_BH : MonoBehaviour
     public void loadLevelInLine()
     {
         SceneManager.UnloadSceneAsync(lastLv);
+
         currentLoad = SceneManager.LoadSceneAsync(niveles[index].nombre, mode);
     }
 

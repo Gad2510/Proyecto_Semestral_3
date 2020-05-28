@@ -32,7 +32,7 @@ public class CrearMapa : MonoBehaviour
     {
         GameObject g; //Crea un gameobject para tener donde depositar las referencias de los prefabs
         Vector3 coord = Vector4.zero;// Empieza la cordenada de conde se crea
-
+        canvas.SetActive(false);
         for (int x = 0; x < 3; x++)
         {
             coord.x = x;//actualiza su posicion en x
