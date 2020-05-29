@@ -256,7 +256,7 @@ public class Personaje : MonoBehaviour
         }
     }
 
-    void ChooseCollider(FrontCollider currentColl, bool animState=false)
+    void ChooseCollider(FrontCollider currentColl)
     {
         poopRigid = currentColl.collide.attachedRigidbody;
         animBeetle.SetBool("holding", false);

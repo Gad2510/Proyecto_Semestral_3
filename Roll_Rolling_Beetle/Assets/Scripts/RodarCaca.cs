@@ -21,7 +21,7 @@ public class RodarCaca : MonoBehaviour //Hace girar la caca, el script esta dent
         if(escarabajo.poopshooted)
         {
             //Pero por favor no comenten mis cosas, pero oigame no me ahorco
-           transform.RotateAround(centro.transform.position, centro.transform.right, CacaRotVel );
+           transform.RotateAround(centro.transform.position, escarabajo.transform.right, CacaRotVel );
         }
     }
 }

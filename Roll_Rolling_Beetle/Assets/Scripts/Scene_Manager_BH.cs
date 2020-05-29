@@ -37,12 +37,13 @@ public class Scene_Manager_BH : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
-
+       
         settings = Resources.Load<PlayerSettings>("PlayerSettings");
         settings.LoadSettings();
         if (loadScene)
@@ -53,12 +54,13 @@ public class Scene_Manager_BH : MonoBehaviour
         else
         {
             mode = LoadSceneMode.Single;
-
             foreach (LevelLogic lv in niveles)
             {
-                if (lv.nombre == SceneManager.GetActiveScene().name)
+                lastLv = SceneManager.GetActiveScene().name;
+                if (lv.nombre == lastLv)
                 {
                     currentScene = lv;
+                    
                 }
             }
         }
@@ -85,7 +87,6 @@ public class Scene_Manager_BH : MonoBehaviour
         }
         else if (niveles[level].loading)
         {
-            
             SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
             lastLv = niveles[index].nombre;
         }
