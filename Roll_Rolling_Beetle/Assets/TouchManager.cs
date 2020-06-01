@@ -11,18 +11,35 @@ public class TouchManager : MonoBehaviour
 
     public Image backtouch, fingeratach;
 
+    Color alphaChange;
+    bool isTouch;
     // Start is called before the first frame update
     void Start()
     {
+        alphaChange = Color.white;
+        alphaChange.a = 0f;
         fingerDir = Vector2.zero;
-        backtouch.SetActive(false);
-        fingeratach.SetActive(false);
+        backtouch.color=alphaChange;
+        fingeratach.color=alphaChange;
     }
 
     // Update is called once per frame
     void Update()
     {
         TapCalculation();
+
+        if (isTouch && alphaChange.a<1f)
+        {
+            alphaChange.a += Time.deltaTime;
+            backtouch.color = alphaChange;
+            fingeratach.color = alphaChange;
+        }
+        else if(alphaChange.a>0f)
+        {
+            alphaChange.a -= Time.deltaTime;
+            backtouch.color = alphaChange;
+            fingeratach.color = alphaChange;
+        }
     }
 
     private void TapCalculation()
@@ -31,7 +48,9 @@ public class TouchManager : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)
             {
+                isTouch = true;
                 startTouch = Input.touches[0].position;
+                backtouch.transform.position = startTouch;
             }
             else if (Input.touches[0].phase == TouchPhase.Moved)
             {
@@ -42,9 +61,11 @@ public class TouchManager : MonoBehaviour
                 fingerDir.x = (Mathf.Abs(x)>1)? Mathf.Abs(x)/x: x;
                 fingerDir.y = (Mathf.Abs(y) > 1) ? Mathf.Abs(y) / y : y;
 
+                fingeratach.transform.position = endTouch;
             }
             else if (Input.touches[0].phase == TouchPhase.Ended)
             {
+                isTouch = false;
                 fingerDir = Vector2.zero;
             }
         }
