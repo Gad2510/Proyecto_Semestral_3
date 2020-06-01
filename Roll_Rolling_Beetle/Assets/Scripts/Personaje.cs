@@ -37,9 +37,7 @@ public class Personaje : MonoBehaviour
     GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
     FollowPlayer camPos; //Referencia al script de la camara
     apuntar Arrow;//Flecha de direccion de popo
-    public Vector2 fingerDir;//Guarda la direccion del dedo en pantalla
 
-    Vector2 startTouch, endTouch;//Medidores del touch
     float movementSpeed=5, rotationSpeed=25;//Velocidad de rotacion y movimiento
     #endregion
 
@@ -65,7 +63,8 @@ public class Personaje : MonoBehaviour
     #endregion
     void Start()
     {
-        camPos = GameObject.FindObjectOfType<FollowPlayer>();
+        camPivot = this.transform.Find("PivoteCam");
+        camPos = Camera.main.GetComponent<FollowPlayer>();
         camPos.Pivot = camPivot;
         state = PlayerState.WALKING;
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
@@ -87,14 +86,12 @@ public class Personaje : MonoBehaviour
     }
     void Update()
     {
-        TapCalculation();
-
         if (isAlive && state == PlayerState.WALKING)
         {
             float x, y;
 #if UNITY_ANDROID
-            x = fingerDir.x;
-            y = fingerDir.y;
+            x = TouchManager.fingerDir.x;
+            y = TouchManager.fingerDir.y;
 #endif
 #if UNITY_EDITOR
             x = Input.GetAxis("Horizontal");
@@ -170,34 +167,7 @@ public class Personaje : MonoBehaviour
         animBeetle.SetTrigger("dead");
         isAlive = false;
     }
-    private void TapCalculation()
-    {
-        if (state == PlayerState.THROWING)
-            return;
-
-        if (Input.touchCount > 0)
-        {
-            if (Input.touches[0].phase == TouchPhase.Began)
-            {
-                startTouch = Input.touches[0].position;
-            }
-            else if (Input.touches[0].phase == TouchPhase.Moved)
-            {
-                endTouch = Input.touches[0].position;
-                Vector2 dir = endTouch - startTouch;
-                fingerDir.x =(dir.x/Screen.width)*2f;
-                fingerDir.y = (dir.y == 0) ? 0f : (Mathf.Abs(dir.y) / dir.y);
-                
-            }
-            else if (Input.touches[0].phase == TouchPhase.Ended)
-            {
-                fingerDir = Vector2.zero;
-            }
-
-            
-
-        }
-    }
+    
 
     public void PrepareToShot()
     {
