@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TouchManager : MonoBehaviour
 {
     public static Vector2 fingerDir;
-
+    PauseMenu pause;
     Vector2 startTouch,endTouch;
 
     public Image backtouch, fingeratach;
@@ -21,25 +21,31 @@ public class TouchManager : MonoBehaviour
         fingerDir = Vector2.zero;
         backtouch.color=alphaChange;
         fingeratach.color=alphaChange;
+
+        pause.GetComponent<PauseMenu>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        TapCalculation();
+        if (!pause.GameIsPaused)
+        {
+            TapCalculation();
 
-        if (isTouch && alphaChange.a<1f)
-        {
-            alphaChange.a += Time.deltaTime;
-            backtouch.color = alphaChange;
-            fingeratach.color = alphaChange;
+            if (isTouch && alphaChange.a < 1f)
+            {
+                alphaChange.a += Time.deltaTime;
+                backtouch.color = alphaChange;
+                fingeratach.color = alphaChange;
+            }
+            else if (alphaChange.a > 0f)
+            {
+                alphaChange.a -= Time.deltaTime;
+                backtouch.color = alphaChange;
+                fingeratach.color = alphaChange;
+            }
         }
-        else if(alphaChange.a>0f)
-        {
-            alphaChange.a -= Time.deltaTime;
-            backtouch.color = alphaChange;
-            fingeratach.color = alphaChange;
-        }
+        
     }
 
     private void TapCalculation()
@@ -62,6 +68,7 @@ public class TouchManager : MonoBehaviour
                 fingerDir.y = (Mathf.Abs(y) > 1) ? Mathf.Abs(y) / y : y;
 
                 fingeratach.transform.position = endTouch;
+
             }
             else if (Input.touches[0].phase == TouchPhase.Ended)
             {
