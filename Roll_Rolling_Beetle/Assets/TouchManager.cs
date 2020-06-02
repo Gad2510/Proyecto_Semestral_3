@@ -9,7 +9,7 @@ public class TouchManager : MonoBehaviour
     PauseMenu pause;
     Vector2 startTouch,endTouch;
 
-    public Image backtouch, fingeratach;
+    public Image backtouch,area, fingeratach;
 
     Color alphaChange;
     bool isTouch;
@@ -20,6 +20,7 @@ public class TouchManager : MonoBehaviour
         alphaChange.a = 0f;
         fingerDir = Vector2.zero;
         backtouch.color=alphaChange;
+        area.color = alphaChange;
         fingeratach.color=alphaChange;
 
         pause=GetComponent<PauseMenu>();
@@ -36,12 +37,14 @@ public class TouchManager : MonoBehaviour
             {
                 alphaChange.a += Time.deltaTime;
                 backtouch.color = alphaChange;
+                area.color = alphaChange;
                 fingeratach.color = alphaChange;
             }
             else if (alphaChange.a > 0f)
             {
                 alphaChange.a -= Time.deltaTime;
                 backtouch.color = alphaChange;
+                area.color = alphaChange;
                 fingeratach.color = alphaChange;
             }
         }
@@ -62,12 +65,21 @@ public class TouchManager : MonoBehaviour
             {
                 endTouch = Input.touches[0].position;
                 Vector2 dir = endTouch - startTouch;
-                float x = (dir.x / Screen.width) * 2f;
+                float x = (dir.x / Screen.width) * 40f;
                 float y = (dir.y / Screen.height) * 5f;
                 fingerDir.x = (Mathf.Abs(x)>1)? Mathf.Abs(x)/x: x;
                 fingerDir.y = (Mathf.Abs(y) > 1) ? Mathf.Abs(y) / y : y;
 
-                fingeratach.transform.position = endTouch;
+                
+
+                if(Vector2.Distance(startTouch, endTouch)>=100f)
+                {
+                    fingeratach.transform.position=(dir.normalized*100f)+startTouch;
+                }
+                else
+                {
+                    fingeratach.transform.position = endTouch;
+                }
 
             }
             else if (Input.touches[0].phase == TouchPhase.Ended)
