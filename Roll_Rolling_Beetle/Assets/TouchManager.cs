@@ -22,7 +22,7 @@ public class TouchManager : MonoBehaviour
         backtouch.color=alphaChange;
         fingeratach.color=alphaChange;
 
-        pause.GetComponent<PauseMenu>();
+        pause=GetComponent<PauseMenu>();
     }
 
     // Update is called once per frame
