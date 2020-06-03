@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnPopoManager : MonoBehaviour
@@ -8,27 +10,22 @@ public class SpawnPopoManager : MonoBehaviour
     [SerializeField]
     int maxNUM=20;
 
-    SpawnBonus [] spawnersInScene;
+    SpawnCounter[] spawnersInScene;
 
-    public void Active()
+    private void Start()
     {
-        spawnersInScene = GameObject.FindObjectsOfType<SpawnBonus>(); // Obtiene la referencia de todos los spawners 
-        StartPoop();
 
     }
-    // Update is called once per frame
-    void Update()
+    public void Active()
     {
-        /*if(active && poopNumber< maxNUM)//Verifica que este el numero maximo de bonus en el juego siempre
-        {
-            SpawnPoop();
-            
-        }*/
+        spawnersInScene = GameObject.FindObjectsOfType<SpawnCounter>(); // Obtiene la referencia de todos los spawners 
+        StartPoop();
+
     }
 
     public void UpdateSpawnersScene() //En caso de volver a empezar la escena
     {
-        spawnersInScene = GameObject.FindObjectsOfType<SpawnBonus>(); // Obtiene la referencia de todos los spawners 
+        spawnersInScene = GameObject.FindObjectsOfType<SpawnCounter>(); // Obtiene la referencia de todos los spawners 
     }
 
     private void StartPoop()
@@ -38,11 +35,27 @@ public class SpawnPopoManager : MonoBehaviour
         }
     }
     
-    public void SpawnPoop()
+    public void SpawnPoop(List<int> areasCheck =null)
     {
-        int randomChoice = Random.Range(0, spawnersInScene.Length);//Escoge un spawner al azar para crear un objeto
+        if (areasCheck == null)
+        {
+            areasCheck = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        }
+        else if (areasCheck.Count == 0)
+        {
+            return;
+        }
 
-        spawnersInScene[randomChoice].generateBonus();//Activa la funcion de spawn dentro del spawner
+        int randomChoice = UnityEngine.Random.Range(0, areasCheck.Count);//Escoge un spawner al azar para crear un objeto
+        if(!spawnersInScene[areasCheck[randomChoice]].spawnInArea())//Activa la funcion de spawn dentro del spawner
+        {
+            areasCheck.Remove(areasCheck[randomChoice]);
+            SpawnPoop(areasCheck);
+        }
+        else
+        {
+            return;
+        }
     }
 
 }

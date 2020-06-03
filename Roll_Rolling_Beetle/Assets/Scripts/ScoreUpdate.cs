@@ -10,7 +10,7 @@ public class ScoreUpdate : MonoBehaviour
 
     void Start()
     {
-        score.text = "Puntuacion: \n" + Scene_Manager_BH._instance.settings.score;
+        score.text = "Score: \n" + Scene_Manager_BH._instance.settings.score;
         highscore.text = "Highscore: \n" + Scene_Manager_BH._instance.settings.highscore;
     }
 
