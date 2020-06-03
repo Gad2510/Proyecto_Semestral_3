@@ -11,11 +11,10 @@ public class SpawnPopoManager : MonoBehaviour
     int maxNUM=20;
 
     SpawnCounter[] spawnersInScene;
-    List<int> areas;
 
     private void Start()
     {
-        areas = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+
     }
     public void Active()
     {
@@ -40,8 +39,9 @@ public class SpawnPopoManager : MonoBehaviour
     {
         if (areasCheck == null)
         {
-            areasCheck = areas;
-        }else if (areasCheck.Count == 0)
+            areasCheck = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        }
+        else if (areasCheck.Count == 0)
         {
             return;
         }
