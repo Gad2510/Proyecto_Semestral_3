@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SpawnBonus : MonoBehaviour
 {
-
-
     [SerializeField]
     float Radius = 1.0f, altura=0f;
 
     [SerializeField]
     Object bonus=null;
+
+
 
     public void generateBonus()
     {
@@ -37,7 +37,5 @@ public class SpawnBonus : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(this.transform.position, Radius);
-
-
     }
 }

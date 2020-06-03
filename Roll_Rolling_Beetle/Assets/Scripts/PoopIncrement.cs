@@ -101,8 +101,8 @@ public class PoopIncrement : MonoBehaviour
     {
         if (other.CompareTag("bonus"))
         {
+            other.GetComponentInParent<SpawnCounter>().RemoveBonus();
             Destroy(other.gameObject);
-            CrearMapa.poopMnager.SpawnPoop();
             Corroboration();
         }
     }

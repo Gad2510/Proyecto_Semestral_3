@@ -75,7 +75,7 @@ public class CrearMapa : MonoBehaviour
             Loading_manager.Loading = 1f;
         }
         
-        InvokeRepeating("OutputVisibleRenderers", 1f, 0.5f); //Empieza el culling que activa y desactiva los objetos cada 0.5 seg
+        InvokeRepeating("OutputVisibleRenderers", 1f, 0.2f); //Empieza el culling que activa y desactiva los objetos cada 0.5 seg
     }
 
     void OutputVisibleRenderers()
