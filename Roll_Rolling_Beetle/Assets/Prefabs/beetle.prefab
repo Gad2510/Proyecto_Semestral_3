@@ -346,7 +346,6 @@ MonoBehaviour:
   lvl2music: 0
   lvl3music: 0
   lvl4music: 0
-  fingerDir: {x: 0, y: 0}
 --- !u!1001 &1715360767175700560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1148,12 +1147,17 @@ PrefabInstance:
     - target: {fileID: 679492221017256230, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1102544750978647201, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Poop
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102544750978647201, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1102544750978647214, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
         type: 3}
@@ -1289,6 +1293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990489252091881285, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Poop
       objectReference: {fileID: 0}
     - target: {fileID: 7514471294119661951, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
         type: 3}
