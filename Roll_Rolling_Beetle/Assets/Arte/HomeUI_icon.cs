@@ -13,7 +13,7 @@ public class HomeUI_icon : MonoBehaviour
     void Start()
     {
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();
-        leanID= LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.3f).setLoopPingPong().id;
+        leanID= LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.5f).setLoopPingPong().id;
         escalando = true;
         startOver = true;
     }

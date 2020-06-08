@@ -42,15 +42,13 @@ public class CrearMapa : MonoBehaviour
 
                 if (x == 1 && y == 1)//Revisa si no es el centro del juego
                 {
-                    g = Instantiate(terrenoD.terrenos[17],this.transform);// Crea el centro
+                    g = Instantiate(terrenoD.terrenos[17], coord * 100f, Quaternion.identity, this.transform);// Crea el centro
                 }
                 else
                 {
-                    g = Instantiate(terrenoD.ObtenerTerreno(), this.transform);//Crea un tile aleatorio
-
+                    g = Instantiate(terrenoD.ObtenerTerreno(), coord * 100f,Quaternion.identity, this.transform);//Crea un tile aleatorio
                 }
                 mapaRef[x + (3 * y)] = g;//Guarda la referencia en su posicion
-                g.transform.localPosition = coord * 100f; //La coloca en su posicion
 
                 Transform cullingRef = g.transform.Find("Culling"); //Busca el objeto de referencia culling dentro del objeto
                 if (cullingRef != null)

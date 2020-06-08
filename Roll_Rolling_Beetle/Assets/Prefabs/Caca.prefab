@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8923385587184165658}
   - component: {fileID: 6113381393792039670}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TriggerCaca
   m_TagString: TriggerPoop
   m_Icon: {fileID: 0}
@@ -56,9 +56,9 @@ GameObject:
   - component: {fileID: 1102544750978647213}
   - component: {fileID: 1102544750978647212}
   - component: {fileID: 2612814866615653159}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: poop
-  m_TagString: Untagged
+  m_TagString: Poop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e36497fc207dc4cb20006a4fe4414c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CacaRotVel: 0
   centro: {fileID: 6990489252091881285}
 --- !u!1 &2870397896446301268
 GameObject:
@@ -325,12 +324,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dacaef3a8584e9438ac082151c2bef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  separacion: 0
   screenPoints: {fileID: 0}
   bonusPoints: 20
   pointsMul: 100
   IsScaling: 0
   CacaPorcentage: {fileID: 0}
+  gusanoK: {fileID: 0}
+  mantisK: {fileID: 0}
+  color1: {r: 0, g: 0, b: 0, a: 0}
+  color2: {r: 0, g: 0, b: 0, a: 0}
+  speed: 0
   scaleIncrement: 0.4
   maxScale: 3
-  playerForward: {fileID: 0}
-  index: {fileID: 2572732355447506615, guid: 4bd4330a4d2218044b71054f45629020, type: 3}
