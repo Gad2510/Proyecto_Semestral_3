@@ -16,6 +16,8 @@ public class Gusano : MonoBehaviour
     public LayerMask detection;
     Animator anim;
     bool aumento = false,dead= false;
+    public GameObject particles;
+    //bool reload;
    
 
     void Start()
@@ -24,8 +26,8 @@ public class Gusano : MonoBehaviour
         trig = GetComponent<SphereCollider>();
         anim = GetComponent<Animator>();
         CacaPorcentage = CrearMapa.slider;// Referencia al slider
-
-
+        particles = GameObject.FindWithTag("Gusano_CFX");
+        particles.SetActive(false);
     }
 
     void Update()
@@ -40,8 +42,20 @@ public class Gusano : MonoBehaviour
             }
             
         }
+       
  
     }
+
+   /* void Reload_particles()
+    {
+        
+        if (reload == true)
+        {
+            particles.SetActive(false);
+            reload = false;
+        }
+        
+    }*/
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -52,6 +66,8 @@ public class Gusano : MonoBehaviour
             anim.SetTrigger("hit");
             Invoke("Restart", 10f);
             AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_GUSANO);
+            particles.SetActive(true);
+           // reload = true;
         }
     }
 

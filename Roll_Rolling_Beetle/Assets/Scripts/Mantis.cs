@@ -10,6 +10,7 @@ public class Mantis : MonoBehaviour
     UnityEngine.UI.Slider CacaPorcentage;
     public float radioDeteccion;
     public Transform poopSize;
+    public GameObject particlesM;
 
     public Transform[] walkPoints;
     public float walkSpeed = 1.0f;
@@ -41,6 +42,8 @@ public class Mantis : MonoBehaviour
         //Activar aniimaciones en base al bool isIdle
         anim = GetComponentInChildren<Animator>();
         anim.SetBool("walking", true);
+        particlesM = GameObject.FindWithTag("Mantis_CFX");
+        particlesM.SetActive(false);
     }
 
     private void Update()
@@ -134,6 +137,7 @@ public class Mantis : MonoBehaviour
                     selfcoll.enabled = false;
                     Destroy(gameObject, 0.5f);
                     AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_MANTIS);
+                    particlesM.SetActive(true);
                 }
             }
         }
