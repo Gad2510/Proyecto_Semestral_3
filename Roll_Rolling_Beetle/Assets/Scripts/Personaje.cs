@@ -239,7 +239,7 @@ public class Personaje : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (isAlive && collision.gameObject.CompareTag("Enemigo"))
+        if ((isAlive && collision.gameObject.CompareTag("Enemigo")) || (isAlive && collision.gameObject.CompareTag("Bala")))
         {
             animBeetle.SetTrigger("dead");
             isAlive = false;
