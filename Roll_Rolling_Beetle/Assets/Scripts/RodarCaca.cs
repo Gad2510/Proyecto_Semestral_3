@@ -15,13 +15,11 @@ public class RodarCaca : MonoBehaviour //Hace girar la caca, el script esta dent
         CacaRotVel = 3.0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(escarabajo.poopshooted)
         {
-            //Pero por favor no comenten mis cosas, pero oigame no me ahorco
-           transform.RotateAround(centro.transform.position, escarabajo.transform.right, CacaRotVel );
+           transform.RotateAround(centro.transform.position, escarabajo.transform.right, CacaRotVel);
         }
     }
 }

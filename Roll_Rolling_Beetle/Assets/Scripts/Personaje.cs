@@ -184,15 +184,23 @@ public class Personaje : MonoBehaviour
     {
         Arrow.gameObject.SetActive(true); //Activa la flecha al apuntar
         animBeetle.SetBool("holding", true);
-        if(poopRigid != null)
+        if (poopRigid != null)
         {
             poopRigid.transform.parent = null;
             poopRigid.velocity = transform.forward * 10 * dir;
         }
-        poopRigid = null;
-        canHold = true;
         
+        canHold = true;
+        StartCoroutine(HacerKinematico());
     }
+
+    IEnumerator HacerKinematico()
+    {
+        yield return new WaitForSecondsRealtime(1.05f);
+        poopRigid.isKinematic = true;
+        poopRigid = null;
+    }
+
     public void FrontColliderAction()
     {
         Arrow.gameObject.SetActive(false); //Si agarra la popo desactiva la flecha
