@@ -68,7 +68,7 @@ public class TouchManager : MonoBehaviour
                 Vector2 dir = endTouch - startTouch;//Calcula la direccion
                 float x = (dir.x / Screen.width) * 40f; //Lotransforma a terminos de la pantalla
                 float y = (dir.y / Screen.height) * 5f;
-                fingerDir.x = (Mathf.Abs(x)>1)? Mathf.Abs(x)/x: x;//Verifica que su valor absoluto no sea mayor a 1 si si es igual a 1 en su direccion
+                fingerDir.x = (Mathf.Abs(x)>1)? Mathf.Abs(x)/x: x * (Mathf.Abs(y) / y);//Verifica que su valor absoluto no sea mayor a 1 si si es igual a 1 en su direccion
                 fingerDir.y = (Mathf.Abs(y) > 1) ? Mathf.Abs(y) / y : y;
 
                 

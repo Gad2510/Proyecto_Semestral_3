@@ -90,8 +90,8 @@ public class Personaje : MonoBehaviour
         {
             float x, y;
 #if UNITY_ANDROID
-            //x = TouchManager.fingerDir.x;
-           // y = TouchManager.fingerDir.y;
+           x = TouchManager.fingerDir.x;
+           y = TouchManager.fingerDir.y;
 #endif
 #if UNITY_EDITOR
             x = Input.GetAxis("Horizontal");
