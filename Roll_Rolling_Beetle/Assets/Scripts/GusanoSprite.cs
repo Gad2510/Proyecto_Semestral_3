@@ -23,7 +23,7 @@ public class GusanoSprite : MonoBehaviour
             gusanoGreen.SetActive(false); //Activar icono rojo
             gusanoRed.SetActive(true);
         }
-        if(sliderCaca.value >= 0.41f)
+        if(sliderCaca.value >= 0.4f)
         {
             gusanoGreen.SetActive(true); //Activar icono verde
             gusanoRed.SetActive(false);
