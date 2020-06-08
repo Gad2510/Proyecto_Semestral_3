@@ -7,8 +7,6 @@ public class HomeUI_icon : MonoBehaviour
 {
     Slider CacaPorcentage;
     public static bool escalando, startOver;
-    Transform parent;
-    Vector3 puntoFinal;
 
     int leanID;
 
@@ -16,8 +14,6 @@ public class HomeUI_icon : MonoBehaviour
     {
         CacaPorcentage = GameObject.FindGameObjectWithTag("UI").transform.Find("Slider").GetComponent<Slider>();
         leanID = LeanTween.scale(gameObject, new Vector3(0.5f, 0.5f, 0.5f), 0.5f).setLoopPingPong().id;
-        parent = GetComponentInParent<Transform>();
-        puntoFinal = new Vector3(-320.0f, 680.0f, 0.0f);
         escalando = true;
         startOver = true;
     }
@@ -27,6 +23,7 @@ public class HomeUI_icon : MonoBehaviour
         //Cuando el slider llegue al maximo, escalar el icono
         if (CacaPorcentage.value >= 1.0f && !escalando)
         {
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             LeanTween.resume(leanID);
             escalando = true;
         }
