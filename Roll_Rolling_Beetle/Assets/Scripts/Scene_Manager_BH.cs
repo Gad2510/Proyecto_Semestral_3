@@ -77,13 +77,9 @@ public class Scene_Manager_BH : MonoBehaviour
         {
             AudioManager.GetInstance().music.Play();
         }
-        if (mode!=LoadSceneMode.Single && !niveles[level].aditiveToLast && !niveles[level].loading)
+        if (mode==LoadSceneMode.Additive && !niveles[level].loading) 
         {
             SceneManager.UnloadSceneAsync(niveles[index].nombre);
-            if (niveles[index].aditiveToLast && !restart)
-            {
-                SceneManager.UnloadSceneAsync(lastLv);
-            }
         }
         else if (niveles[level].loading)
         {
@@ -131,6 +127,6 @@ public class Scene_Manager_BH : MonoBehaviour
 public class LevelLogic
 {
     public string nombre;
-    public bool aditiveToLast, loading;
+    public bool loading;
     public BACKGROUND_TYPE InitMusic;
 }
