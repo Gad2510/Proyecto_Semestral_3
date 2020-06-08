@@ -59,7 +59,7 @@ public class Gusano : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value>=0.4f) //Comparar si la popo esta al porcentaje adecuado para que te mate
+        if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value >= 0.4f) //Comparar si la popo esta al porcentaje adecuado para que te mate
         {
             coll.enabled = false;
             trig.enabled = false;
@@ -112,7 +112,7 @@ public class Gusano : MonoBehaviour
         if (Physics.Raycast(direction, out hit, 20f, detection))
         {
             
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("Player") || hit.collider.gameObject.CompareTag("Poop"))
             {
                 transform.LookAt(hit.transform); //Mirar al jugador
                 transform.rotation = Quaternion.Euler(0.0f, transform.localEulerAngles.y, transform.localEulerAngles.z); //Bloquear rotación X

@@ -44,7 +44,7 @@ public class Bala : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Poop"))
         {
-            collision.gameObject.GetComponent<PoopIncrement>().Decrement();
+            //collision.gameObject.GetComponent<PoopIncrement>().Decrement();
 
             Destructor();
         }
