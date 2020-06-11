@@ -10,7 +10,32 @@ public class SpawnBonus : MonoBehaviour
     [SerializeField]
     Object bonus=null;
 
+    public bool has_bonus=false;
+    SpawnCounter father;
 
+    public void Start()
+    {
+        father = GetComponentInParent<SpawnCounter>();
+    }
+    public bool HasBonus
+    {
+        get
+        {
+            return has_bonus;
+        }
+        set
+        {
+            if (value)
+            {
+                generateBonus();
+            }
+            else
+            {
+                father.RemoveBonus();
+            }
+            has_bonus = value;
+        }
+    }
 
     public void generateBonus()
     {
@@ -23,6 +48,8 @@ public class SpawnBonus : MonoBehaviour
         Vector3 pos = new Vector3(x+transform.position.x, altura, z+transform.position.z);//Crea un vector 3 para posicionar el objeto con el offset del padre
 
         GameObject.Instantiate(bonus, pos, Quaternion.identity, this.transform);//Crea el objeto emparentado con su spawner para cuestiones de prueba
+
+
     }
 
     public void deletePoop()//SOLO FUNCIONA EN EDITOR - Borra todos los hijos del spawner

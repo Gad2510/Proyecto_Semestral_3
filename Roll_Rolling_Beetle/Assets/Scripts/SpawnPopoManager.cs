@@ -8,7 +8,7 @@ public class SpawnPopoManager : MonoBehaviour
 {
 
     [SerializeField]
-    int maxNUM=20;
+    int maxNUM=30;
 
     SpawnCounter[] spawnersInScene;
 
@@ -18,6 +18,7 @@ public class SpawnPopoManager : MonoBehaviour
     }
     public void Active()
     {
+        SpawnCounter.maxNumPerArea = (maxNUM / 9) + 1;
         spawnersInScene = GameObject.FindObjectsOfType<SpawnCounter>(); // Obtiene la referencia de todos los spawners 
         StartPoop();
 
