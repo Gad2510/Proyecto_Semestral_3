@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 2612814866615653159}
   m_Layer: 12
   m_Name: poop
-  m_TagString: Poop
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,7 +298,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!135 &4570147818206632440
 SphereCollider:
   m_ObjectHideFlags: 0

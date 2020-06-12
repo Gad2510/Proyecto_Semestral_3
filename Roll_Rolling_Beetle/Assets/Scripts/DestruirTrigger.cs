@@ -5,7 +5,7 @@ public class DestruirTrigger : MonoBehaviour
     static MeshRenderer mat; //Referencia al material
     static Texture2D texture;//Textura que modifica para ponerla en la final
     int initX, initY,fX=2,fY=2;//Cordenadas en las UV para saber donde esta en el objeto
-    PoopIncrement poop;
+    static PoopIncrement poop;
     FrontCollider frontPL, backPL;
     float timeToReactivate = 30.0f;
     public Transform init, final;
@@ -84,20 +84,22 @@ public class DestruirTrigger : MonoBehaviour
     //Aumentar puntuación
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Entrando en trigger");
         //Destruir al ser tocadas por la bola
-        if(other.gameObject.CompareTag("Poop"))
+        if (other.gameObject.CompareTag("Poop"))
         {
-            
+            Debug.Log("Entrando en poop");
             if(poop == null)
             {
+                Debug.Log("agarrando " + other.name);
                 poop = other.GetComponent<PoopIncrement>();
-
             }
             else
             {
-                
+                Debug.Log("En");
                 if (poop.AddScore())
                 {
+                    Debug.Log("Añadir");
                     ChangeColor(Color.white);
                     Invoke("EsperaryActivar", timeToReactivate);
                     //Desactivar trigger
