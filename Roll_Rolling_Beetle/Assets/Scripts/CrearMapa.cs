@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CrearMapa : MonoBehaviour
 {
+    public static CrearMapa _instance;
     public static UnityEngine.UI.Slider slider;
     public static SpawnPopoManager poopMnager;
 
     public MapaAleatorio terrenoD;//Scriptableobject que tiene la referencia a todos los prefebs del juego
 
     public Transform playerObj;//RReferencia al jugador
-    Personaje player;
+    public Personaje player;
     GameObject[] mapaRef;//Referencias a todos los tiles
 
     public GameObject canvas;
@@ -20,6 +22,8 @@ public class CrearMapa : MonoBehaviour
     Renderer[] mapRender; //Referencias a su objetos culling
     void Awake()
     {
+        _instance = this;
+
         slider = canvas.transform.transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();
         terrenoD = Resources.Load<MapaAleatorio>("MapaAleatorio"); //Carga automaticamente de la carpeta resources el scriptable object
         mapRender = new Renderer[9]; //Inicializamos variables
@@ -118,5 +122,35 @@ public class CrearMapa : MonoBehaviour
     {
         if(player!=null)
             player.PrepareToShot();
+    }
+
+    public GameObject FindCloseBonus()
+    {
+        changeColor[] bonus= mapaRef[4].GetComponentsInChildren<changeColor>();
+        
+        if (bonus.Length == 0)
+        {
+            bonus = mapaRef[1].GetComponentsInChildren<changeColor>();
+        }
+
+        GameObject close =bonus[0].gameObject;
+        float distance= Vector3.Distance(player.transform.position,close.transform.position);
+
+        if(bonus.Length > 1)
+        {
+            for (int i = 1; i < bonus.Length; i++)
+            {
+                float d = Vector3.Distance(player.transform.position, bonus[i].transform.position);
+
+                if (d < distance)
+                {
+                    distance = d;
+                    close = bonus[i].gameObject;
+                }
+            }
+        }
+
+        return close;
+        
     }
 }

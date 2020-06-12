@@ -65,6 +65,12 @@ public class TouchManager : MonoBehaviour
             else if (Input.touches[0].phase == TouchPhase.Moved)//Cuando mueva el dedo
             {
                 endTouch = Input.touches[0].position; // Guarda referencia a la ultima posicion
+
+                if (endTouch.y > Screen.height / 8)
+                {
+                    return;
+                }
+
                 Vector2 dir = endTouch - startTouch;//Calcula la direccion
                 float x = (dir.x / Screen.width) * 40f; //Lotransforma a terminos de la pantalla
                 float y = (dir.y / Screen.height) * 5f;

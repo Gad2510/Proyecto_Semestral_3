@@ -72,5 +72,6 @@ public class Nido : MonoBehaviour
             p.Stop();
         }
         Destroy(obj.gameObject);
+        CrearMapa._instance.player.SearchNewPoop();
     }
 }

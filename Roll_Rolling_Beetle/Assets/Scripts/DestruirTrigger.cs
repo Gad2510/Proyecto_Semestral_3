@@ -84,22 +84,17 @@ public class DestruirTrigger : MonoBehaviour
     //Aumentar puntuación
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entrando en trigger");
         //Destruir al ser tocadas por la bola
         if (other.gameObject.CompareTag("Poop"))
         {
-            Debug.Log("Entrando en poop");
             if(poop == null)
             {
-                Debug.Log("agarrando " + other.name);
                 poop = other.GetComponent<PoopIncrement>();
             }
             else
             {
-                Debug.Log("En");
                 if (poop.AddScore())
                 {
-                    Debug.Log("Añadir");
                     ChangeColor(Color.white);
                     Invoke("EsperaryActivar", timeToReactivate);
                     //Desactivar trigger

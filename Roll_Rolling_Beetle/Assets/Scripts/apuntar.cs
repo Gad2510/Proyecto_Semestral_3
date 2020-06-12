@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class apuntar : MonoBehaviour
 {
-    GameObject objetToPoint;
+    public GameObject objetToPoint;
     public Camera cam;
 
     public string tagObject;
@@ -13,6 +13,15 @@ public class apuntar : MonoBehaviour
     private void Start()
     {
         objetToPoint = GameObject.FindGameObjectWithTag(tagObject); //Buscamos la Casa por su etiqueta
+    }
+
+    public GameObject Target
+    {
+        set
+        {
+            objetToPoint = value;
+            //Debug.Log(objetToPoint.name, objetToPoint);
+        }
     }
 
     void Update()
@@ -28,7 +37,6 @@ public class apuntar : MonoBehaviour
         Vector3 screenObj = cam.WorldToScreenPoint(objetToPoint.transform.position);
         if (Vector3.Distance(transform.position, screenObj) > 15)
         {
-            float distance = Vector3.Distance(cam.transform.position, objetToPoint.transform.transform.position);
             Vector3 forward = cam.transform.forward;
             Vector3 objPos = (objetToPoint.transform.position - cam.transform.position).normalized;
             float dot = Vector3.Dot(objPos, forward);

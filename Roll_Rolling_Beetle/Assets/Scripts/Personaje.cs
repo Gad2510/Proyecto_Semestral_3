@@ -381,11 +381,17 @@ public class Personaje : MonoBehaviour
         frontCollider.isPoop = false;
         backCollider.isPoop = false;
         animBeetle.SetBool("holding", true);
-        Arrow.gameObject.SetActive(false); 
+        
         if(poopRigid!= null)
             poopRigid.transform.parent = null;
 
         poopRigid = null;
         canHold = true;
+    }
+
+    public void SearchNewPoop()
+    {
+        Arrow.Target = CrearMapa._instance.FindCloseBonus();
+        Arrow.gameObject.SetActive(true);
     }
 }
