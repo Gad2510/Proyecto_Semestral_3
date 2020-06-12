@@ -5293,8 +5293,8 @@ ParentConstraint:
   m_GameObject: {fileID: 1380366149}
   m_Enabled: 1
   m_Weight: 1
-  m_TranslationAtRest: {x: 100, y: 16.899998, z: 92.03}
-  m_RotationAtRest: {x: 49.969994, y: 0, z: 0}
+  m_TranslationAtRest: {x: 98.2, y: 55.06, z: -25.4}
+  m_RotationAtRest: {x: 45, y: 0, z: 0}
   m_TranslationOffsets:
   - {x: 0, y: 15.999998, z: -8}
   m_RotationOffsets:
@@ -5322,6 +5322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00cedfb8c4ddc44d9da2dc578f62291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 1
   transitionDuration: 1
 --- !u!81 &1380366152
 AudioListener:
@@ -5381,13 +5384,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380366149}
-  m_LocalRotation: {x: 0.42238098, y: -0, z: -0, w: 0.9064184}
-  m_LocalPosition: {x: 100, y: 16.899998, z: 92.03}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 98.2, y: 55.06, z: -25.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 49.97, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &1381005607
 GameObject:
   m_ObjectHideFlags: 0
