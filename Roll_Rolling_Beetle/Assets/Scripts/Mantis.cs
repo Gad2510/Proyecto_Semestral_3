@@ -119,6 +119,7 @@ public class Mantis : MonoBehaviour
             {
                 //Detenerlo
                 anim.SetTrigger("attack");
+                AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.ATAQUE_MANTIS);
                 navAgent.isStopped = true;
                 isIdle = true;
                 anim.SetBool("walking", false);

@@ -48,7 +48,7 @@ MonoBehaviour:
   sfx: {fileID: 8975306298082723103}
   music: {fileID: 3248905984258152168}
   audios:
-  - clip: {fileID: 8300000, guid: 31d9bdab59ae89340988f622623c3b50, type: 3}
+  - clip: {fileID: 8300000, guid: 1733fc58b086e6a47a3b3c4f2e61013a, type: 3}
     type: 0
   - clip: {fileID: 8300000, guid: ec5f91f17ac799841b43d7b59adcd4df, type: 3}
     type: 1
@@ -60,6 +60,22 @@ MonoBehaviour:
     type: 4
   - clip: {fileID: 8300000, guid: 30509307db15b5e47b38444ab22bcd45, type: 3}
     type: 5
+  - clip: {fileID: 8300000, guid: 21daa95849c816e4f9b6b9db4aef1b5d, type: 3}
+    type: 6
+  - clip: {fileID: 8300000, guid: c7911ad0bdaaa8e48a7ff74d88412dfa, type: 3}
+    type: 7
+  - clip: {fileID: 8300000, guid: cef0c8a11511e294bb45b2d9ff88fd9a, type: 3}
+    type: 8
+  - clip: {fileID: 8300000, guid: 38451f6edee9bf044bf5a42785ffac2f, type: 3}
+    type: 9
+  - clip: {fileID: 8300000, guid: 9255023223765e54ea09ced2f18d1160, type: 3}
+    type: 10
+  - clip: {fileID: 8300000, guid: 3d758ed15a38b464bbca84ab02a332d9, type: 3}
+    type: 11
+  - clip: {fileID: 8300000, guid: bff8244e9b401f644b5b0737862ee894, type: 3}
+    type: 12
+  - clip: {fileID: 8300000, guid: 4b795d25bd8cc984f9c5d141b8f4db85, type: 3}
+    type: 13
   backgroundSounds:
   - clip: {fileID: 8300000, guid: 86c1773b097d3014c908a903879090e1, type: 3}
     type: 0
@@ -74,6 +90,7 @@ MonoBehaviour:
   g_audio: []
   sfxEnable: 1
   musicEnable: 1
+  isPaused: 0
 --- !u!82 &8975306298082723103
 AudioSource:
   m_ObjectHideFlags: 0
