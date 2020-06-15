@@ -503,8 +503,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 16.696184, y: 4.1282334, z: 4.020994}
-  m_Center: {x: 0.0000009536743, y: 2.0641167, z: -0.0000009536743}
+  m_Size: {x: 19.206617, y: 4.1282334, z: 5.064335}
+  m_Center: {x: 1.2552176, y: 2.0641167, z: 0.09413338}
 --- !u!208 &7811688201285040662
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -619,8 +619,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 18.229565, y: 4.2631073, z: 6.426641}
-  m_Center: {x: 0.0000014305118, y: 2.1315536, z: 5.3290705e-15}
+  m_Size: {x: 18.229565, y: 4.2631073, z: 8.739637}
+  m_Center: {x: 0.0000012716291, y: 2.1315536, z: 0.25127015}
 --- !u!208 &8135720474544125945
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -648,8 +648,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3092194, y: 0.16509318, z: 4.9999924}
-  m_Center: {x: -0.0017185211, y: 0.08254659, z: 2.499998}
+  m_Size: {x: 2.0720954, y: 0.16509318, z: 4.9999924}
+  m_Center: {x: -0.006735484, y: 0.08254659, z: 2.499998}
 --- !u!208 &8035016476210590038
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2674,7 +2674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 27bf65190db556643904ee371814b40c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.400002
+      value: -16.9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 27bf65190db556643904ee371814b40c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3169,7 +3169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f42eb9c026244e94693943290a18ae4a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: f42eb9c026244e94693943290a18ae4a, type: 3}
       propertyPath: m_Materials.Array.data[0]

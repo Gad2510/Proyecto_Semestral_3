@@ -1608,6 +1608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018f57713f684fd40a8566285920c1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objetToPoint: {fileID: 0}
   cam: {fileID: 1380366153}
   tagObject: home
 --- !u!1 &464615904
@@ -5616,6 +5617,7 @@ MonoBehaviour:
   terrenoD: {fileID: 11400000, guid: 7efe091a47923314ab5856a1d69b32ba, type: 2}
   playerObj: {fileID: 3468171549311745490, guid: 13ec9b9b41320104088c97314ae00976,
     type: 3}
+  player: {fileID: 0}
   canvas: {fileID: 158288646}
 --- !u!4 &1463841755
 Transform:
@@ -8954,6 +8956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018f57713f684fd40a8566285920c1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objetToPoint: {fileID: 0}
   cam: {fileID: 1380366153}
   tagObject: Poop
 --- !u!114 &1256934653133408446
