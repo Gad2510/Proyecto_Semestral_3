@@ -27,7 +27,8 @@ public class FollowPlayer : MonoBehaviour
         if (Physics.Raycast(rayo,out hit ,10f,layer))
         {
             visual = hit.transform.GetComponent<MeshRenderer>();
-            visual.enabled = false;
+            if (visual != null)
+                visual.enabled = false;
         }
         else if (visual != null)
         {
