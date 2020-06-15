@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Mantis : MonoBehaviour
 {
@@ -24,7 +25,8 @@ public class Mantis : MonoBehaviour
 
     NavMeshAgent navAgent;
     public Animator anim;
-
+    Transform sign;
+    Camera main;
     public bool siguiendoJugador = false;
 
     private void Awake()
@@ -39,6 +41,8 @@ public class Mantis : MonoBehaviour
 
     private void Start()
     {
+        sign=CrearMapa._instance.canvas.transform.Find("Sign");
+        main = Camera.main;
         //Activar aniimaciones en base al bool isIdle
         anim = GetComponentInChildren<Animator>();
         anim.SetBool("walking", true);
@@ -95,6 +99,7 @@ public class Mantis : MonoBehaviour
         //Seguir al jugador
         if (other.CompareTag("Player"))
         {
+            sign.position = main.WorldToScreenPoint(this.transform.position);
             siguiendoJugador = true;
             transform.LookAt(other.transform);
             navAgent.SetDestination(other.transform.position);
@@ -117,6 +122,7 @@ public class Mantis : MonoBehaviour
         {
             if (Personaje.IsAlive) //Verifica si el jugador sige vivo
             {
+                
                 //Detenerlo
                 anim.SetTrigger("attack");
                 AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.ATAQUE_MANTIS);
@@ -129,7 +135,7 @@ public class Mantis : MonoBehaviour
 
         else
         {
-            if (collision.gameObject.CompareTag("Poop") && Personaje.CanHold == true)
+            if (collision.gameObject.CompareTag("Poop") && !Personaje.CanHold)
             {
                 poopSize= collision.transform;
                 if (CacaPorcentage.value >= 0.7f)

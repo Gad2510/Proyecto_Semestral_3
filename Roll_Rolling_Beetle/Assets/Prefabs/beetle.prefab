@@ -1615,6 +1615,16 @@ PrefabInstance:
       propertyPath: InitialModule.gravityModifier.scalar
       value: 0.67
       objectReference: {fileID: 0}
+    - target: {fileID: 7277809646316044009, guid: 201cd169c4d9a2344954f7b5087d9e5f,
+        type: 3}
+      propertyPath: SubModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7277809646316128073, guid: 201cd169c4d9a2344954f7b5087d9e5f,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 201cd169c4d9a2344954f7b5087d9e5f, type: 3}
 --- !u!1001 &5710585755729587781
@@ -1766,7 +1776,7 @@ PrefabInstance:
     - target: {fileID: 2458777663029343472, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2458777663048314256, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}
@@ -1916,7 +1926,7 @@ PrefabInstance:
     - target: {fileID: 2458777663029343472, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2458777663048314256, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}

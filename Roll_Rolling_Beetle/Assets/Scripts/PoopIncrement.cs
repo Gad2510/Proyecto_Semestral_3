@@ -108,7 +108,6 @@ public class PoopIncrement : MonoBehaviour
             Destroy(other.gameObject);
             Corroboration();
             AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.BONUS);
-            print("audio?");
         }
     }
 

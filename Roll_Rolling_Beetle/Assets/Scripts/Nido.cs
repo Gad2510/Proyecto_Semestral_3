@@ -29,6 +29,7 @@ public class Nido : MonoBehaviour
             }
 
             per.IfNoPoop();//Funcion del jugador para resetear sus valores
+            other.enabled = false;
             PoopIncrement poop = other.GetComponent<PoopIncrement>(); // Busco la referencia aqui encaso que se destruya la original
             poop.CacaPorcentage.value = 0.0f;//El slider regresa a cero
             PoopIncrement.score += 500.0f;//Da un bonus de puntuación por entregarla

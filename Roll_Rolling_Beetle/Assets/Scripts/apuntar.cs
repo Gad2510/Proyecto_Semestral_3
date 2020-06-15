@@ -20,7 +20,7 @@ public class apuntar : MonoBehaviour
         set
         {
             objetToPoint = value;
-            //Debug.Log(objetToPoint.name, objetToPoint);
+            Debug.Log(objetToPoint.name, objetToPoint);
         }
     }
 
@@ -57,5 +57,10 @@ public class apuntar : MonoBehaviour
     public void searchnewpoop()
     {
         objetToPoint = GameObject.FindGameObjectWithTag(tagObject);
+    }
+
+    public void searchBonus()
+    {
+        objetToPoint= CrearMapa._instance.FindCloseBonus();
     }
 }
