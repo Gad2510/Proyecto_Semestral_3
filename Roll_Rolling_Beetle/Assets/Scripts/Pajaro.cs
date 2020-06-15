@@ -41,12 +41,15 @@ public class Pajaro : MonoBehaviour
                 contadorAtaque = 0.0f;
                 birdAnimation.SetTrigger("down");
                 StartCoroutine(Attack(other.transform));
+                AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.ATAQUE_PAJARO);
                 selfCollider.enabled = false;
 
             }
             colorWarnning.r = (contadorAtaque / 3);
             matRef.material.SetColor("_Color", colorWarnning);
             matRef.material.SetFloat("_xMovement", velocityWrning * (contadorAtaque/3));
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.WARNING_PAJARO);
+
         }
     }
 

@@ -127,6 +127,7 @@ public class Personaje : MonoBehaviour
             {
                 PrepareToShot();
             }
+            //AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.CAMINANDO);
         }
         else if (state == PlayerState.THROWING)
         {
@@ -192,6 +193,7 @@ public class Personaje : MonoBehaviour
         
         canHold = true;
         StartCoroutine(HacerKinematico());
+        AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.POPO_ARROJADA);
     }
 
     IEnumerator HacerKinematico()

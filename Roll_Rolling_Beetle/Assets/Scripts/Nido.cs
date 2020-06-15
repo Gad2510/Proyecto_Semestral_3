@@ -35,6 +35,7 @@ public class Nido : MonoBehaviour
             poop.screenPoints.text = "SCORE: " + Mathf.Round(PoopIncrement.score).ToString();//Se imprime en la pantalla
             StartCoroutine(Entrega(poop.transform));
             HomeUI_icon.startOver = true; //Dejar de escalar el icono de casa en UI
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.POPO_ENTREGADA);
         }
     }
 

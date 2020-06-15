@@ -73,7 +73,6 @@ public class PoopIncrement : MonoBehaviour
         }
     }
 
-
     public bool AddScore()
     {
         bool state = Personaje.IsMoving && transform.localScale.y < maxScale;
@@ -87,6 +86,10 @@ public class PoopIncrement : MonoBehaviour
             CacaPorcentage.value = (transform.localScale.y - InitScale.y) / diferencial; //Modifica el valor en porcentaje
             float screen = Mathf.Round(score);
             screenPoints.text = "SCORE: " + screen.ToString();
+            if(CacaPorcentage.value >= 1)
+            {
+                AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.SLIDER_LISTO);
+            }
         }
 
         return state;
@@ -104,6 +107,16 @@ public class PoopIncrement : MonoBehaviour
             other.GetComponentInParent<SpawnBonus>().HasBonus=false;
             Destroy(other.gameObject);
             Corroboration();
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.BONUS);
+            print("audio?");
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Enemigo"))
+        {
+            AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.CACA_COLISIONANDO);
         }
     }
 

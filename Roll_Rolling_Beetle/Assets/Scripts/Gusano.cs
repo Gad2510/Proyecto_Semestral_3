@@ -140,6 +140,7 @@ public class Gusano : MonoBehaviour
     public void Shoot()
     {
         Instantiate(bala, posicionBala.transform);
+        AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.ATAQUE_GUSANO);
     }
 
     private void Restart()
