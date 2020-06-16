@@ -8,19 +8,16 @@ public class Bala : MonoBehaviour
     float velAumento1;
     float velAumento2;
     public Transform rastro;
+    public GameObject particulas;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        Invoke("Destructor", 10);
+        Invoke("Destructor", 10);//Funcion para destruir el objeto si no choca
         transform.parent = null;
         velAumento1 = vel * 1.3f;
         velAumento2 = vel * 1.5f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Aumento de velocidad cuando el jugador llega a 1500 puntos
@@ -34,9 +31,9 @@ public class Bala : MonoBehaviour
             vel = velAumento2;
         }
 
-        transform.Translate(Vector3.forward * vel * Time.deltaTime);
-        transform.Translate(Vector3.down * Time.deltaTime * (vel / 15));
-        rastro.Translate(Vector3.up * Time.deltaTime * (vel / 15));
+        transform.Translate(Vector3.forward * vel * Time.deltaTime);//Mover hacia adelante
+        transform.Translate(Vector3.down * Time.deltaTime * (vel / 15));//Mover hacia abajo
+        rastro.Translate(Vector3.up * Time.deltaTime * (vel / 15));//Mover el pivot del rastro mientras de escala
         rastro.localScale = new Vector3(rastro.localScale.x, rastro.localScale.y, rastro.localScale.z + Time.deltaTime * (vel * 3.5f));
     }
 
@@ -44,9 +41,11 @@ public class Bala : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Poop"))
         {
-            //collision.gameObject.GetComponent<PoopIncrement>().Decrement();
-
-            Destructor();
+            GetComponent<SphereCollider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
+            vel = 0;
+            Destroy(particulas);
+            Invoke("Destructor", 1);
         }
     }
 
