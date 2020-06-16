@@ -12,7 +12,7 @@ public class TouchManager : MonoBehaviour
     public Image backtouch,area, fingeratach; //Imagenes del stick
 
     Color alphaChange;
-    bool isTouch;
+    bool isTouch, outOfRange;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,18 +58,23 @@ public class TouchManager : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)//Cuando empieza el touch
             {
-                isTouch = true;
                 startTouch = Input.touches[0].position; //Guarda referencia a la posicion tocada
+                outOfRange = startTouch.y < Screen.height / 8;
+                if (outOfRange)
+                {
+                    return;
+                }
+                isTouch = true;
+                
                 backtouch.transform.position = startTouch; //Coloca la forma en posicion
             }
             else if (Input.touches[0].phase == TouchPhase.Moved)//Cuando mueva el dedo
             {
-                endTouch = Input.touches[0].position; // Guarda referencia a la ultima posicion
-
-                if (endTouch.y > Screen.height / 8)
+                if (outOfRange)
                 {
                     return;
                 }
+                endTouch = Input.touches[0].position; // Guarda referencia a la ultima posicion
 
                 Vector2 dir = endTouch - startTouch;//Calcula la direccion
                 float x = (dir.x / Screen.width) * 40f; //Lotransforma a terminos de la pantalla

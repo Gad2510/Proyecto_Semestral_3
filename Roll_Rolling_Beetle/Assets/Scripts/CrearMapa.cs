@@ -94,7 +94,7 @@ public class CrearMapa : MonoBehaviour
 
         return GeometryUtility.TestPlanesAABB(planes, renderer.bounds); 
     }
-    public void RestartLevel() //Reinicai el nivel si es necesario
+    /*public void RestartLevel() //Reinicai el nivel si es necesario
     {
         CancelInvoke();
         GameObject[] popos = GameObject.FindGameObjectsWithTag("Poop");
@@ -116,7 +116,7 @@ public class CrearMapa : MonoBehaviour
         }
 
         Invoke("StartLevel",0.1f);
-    }
+    }*/
 
     public void BeetleShoot()
     {

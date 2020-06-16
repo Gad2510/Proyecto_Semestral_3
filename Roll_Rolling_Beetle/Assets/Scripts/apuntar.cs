@@ -12,16 +12,8 @@ public class apuntar : MonoBehaviour
 
     private void Start()
     {
-        objetToPoint = GameObject.FindGameObjectWithTag(tagObject); //Buscamos la Casa por su etiqueta
-    }
-
-    public GameObject Target
-    {
-        set
-        {
-            objetToPoint = value;
-            Debug.Log(objetToPoint.name, objetToPoint);
-        }
+        if(objetToPoint==null)
+            objetToPoint = GameObject.FindGameObjectWithTag(tagObject); //Buscamos la Casa por su etiqueta
     }
 
     void Update()

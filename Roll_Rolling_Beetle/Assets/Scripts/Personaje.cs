@@ -324,7 +324,7 @@ public class Personaje : MonoBehaviour
         int indexTeleport = Random.Range(0,spawners.Length);
         gameObject.transform.position = spawners[indexTeleport].transform.position;
     }
-    public void Revive()
+    /*public void Revive()
     {   
         //Restart player
         isAlive = true;
@@ -349,7 +349,7 @@ public class Personaje : MonoBehaviour
         spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
         SpawnPosition();
 
-    }
+    }*/
     public void RotationPoop(float x, float y)
     {
         if (CanHold)
@@ -392,6 +392,7 @@ public class Personaje : MonoBehaviour
 
     public void SearchNewPoop()
     {
+        Arrow.searchBonus();
         Arrow.gameObject.SetActive(true);
     }
 }
