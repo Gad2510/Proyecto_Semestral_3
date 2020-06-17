@@ -14,7 +14,7 @@ public class Mantis : MonoBehaviour
     public GameObject particlesM;
 
     public Transform[] walkPoints;
-    public float walkSpeed = 1.0f;
+    public float walkSpeed = 0.8f;
     public bool isIdle = false;
 
     float aumento1 = 1.3f;
@@ -57,7 +57,7 @@ public class Mantis : MonoBehaviour
             anim.SetBool("walking", true);
             ChooseWalkPoint();
         }
-        if(PoopIncrement.score > 1500 && siguiendoJugador)//Primer aumento
+        if (PoopIncrement.score > 1500 && siguiendoJugador)//Primer aumento
         {
             walkSpeed = aumento1;
             anim.speed = walkSpeed;
@@ -67,12 +67,11 @@ public class Mantis : MonoBehaviour
             walkSpeed = aumento2;
             anim.speed = walkSpeed;
         }
-        if(!siguiendoJugador)
+        if (!siguiendoJugador)
         {
             walkSpeed = 1.0f;
             anim.speed = walkSpeed;
         }
-            
     }
 
     void ChooseWalkPoint()
@@ -149,5 +148,11 @@ public class Mantis : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        //Regrasar a la posicion del ultimo walkpoint al desactivar
+        gameObject.transform.position = walkPoints[walkIndex].position;
     }
 }

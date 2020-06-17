@@ -15,7 +15,6 @@ public class Nido : MonoBehaviour
     {
         effect = GetComponentsInChildren<ParticleSystem>();
         CacaPorcentage = CrearMapa.slider;// Referencia al slider
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,7 +26,6 @@ public class Nido : MonoBehaviour
             {
                 per = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
             }
-
             per.IfNoPoop();//Funcion del jugador para resetear sus valores
             other.enabled = false;
             PoopIncrement poop = other.GetComponent<PoopIncrement>(); // Busco la referencia aqui encaso que se destruya la original
