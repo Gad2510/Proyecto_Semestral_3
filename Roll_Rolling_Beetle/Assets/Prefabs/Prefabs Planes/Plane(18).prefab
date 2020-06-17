@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 8118793981002555072}
   m_Layer: 0
   m_Name: Mantis Points (1)
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2524,6 +2524,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mantis Points
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228658383888182886, guid: bebb666bd76bf6045bb868cb8449c306,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemigo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bebb666bd76bf6045bb868cb8449c306, type: 3}

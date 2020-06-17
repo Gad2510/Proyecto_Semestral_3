@@ -82,7 +82,7 @@ public class CrearMapa : MonoBehaviour
 
     void OutputVisibleRenderers()
     {
-        foreach (var renderer in mapRender) 
+        foreach (var renderer in mapRender)
         {
             renderer.transform.parent.gameObject.SetActive(IsVisible(renderer));//Revisa si es visible en camara
         }
@@ -94,29 +94,6 @@ public class CrearMapa : MonoBehaviour
 
         return GeometryUtility.TestPlanesAABB(planes, renderer.bounds); 
     }
-    /*public void RestartLevel() //Reinicai el nivel si es necesario
-    {
-        CancelInvoke();
-        GameObject[] popos = GameObject.FindGameObjectsWithTag("Poop");
-
-        for(int i = 1; i < popos.Length; i++)
-        {
-            Destroy(popos[i]);
-        }
-        if (player != null)
-        {
-            player.gameObject.SetActive(true);
-            player.Revive();
-        }
-        
-
-        for(int i = 0; i < mapaRef.Length; i++)
-        {
-            Destroy(mapaRef[i]);
-        }
-
-        Invoke("StartLevel",0.1f);
-    }*/
 
     public void BeetleShoot()
     {
