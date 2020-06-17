@@ -24,7 +24,7 @@ public class MantisSprite : MonoBehaviour
             mantisGreen.SetActive(true);//Activar icono rojo
             mantisRed.SetActive(false);
         }
-        else if(sliderCaca.value <= 0.7f)
+        else if(sliderCaca.value <= 0.69f)
         {
             mantisGreen.SetActive(false);//Activar icono verde
             mantisRed.SetActive(true);

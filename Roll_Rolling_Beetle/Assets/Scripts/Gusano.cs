@@ -45,18 +45,6 @@ public class Gusano : MonoBehaviour
        
  
     }
-
-   /* void Reload_particles()
-    {
-        
-        if (reload == true)
-        {
-            particles.SetActive(false);
-            reload = false;
-        }
-        
-    }*/
-
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Poop") && CacaPorcentage.value >= 0.4f) //Comparar si la popo esta al porcentaje adecuado para que te mate

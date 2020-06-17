@@ -332,7 +332,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camPivot: {fileID: 129630713}
-  poopRigid: {fileID: 1102544751601320500}
   maxMovementSpeed: 0
   maxRotationSpeed: 0
   timeSinceShot: 0
@@ -1520,12 +1519,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2612814866615653159, guid: b4b9ad7cc4c6930489a31ba0a9231e09, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b4b9ad7cc4c6930489a31ba0a9231e09, type: 3}
---- !u!54 &1102544751601320500 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 4570147818206632441, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
-    type: 3}
-  m_PrefabInstance: {fileID: 3468171549684571085}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5846340090092059784 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6990489252091881285, guid: b4b9ad7cc4c6930489a31ba0a9231e09,
@@ -1776,7 +1769,7 @@ PrefabInstance:
     - target: {fileID: 2458777663029343472, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2458777663048314256, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}
@@ -1926,7 +1919,7 @@ PrefabInstance:
     - target: {fileID: 2458777663029343472, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2458777663048314256, guid: 072ab500ded1dc54cb953dadba7cf8a5,
         type: 3}

@@ -141,10 +141,11 @@ public class Mantis : MonoBehaviour
                 if (CacaPorcentage.value >= 0.7f)
                 {
                     anim.SetTrigger("dead");
+                    particlesM.SetActive(true);
                     selfcoll.enabled = false;
                     Destroy(gameObject, 0.5f);
                     AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_MANTIS);
-                    particlesM.SetActive(true);
+                    
                 }
             }
         }
