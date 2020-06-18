@@ -6,28 +6,26 @@ using UnityEngine.UI;
 
 public class Mantis : MonoBehaviour
 {
-    public Collider selfcoll;
-    public SphereCollider rango;
+    Collider selfcoll;
+    SphereCollider rango;
+    NavMeshAgent navAgent;
+    Animator anim;
+    GameObject sign;
+    Camera main;
     UnityEngine.UI.Slider CacaPorcentage;
-    public float radioDeteccion;
-    public Transform poopSize;
-    public GameObject particlesM;
-
-    public Transform[] walkPoints;
-    public float walkSpeed = 0.8f;
-    public bool isIdle = false;
-
     float aumento1 = 1.3f;
     float aumento2 = 1.6f;
-
     int walkIndex;
     int walkIndexPrev;
 
-    NavMeshAgent navAgent;
-    public Animator anim;
-    Transform sign;
-    Camera main;
+    public float radioDeteccion;
+    public GameObject particlesM;
+    public Transform[] walkPoints;
+    public float walkSpeed = 0.8f;
+    public bool isIdle = false;
+    public Object signPrefab;
     public bool siguiendoJugador = false;
+    public Transform headpos;
 
     private void Awake()
     {
@@ -41,7 +39,6 @@ public class Mantis : MonoBehaviour
 
     private void Start()
     {
-        sign=CrearMapa._instance.canvas.transform.Find("Sign");
         main = Camera.main;
         //Activar aniimaciones en base al bool isIdle
         anim = GetComponentInChildren<Animator>();
@@ -98,7 +95,15 @@ public class Mantis : MonoBehaviour
         //Seguir al jugador
         if (other.CompareTag("Player"))
         {
-            sign.position = main.WorldToScreenPoint(this.transform.position);
+            if (sign == null)
+            {
+                sign = Instantiate(signPrefab, CrearMapa._instance.canvas.transform) as GameObject;
+            }
+            else
+            {
+                sign.SetActive(true);
+            }
+            sign.transform.position = main.WorldToScreenPoint(headpos.position);
             siguiendoJugador = true;
             transform.LookAt(other.transform);
             navAgent.SetDestination(other.transform.position);
@@ -110,6 +115,7 @@ public class Mantis : MonoBehaviour
         //Seguir su camino
         if (other.CompareTag("Player"))
         {
+            sign.SetActive(false);
             siguiendoJugador = false;
             navAgent.SetDestination(walkPoints[walkIndexPrev].position);
         }
@@ -136,7 +142,6 @@ public class Mantis : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Poop") && !Personaje.CanHold)
             {
-                poopSize= collision.transform;
                 if (CacaPorcentage.value >= 0.7f)
                 {
                     anim.SetTrigger("dead");
