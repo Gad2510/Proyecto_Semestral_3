@@ -21,7 +21,7 @@ public class FrontCollider : MonoBehaviour
             isPoop = true;
             collide = other;
         }
-        if (other.gameObject.CompareTag("bonus") && player.CanHold() && !Personaje.IsPoopInGame)
+        if (other.gameObject.CompareTag("bonus") && !player.CanHold() && !Personaje.IsPoopInGame)
         {
             Destroy(other.gameObject);
             player.CreateNewPoop(this.gameObject);
