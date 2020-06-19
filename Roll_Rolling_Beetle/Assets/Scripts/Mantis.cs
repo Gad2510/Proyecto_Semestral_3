@@ -141,7 +141,7 @@ public class Mantis : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Poop"))
         {
-            if (CacaPorcentage.value >= 0.1f && collision.transform.parent==null)
+            if (CacaPorcentage.value >= 0.7f && collision.transform.parent==null)
             {
                 anim.SetTrigger("dead");
                 particlesM.SetActive(true);
