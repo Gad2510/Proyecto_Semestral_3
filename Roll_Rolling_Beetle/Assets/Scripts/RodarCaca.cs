@@ -8,19 +8,22 @@ public class RodarCaca : MonoBehaviour
     Personaje escarabajo;
     float CacaRotVel;
     public GameObject centro;
-
+    public ParticleSystem airEffect;
 
     void Start()
     {
         escarabajo = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
+        airEffect = this.GetComponentInChildren<ParticleSystem>();
         CacaRotVel = 3.0f;
     }
 
     void Update()
     {
+
         if(escarabajo.poopshooted)
         {
-           transform.RotateAround(centro.transform.position, escarabajo.transform.right, CacaRotVel);
+            airEffect.transform.LookAt(escarabajo.transform);
+            transform.RotateAround(centro.transform.position, escarabajo.transform.right, CacaRotVel);
         }
     }
 }

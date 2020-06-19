@@ -26,8 +26,6 @@ public class PoopIncrement : MonoBehaviour
     bool desactivarG = false; //Booleano para desactivar los textos una vez se usen
     bool desactivarM = false;
     public float speed;
-    
-
 
     [SerializeField]
     float scaleIncrement = 0.01f, maxScale = 2f; //Valores para maxima escala y ratio de inclemento
