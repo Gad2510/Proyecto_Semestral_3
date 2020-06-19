@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +28,9 @@ public class Personaje : MonoBehaviour
     public bool lvl2music;
     public bool lvl3music;
     public bool lvl4music;
-    
+
+
+    public event Action<bool> shootPoop;
     #endregion
 
     #region Private Variables
@@ -192,6 +195,10 @@ public class Personaje : MonoBehaviour
 
         StartCoroutine(HacerKinematico());
         AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.POPO_ARROJADA);
+        if(shootPoop != null)
+        {
+            shootPoop(true);
+        }
     }
 
     IEnumerator HacerKinematico()
@@ -217,6 +224,11 @@ public class Personaje : MonoBehaviour
         {
             ChooseCollider(backCollider);
             SetDirection(backCollider.gameObject);
+        }
+
+        if (shootPoop != null)
+        {
+            shootPoop(false);
         }
     }
 
@@ -268,6 +280,7 @@ public class Personaje : MonoBehaviour
             if (!CanHold())
             {
                 FrontColliderAction();
+                
             }
         }
 
@@ -321,7 +334,7 @@ public class Personaje : MonoBehaviour
     }
     public void SpawnPosition()
     {
-        int indexTeleport = Random.Range(0,spawners.Length);
+        int indexTeleport = UnityEngine.Random.Range(0,spawners.Length);
         gameObject.transform.position = spawners[indexTeleport].transform.position;
     }
     public void RotationPoop(float x, float y)

@@ -13,17 +13,30 @@ public class RodarCaca : MonoBehaviour
     void Start()
     {
         escarabajo = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
+        escarabajo.shootPoop += ActiveParticules;
         airEffect = this.GetComponentInChildren<ParticleSystem>();
         CacaRotVel = 3.0f;
     }
 
     void Update()
     {
-
         if(escarabajo.poopshooted)
         {
             airEffect.transform.LookAt(escarabajo.transform);
             transform.RotateAround(centro.transform.position, escarabajo.transform.right, CacaRotVel);
         }
+        else
+        {
+            if (airEffect.gameObject.activeInHierarchy)
+            {
+                airEffect.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void ActiveParticules(bool state)
+    {
+        Debug.Log("Entro con estado: " + state);
+        airEffect.gameObject.SetActive(state);
     }
 }
