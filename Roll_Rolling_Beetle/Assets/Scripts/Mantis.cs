@@ -35,6 +35,7 @@ public class Mantis : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         rango = GetComponent<SphereCollider>();
         rango.radius = radioDeteccion;
+        
     }
 
     private void Start()
@@ -43,8 +44,8 @@ public class Mantis : MonoBehaviour
         //Activar aniimaciones en base al bool isIdle
         anim = GetComponentInChildren<Animator>();
         anim.SetBool("walking", true);
-        particlesM = GameObject.FindWithTag("Mantis_CFX");
         particlesM.SetActive(false);
+        
     }
 
     private void Update()
@@ -95,15 +96,16 @@ public class Mantis : MonoBehaviour
         //Seguir al jugador
         if (other.CompareTag("Player"))
         {
-            if (sign == null)
+            if (!siguiendoJugador)
             {
                 sign = Instantiate(signPrefab, CrearMapa._instance.canvas.transform) as GameObject;
+                Destroy(sign,3f);
             }
-            else
+            if (sign != null)
             {
-                sign.SetActive(true);
+                sign.transform.position = main.WorldToScreenPoint(headpos.position);
             }
-            sign.transform.position = main.WorldToScreenPoint(headpos.position);
+            
             siguiendoJugador = true;
             transform.LookAt(other.transform);
             navAgent.SetDestination(other.transform.position);
@@ -115,7 +117,6 @@ public class Mantis : MonoBehaviour
         //Seguir su camino
         if (other.CompareTag("Player"))
         {
-            sign.SetActive(false);
             siguiendoJugador = false;
             navAgent.SetDestination(walkPoints[walkIndexPrev].position);
         }
@@ -133,26 +134,25 @@ public class Mantis : MonoBehaviour
                 AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.ATAQUE_MANTIS);
                 navAgent.isStopped = true;
                 isIdle = true;
+                
                 anim.SetBool("walking", false);
 
             }
         }
-
-        else
+        if (collision.gameObject.CompareTag("Poop"))
         {
-            if (collision.gameObject.CompareTag("Poop") && !Personaje.CanHold)
+            if (CacaPorcentage.value >= 0.1f && collision.transform.parent==null)
             {
-                if (CacaPorcentage.value >= 0.7f)
-                {
-                    anim.SetTrigger("dead");
-                    particlesM.SetActive(true);
-                    selfcoll.enabled = false;
-                    Destroy(gameObject, 0.5f);
-                    AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_MANTIS);
-                    
-                }
+                anim.SetTrigger("dead");
+                particlesM.SetActive(true);
+                selfcoll.enabled = false;
+                navAgent.isStopped = true;
+                Destroy(gameObject, 0.5f);
+                AudioManager.GetInstance().PlayAudio(AUDIO_TYPE.MUERTE_MANTIS);
+
             }
         }
+        
     }
 
     private void OnDisable()
