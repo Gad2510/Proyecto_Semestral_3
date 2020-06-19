@@ -144,6 +144,7 @@ public class Mantis : MonoBehaviour
             if (CacaPorcentage.value >= 0.1f && collision.transform.parent==null)
             {
                 anim.SetTrigger("dead");
+                gameObject.GetComponentInChildren<MeshRenderer>().material.color = Color.gray;
                 particlesM.SetActive(true);
                 selfcoll.enabled = false;
                 navAgent.isStopped = true;
