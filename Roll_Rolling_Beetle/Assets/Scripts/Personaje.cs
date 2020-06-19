@@ -7,7 +7,6 @@ public enum PlayerState { WALKING, THROWING, DEAD}
 public class Personaje : MonoBehaviour
 {
     #region Static Variables
-    static Rigidbody poopRigid; //Referencia al rigidbody de la popo
     static bool isAlive;// Bool para saber si esta vivo el jugador
     static bool isMoving;//Bool para saber si esta en movimiento
     static bool isPoopInGame;//Checa si ahi una popo en juego
@@ -36,7 +35,7 @@ public class Personaje : MonoBehaviour
     GameObject[] spawners; //Lista de puntos a los que puede spawnear el personaje
     FollowPlayer camPos; //Referencia al script de la camara
     apuntar Arrow;//Flecha de direccion de popo
-
+    Rigidbody poopRigid; //Referencia al rigidbody de la popo
     float movementSpeed=5, rotationSpeed=25;//Velocidad de rotacion y movimiento
     #endregion
 
@@ -46,10 +45,7 @@ public class Personaje : MonoBehaviour
         get { return isMoving; }
     }
 
-    public static bool CanHold
-    {
-        get { return poopRigid!=null; }
-    }
+    
     public static bool IsPoopInGame
     {
         get { return isPoopInGame; }
@@ -58,6 +54,10 @@ public class Personaje : MonoBehaviour
     public static bool IsAlive
     {
         get { return isAlive; }
+    }
+    public bool CanHold()
+    {
+        return poopRigid != null;
     }
     #endregion
     void Start()
@@ -100,7 +100,7 @@ public class Personaje : MonoBehaviour
 
             y *= dir;//Cambio de dirreccion cuando se agarra por atras
             
-            if (!CanHold)
+            if (!CanHold())
             {
                 movementSpeed = maxMovementSpeed;
                 rotationSpeed = maxRotationSpeed;
@@ -115,14 +115,14 @@ public class Personaje : MonoBehaviour
             transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0,  y* Time.deltaTime * movementSpeed);
             float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));//Para saber si el jugador se esta moviendo
-            if (CanHold)
+            if (CanHold())
             {
                 isMoving = (!poopRigid.IsSleeping()) || tringulate > 0.1f;
             }
             animBeetle.SetBool("isWalking", tringulate > 0.1f);
 
 
-            if (Input.GetKeyDown(KeyCode.Space) && CanHold)
+            if (Input.GetKeyDown(KeyCode.Space) && CanHold())
             {
                 PrepareToShot();
             }
@@ -171,7 +171,7 @@ public class Personaje : MonoBehaviour
 
     public void PrepareToShot()
     {
-        if(CanHold)
+        if(CanHold())
         {
             animBeetle.SetTrigger("shoot");
             poopshooted = true;
@@ -184,7 +184,7 @@ public class Personaje : MonoBehaviour
     {
         Arrow.gameObject.SetActive(true); //Activa la flecha al apuntar
         animBeetle.SetBool("holding", true);
-        if (CanHold)
+        if (CanHold())
         {
             poopRigid.transform.parent = null;
             poopRigid.velocity = transform.forward * 10 * dir;
@@ -197,7 +197,7 @@ public class Personaje : MonoBehaviour
     IEnumerator HacerKinematico()
     {
         yield return new WaitForSecondsRealtime(1.05f);
-        if (CanHold)
+        if (CanHold())
         {
             poopRigid.isKinematic = true;
             poopRigid = null;
@@ -265,7 +265,7 @@ public class Personaje : MonoBehaviour
     {
         if (other.gameObject.CompareTag("TriggerPoop"))
         {
-            if (!CanHold)
+            if (!CanHold())
             {
                 FrontColliderAction();
             }
@@ -324,35 +324,9 @@ public class Personaje : MonoBehaviour
         int indexTeleport = Random.Range(0,spawners.Length);
         gameObject.transform.position = spawners[indexTeleport].transform.position;
     }
-    /*public void Revive()
-    {   
-        //Restart player
-        isAlive = true;
-        animBeetle.SetTrigger("revive");
-        animBeetle.SetLayerWeight(0, 1f);
-        animBeetle.SetLayerWeight(1, 0f);
-        camPos.InverseRot = false;
-        dir = 1f;
-        //RestartPoop
-        GameObject poop = GameObject.FindGameObjectWithTag("Poop");
-        if (poop != null)
-        {
-            poop.transform.position = frontCollider.transform.position;
-            poop.transform.localScale = Vector3.one;
-            poop.transform.parent = this.transform;
-        }
-        else
-        {
-            CreateNewPoop(frontCollider.gameObject);
-        }
-        //Restart Spawners
-        spawners = GameObject.FindGameObjectsWithTag("SpawnerPlayer");
-        SpawnPosition();
-
-    }*/
     public void RotationPoop(float x, float y)
     {
-        if (CanHold)
+        if (CanHold())
         {
             
             //Si se mueve hacia adelante
@@ -384,7 +358,7 @@ public class Personaje : MonoBehaviour
         backCollider.isPoop = false;
         animBeetle.SetBool("holding", true);
         
-        if(CanHold)
+        if(CanHold())
             poopRigid.transform.parent = null;
 
         poopRigid = null;

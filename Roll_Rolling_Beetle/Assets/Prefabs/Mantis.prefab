@@ -174,8 +174,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 2
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!114 &8733298226997857124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radioDeteccion: 12
-  particlesM: {fileID: 0}
+  particlesM: {fileID: 6099961648390735218}
   walkPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -488,3 +488,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 857d99b9ddb9cf243b90c3ddf6855e3d, type: 3}
+--- !u!1 &6099961648390735218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 857d99b9ddb9cf243b90c3ddf6855e3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6099961648390833106}
+  m_PrefabAsset: {fileID: 0}
