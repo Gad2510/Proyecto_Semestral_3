@@ -7,6 +7,9 @@ public enum PlayerState { WALKING, THROWING, DEAD}
 
 public class Personaje : MonoBehaviour
 {
+    public ParticleSystem leftLeg;
+    public ParticleSystem rightLeg;
+
     #region Static Variables
     static bool isAlive;// Bool para saber si esta vivo el jugador
     static bool isMoving;//Bool para saber si esta en movimiento
@@ -85,6 +88,8 @@ public class Personaje : MonoBehaviour
         Arrow = GameObject.FindGameObjectWithTag("UI").transform.Find("Arrow").GetComponent<apuntar>();
         Arrow.searchnewpoop();
         Arrow.gameObject.SetActive(false);
+        
+
     }
     void Update()
     {
@@ -123,6 +128,20 @@ public class Personaje : MonoBehaviour
                 isMoving = (!poopRigid.IsSleeping()) || tringulate > 0.1f;
             }
             animBeetle.SetBool("isWalking", tringulate > 0.1f);
+
+            if (isMoving) //Revisar si se esta moviendo para activar o deesactivar las particulas
+            {
+                leftLeg.gameObject.SetActive(true);
+                rightLeg.gameObject.SetActive(true);
+                
+            }
+            else
+            {
+                leftLeg.gameObject.SetActive(false);
+                rightLeg.gameObject.SetActive(false);
+                
+            }
+
 
 
             if (Input.GetKeyDown(KeyCode.Space) && CanHold())
@@ -286,8 +305,8 @@ public class Personaje : MonoBehaviour
 
         if (other.gameObject.CompareTag("Baba"))
         {
-            maxMovementSpeed = maxMovementSpeed / 2;
-            movementSpeed = movementSpeed / 2;
+            maxMovementSpeed =  5f;
+            movementSpeed = 2.5f;
         }
         if (other.gameObject.CompareTag("Bird"))
         {
@@ -318,8 +337,8 @@ public class Personaje : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Baba"))
         {
-            maxMovementSpeed = maxMovementSpeed * 2;
-            movementSpeed = movementSpeed * 2;
+            maxMovementSpeed = 10f;
+            movementSpeed = 5f;
         }
     }
     public void ChangeScene() {

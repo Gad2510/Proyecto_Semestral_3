@@ -21,12 +21,12 @@ public class MantisSprite : MonoBehaviour
     {
         if (sliderCaca.value >= 0.7f)
         {
-            mantisGreen.SetActive(true);//Activar icono rojo
+            mantisGreen.SetActive(true);//Activar icono verde
             mantisRed.SetActive(false);
         }
         else if(sliderCaca.value <= 0.69f)
         {
-            mantisGreen.SetActive(false);//Activar icono verde
+            mantisGreen.SetActive(false);//Activar icono rojo
             mantisRed.SetActive(true);
         }
     }

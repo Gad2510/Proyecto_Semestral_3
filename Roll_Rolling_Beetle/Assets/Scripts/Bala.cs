@@ -39,7 +39,7 @@ public class Bala : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Poop"))
+        if(collision.gameObject.CompareTag("Poop") || collision.gameObject.CompareTag("Enemigo"))
         {
             GetComponent<SphereCollider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
@@ -47,6 +47,8 @@ public class Bala : MonoBehaviour
             Destroy(particulas);
             Invoke("Destructor", 1);
         }
+
+        
     }
 
     void Destructor()
