@@ -123,24 +123,26 @@ public class Personaje : MonoBehaviour
             transform.Rotate(0, x * Time.deltaTime * rotationSpeed, 0);
             transform.Translate(0, 0,  y* Time.deltaTime * movementSpeed);
             float tringulate = Mathf.Sqrt(Mathf.Pow(x, 2) + Mathf.Pow(y, 2));//Para saber si el jugador se esta moviendo
+
+            if (tringulate <= 0.2)
+            {
+                leftLeg.gameObject.SetActive(false); //Checar si el movimiento es menor a 0.2 y desactivar particulas
+                rightLeg.gameObject.SetActive(false);
+            }
+
             if (CanHold())
             {
                 isMoving = (!poopRigid.IsSleeping()) || tringulate > 0.1f;
             }
             animBeetle.SetBool("isWalking", tringulate > 0.1f);
-
+            
             if (isMoving) //Revisar si se esta moviendo para activar o deesactivar las particulas
             {
                 leftLeg.gameObject.SetActive(true);
                 rightLeg.gameObject.SetActive(true);
                 
             }
-            else
-            {
-                leftLeg.gameObject.SetActive(false);
-                rightLeg.gameObject.SetActive(false);
-                
-            }
+            
 
 
 

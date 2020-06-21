@@ -47,7 +47,7 @@ public class PoopIncrement : MonoBehaviour
         sumV = Vector3.one;
         diferencial = maxScale - transform.localScale.y;
 
-        gusanoK = GameObject.FindGameObjectWithTag("UI").transform.Find("GusanoK").GetComponent<Text>();
+        gusanoK = GameObject.FindGameObjectWithTag("UI").transform.Find("GusanoK").GetComponent<Text>();//Buscar y obtener los textos
         mantisK = GameObject.FindGameObjectWithTag("UI").transform.Find("Mantisk").GetComponent<Text>();
 
         color1 = gusanoK.color;
@@ -59,7 +59,7 @@ public class PoopIncrement : MonoBehaviour
 
     private void Update()
     {
-        showTextG();
+        showTextG(); //Desactivar textos  y/o activar
          if(desactivarG == true)
         {
             gusanoK.color = new Color(0, 0, 0, 0);
@@ -169,7 +169,7 @@ public class PoopIncrement : MonoBehaviour
     {
         if (mantisK == null)
             return;
-        if (CacaPorcentage.value >= 0.68f && CacaPorcentage.value <= 0.78f)
+        if (CacaPorcentage.value >= 0.7f && CacaPorcentage.value <= 0.75f) //Porcentaje en el que aparecera
         {
             alpha2 += Time.deltaTime * speed;
             if (alpha2 >= 1)

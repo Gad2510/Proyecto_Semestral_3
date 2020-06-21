@@ -36,7 +36,7 @@ public class RodarCaca : MonoBehaviour
 
     void ActiveParticules(bool state)
     {
-        Debug.Log("Entro con estado: " + state);
+        
         airEffect.gameObject.SetActive(state);
     }
 }
